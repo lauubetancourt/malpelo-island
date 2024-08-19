@@ -1,8 +1,31 @@
-# React + Vite
+# Proyecto Integrador I
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Authors
+- Laura Camila Betancourt Horta - 2223435
+- Ana Sofia Cantillo Bolaños - 2223763
 
-Currently, two official plugins are available:
+## Description
+This project aims to develop a collaborative 3D website that raises awareness and educates users about water pollution and ocean acidification around Malpelo Island, offering solutions through an immersive and interactive experience. The technologies implemented are React, React Three Fiber, Three.js, Node.js, and Firebase.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation
+
+1. Clone the repository:  
+git clone https://github.com/lauubetancourt/malpeloIsland
+
+3. Navigate to the project directory:  
+cd malpeloIsland
+
+4. Install dependencies:  
+npm install
+
+5. Run the project:  
+npm run dev
+
+## Deployment
+
+This project has been deployed on Vercel: https://malpelo-island.vercel.app/
+
+## Contact
+
+- laura.horta@correounivalle.edu.co
+- ana.cantillo@correounivalle.edu.co
