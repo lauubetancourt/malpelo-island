@@ -1,8 +1,7 @@
 import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import { create } from 'zustand';
 import { auth } from "../../firebase.config";
-import UserDAO from "../daos/userDao"; // Ajusta la ruta de importación
-
+import UserDao from "../daos/UserDao"; 
 const provider = new GoogleAuthProvider();
 
 /**
@@ -42,12 +41,11 @@ const useAuthStore = create((set) => ({
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Verificar si el usuario ya existe en la base de datos usando UserDAO
-      const userExists = await UserDAO.getUserById(user.uid);
+      const userExists = await UserDao.getUserById(user.uid);
 
       if (!userExists.success) {
-        await UserDAO.createUser({
-          id: user.uid, // Asegúrate de que el campo id se incluya en userData
+        await UserDao.createUser({
+          id: user.uid, 
           email: user.email,
           name: user.displayName,
           photo: user.photoURL,

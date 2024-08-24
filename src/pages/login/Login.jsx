@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import useAuthStore from "../../stores/use-auth-store";
-import UserDao from "../../daos/userDao";
+import UserDao from "../../daos/UserDao";
 import { useNavigate } from "react-router-dom";
 
 /**
