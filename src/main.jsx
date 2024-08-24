@@ -1,10 +1,41 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.jsx';
+import './index.css';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Login from './pages/login/Login.jsx';
+import Quiz from './pages/quiz/Quiz.jsx';
 
+/**
+ * Creates a router with defined routes for the application.
+ * 
+ * - The ⁠ / ⁠ path renders the ⁠ Login ⁠ component.
+ * - The ⁠ /Quiz ⁠ path renders the ⁠ Quiz ⁠ component.
+ * 
+ * @constant
+ * @type {Router}
+ */
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login/>
+  },
+  {
+    path: "/Quiz",
+    element: <Quiz/>
+  },
+]);
+
+/**
+ * Renders the root component of the application.
+ * 
+ * The application is wrapped in React's ⁠ StrictMode ⁠ for highlighting potential problems 
+ * and the ⁠ RouterProvider ⁠ for handling client-side routing.
+ * 
+ * @function
+ */
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </StrictMode>,
-)
+);
