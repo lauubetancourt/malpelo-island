@@ -1,7 +1,7 @@
 import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import { create } from 'zustand';
 import { auth } from "../../firebase.config";
-import UserDAO from "../daos/UserDao"; // Ajusta la ruta de importación
+import UserDAO from "../daos/userDao"; // Ajusta la ruta de importación
 
 const provider = new GoogleAuthProvider();
 
