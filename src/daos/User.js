@@ -6,7 +6,7 @@
 import { addDoc, collection, getDoc, doc, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase.config";
 
-class UserDAO {
+class User {
   /**
    * Constructor initializes the Firestore collection reference for the "users" collection.
    */
@@ -96,4 +96,4 @@ class UserDAO {
   }
 }
 
-export default new UserDAO();
+export default new User();

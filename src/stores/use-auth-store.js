@@ -1,7 +1,7 @@
 import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
 import { create } from 'zustand';
 import { auth } from "../../firebase.config";
-import UserDao from "../daos/UserDao"; 
+import User from "../daos/User";
 const provider = new GoogleAuthProvider();
 
 /**
@@ -41,10 +41,10 @@ const useAuthStore = create((set) => ({
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      const userExists = await UserDao.getUserById(user.uid);
+      const userExists = await User.getUserById(user.uid);
 
       if (!userExists.success) {
-        await UserDao.createUser({
+        await User.createUser({
           id: user.uid, 
           email: user.email,
           name: user.displayName,

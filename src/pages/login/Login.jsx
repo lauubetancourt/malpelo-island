@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import useAuthStore from "../../stores/use-auth-store";
-import UserDao from "../../daos/UserDao";
 import { useNavigate } from "react-router-dom";
+import User from "../../daos/User";
 
 /**
  * Login component for handling user authentication.
@@ -60,7 +60,7 @@ export default function Login() {
         name: user.displayName,
         photo: user.photoURL,
       };
-      UserDao.createUser(newUser);
+      User.createUser(newUser);
       navigate("/Quiz");
     }
   }, [user, navigate]);
