@@ -2,13 +2,14 @@ import { useCallback, useEffect } from "react";
 import useAuthStore from "../../stores/use-auth-store";
 import { useNavigate } from "react-router-dom";
 import User from "../../daos/User";
+import "./Login.css";
 
 /**
  * Login component for handling user authentication.
- * 
- * This component manages user login through Google authentication, monitors the 
+ *
+ * This component manages user login through Google authentication, monitors the
  * authentication state, and redirects the user to the Quiz page upon successful login.
- * 
+ *
  * @component
  */
 export default function Login() {
@@ -19,7 +20,7 @@ export default function Login() {
 
   /**
    * Handles user login using Google pop-up authentication.
-   * 
+   *
    * @function
    */
   const handleLogin = useCallback(() => {
@@ -28,7 +29,7 @@ export default function Login() {
 
   /**
    * Handles user logout.
-   * 
+   *
    * @function
    */
   const handleLogOut = useCallback(() => {
@@ -37,7 +38,7 @@ export default function Login() {
 
   /**
    * Observes the authentication state of the user.
-   * 
+   *
    * @function
    * @useEffect
    */
@@ -46,9 +47,9 @@ export default function Login() {
   }, [observeAuthState]);
 
   /**
-   * Effect hook that runs when the user state changes. If a user is authenticated, 
+   * Effect hook that runs when the user state changes. If a user is authenticated,
    * it creates a new user in the database and navigates to the Quiz page.
-   * 
+   *
    * @function
    * @useEffect
    */
@@ -66,9 +67,11 @@ export default function Login() {
   }, [user, navigate]);
 
   return (
-    <div className="container-login">
-      <p className="welcome-text">Inicie sesión para continuar</p>
-      <button onClick={handleLogin}>Iniciar sesión</button>
+    <div className="container-main">
+      <div className="container-login">
+        <p className="welcome-text">Inicie sesión para continuar</p>
+        <button onClick={handleLogin}>Iniciar sesión</button>
+      </div>
     </div>
   );
 }
