@@ -1,10 +1,10 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App.jsx';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Login from './pages/login/Login.jsx';
 import Quiz from './pages/quiz/Quiz.jsx';
+import Home from './pages/home/Home.jsx';
 
 /**
  * Creates a router with defined routes for the application.
@@ -23,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/Quiz",
     element: <Quiz/>
+  },
+  {
+    path: "/Home",
+    element: <Home/>
   },
 ]);
 
