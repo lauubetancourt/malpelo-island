@@ -6,17 +6,17 @@ import ContentSection from "../../components/home/content/ContentSection";
 const Home = () => {
   const islandContent = [
     {
-      image: "/public/images/home/flora.png",
+      image: "/images/home/flora.png",
       title: "Flora",
       description: "Un vistazo a la singular flora de la Isla Malpelo",
     },
     {
-      image: "/public/images/home/fauna.png",
+      image: "/images/home/fauna.png",
       title: "Fauna",
       description: "Conoce la asombrosa fauna de la Isla Malpelo",
     },
     {
-      image: "/public/images/home/datos.png",
+      image: "/images/home/datos.png",
       title: "Datos curiosos",
       description: "Curiosidades fascinantes sobre la Isla Malpelo",
     },
@@ -24,12 +24,12 @@ const Home = () => {
 
   const problemsContent = [
     {
-      image: "/public/images/home/contaminacion.png",
+      image: "/images/home/contaminacion.png",
       title: "Contaminación del agua",
       description: "¿Cómo afecta la contaminación del agua a la Isla Malpelo?",
     },
     {
-      image: "/public/images/home/acidificacion.png",
+      image: "/images/home/acidificacion.png",
       title: "Acidificación de los océanos",
       description:
         "¿Cómo afecta la acidificación de los océanos a la Isla Malpelo?",
@@ -45,7 +45,7 @@ const Home = () => {
         <div className="home-imagery_video-container">
           <video
             className="home-imagery_video"
-            src="/public/videos/home.mp4"
+            src="/videos/home.mp4"
             alt="Isla Malpelo"
             autoPlay
             loop
@@ -93,7 +93,7 @@ const Home = () => {
         title="¡Sumérgete en la Isla Malpelo!"
         content={[
           {
-            image: "/public/images/home/3d.png",
+            image: "/images/home/3d.png",
             title: "Experiencia 3D",
             description:
               "Disfruta de una experiencia inmersiva en la Isla Malpelo",
@@ -110,7 +110,7 @@ const Home = () => {
         title="¡Pon a prueba tus conocimientos!"
         content={[
           {
-            image: "/public/images/home/quiz.png",
+            image: "/images/home/quiz.png",
             title: "Quiz",
             description:
               "Demuestra tu aprendizaje sobre la Isla Malpelo y las problemáticas ambientales",
@@ -129,7 +129,7 @@ const Home = () => {
           {/* Información del Proyecto */}
           <div className="footer-section">
             <div className="footer-image-container">
-              <img className="footer-logo" src="/public/images/home/logo.png" alt="logo" />
+              <img className="footer-logo" src="/images/home/logo.png" alt="logo" />
             </div>
             <p className="footer-description">
               Este proyecto busca concientizar sobre los problemas de
