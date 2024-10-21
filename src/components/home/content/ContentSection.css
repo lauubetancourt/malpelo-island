@@ -1,0 +1,12 @@
+.home-content-section {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.content_card-container {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+}

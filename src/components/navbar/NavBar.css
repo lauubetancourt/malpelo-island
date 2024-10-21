@@ -1,0 +1,81 @@
+.nav-container {
+    background-color: var(--color-cornflower-blue);
+    color: white;
+    padding: 20px 40px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.nav-menu {
+    display: flex;
+    justify-content: flex-start;
+    flex-grow: 1;
+}
+
+.nav-menu ul {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.nav-menu li {
+    display: flex;
+    align-items: center;
+    position: relative; /* Necesario para el submenú */
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.nav-menu a:hover {
+    color: var(--color-true-blue);
+}
+
+.nav-menu-logout {
+    margin-left: auto;
+}
+
+.nav-dropdown .dropdown-menu {
+    display: none; 
+    position: absolute;
+    background-color: var(--color-cornflower-blue);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    top: 100%; 
+    left: 0;
+    min-width: 200px;
+    z-index: 10; /* Añadir un z-index alto aquí */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+.nav-dropdown:hover .dropdown-menu {
+    display: block; /* Muestra el submenú al hacer hover */
+}
+
+.dropdown-menu li {
+    display: block;
+}
+
+.dropdown-menu li a {
+    padding: 10px 20px;
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.dropdown-menu li a:hover {
+    color: var(--color-true-blue); /* Cambio de color al hacer hover */
+}
