@@ -76,6 +76,7 @@ html {
     transform: translateX(-50%);
     top: 54%;
     font-size: 2.5rem;
+    z-index: 1;
 }
 
 .home-imagery_video-container::before {
@@ -89,6 +90,128 @@ html {
     z-index: 1;
 }
 
-.home-content {
-    margin-top: 10px;
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 20px;
+}
+
+.button-container-blue {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-cornflower-blue);
+    gap: 250px;
+    padding: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    /* Bordes redondeados */
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    /* Transición suave */
+    font-weight: bold;
+}
+
+/* Efecto hover para oscurecer el color al pasar el mouse */
+button:hover {
+    filter: brightness(0.9);
+    /* Oscurece ligeramente el color */
+}
+
+.custom_button-blue {
+    background-color: var(--color-cornflower-blue);
+    color: white;
+}
+
+.custom_button-white {
+    background-color: white;
+    color: var(--color-charcoal-gray);
+}
+
+.footer {
+    background-color: white; /* Color de fondo blanco */
+    color: #ffffff; /* Este no afecta mucho ya que el texto tiene color específico */
+    padding: 20px 0;
+}
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 200px; /* Separación entre las secciones */
+}
+
+.footer-section {
+    align-items: center;
+    text-align: center;
+    min-width: 250px;
+    margin: 10px;
+}
+
+.footer-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--color-true-blue); /* Azul definido por la variable */
+}
+
+.footer-description {
+    padding: 10px 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-charcoal-gray); /* Gris carbón */
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    color: var(--color-charcoal-gray); /* Gris carbón */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--color-cornflower-blue); /* Azul claro al pasar el cursor */
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    border-top: 1px solid #ffffff;
+    padding-top: 15px;
+    color: var(--color-true-blue); /* Azul verdadero para el texto */
+}
+
+.footer-bottom a {
+    color: var(--color-charcoal-gray); /* Gris carbón para los enlaces */
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footer-bottom a:hover {
+    color: var(--color-cornflower-blue); /* Azul claro al pasar el cursor */
+}
+
+.footer-image-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+    padding: 10px;
+}
+
+.footer-logo {
+    max-width: 300px;  /* Ajusta el tamaño máximo de la imagen */
+    height: auto;      /* Mantiene la proporción de la imagen */
 }

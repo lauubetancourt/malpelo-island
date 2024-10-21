@@ -1,5 +1,5 @@
 import React from "react";
-import "./NavBar.css"; // Asegúrate de importar el archivo CSS
+import "./NavBar.css";
 
 const NavBar = () => {
   return (
@@ -7,22 +7,26 @@ const NavBar = () => {
       <nav className="nav-menu">
         <ul>
           <li>
-            <a href="#">Inicio</a>
+            <a href="/Home">Inicio</a>
           </li>
           <li>
             <a href="#">Isla Malpelo</a>
           </li>
-          <li>
+          <li className="nav-dropdown">
             <a href="#">Problemas ambientales</a>
+            <ul className="dropdown-menu">
+              <li><a href="#">Contaminación del agua</a></li>
+              <li><a href="#">Acidificación de los océanos</a></li>
+            </ul>
           </li>
           <li>
             <a href="#">Experiencia 3D</a>
           </li>
           <li>
-            <a href="#">Quiz</a>
+            <a href="/Quiz">Quiz</a>
           </li>
           <li className="nav-menu-logout">
-            <a href="#">Cerrar sesión</a>
+            <a href="/">Cerrar sesión</a>
           </li>
         </ul>
       </nav>

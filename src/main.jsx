@@ -5,6 +5,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Login from './pages/login/Login.jsx';
 import Quiz from './pages/quiz/Quiz.jsx';
 import Home from './pages/home/Home.jsx';
+import App from './App.jsx';
 
 /**
  * Creates a router with defined routes for the application.
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/Home",
     element: <Home/>
+  },
+  {
+    path: "/App",
+    element: <App/>
   },
 ]);
 
