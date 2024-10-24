@@ -27,7 +27,16 @@
 .nav-menu li {
     display: flex;
     align-items: center;
-    position: relative; /* Necesario para el submenú */
+    position: relative; 
+}
+
+.nav-menu li a:hover {
+    background-color: var(--color-true-blue);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
 }
 
 .nav-menu a {
@@ -35,10 +44,6 @@
     text-decoration: none;
     font-size: 15px;
     font-weight: bold;
-}
-
-.nav-menu a:hover {
-    color: var(--color-true-blue);
 }
 
 .nav-menu-logout {
@@ -55,13 +60,13 @@
     top: 100%; 
     left: 0;
     min-width: 200px;
-    z-index: 10; /* Añadir un z-index alto aquí */
+    z-index: 10;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 
 .nav-dropdown:hover .dropdown-menu {
-    display: block; /* Muestra el submenú al hacer hover */
+    display: block;
 }
 
 .dropdown-menu li {
@@ -77,5 +82,10 @@
 }
 
 .dropdown-menu li a:hover {
-    color: var(--color-true-blue); /* Cambio de color al hacer hover */
+    background-color: var(--color-true-blue); 
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
 }

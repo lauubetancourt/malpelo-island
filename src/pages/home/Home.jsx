@@ -39,8 +39,6 @@ const Home = () => {
   return (
     <>
       <NavBar />
-
-      {/* Sección de bienvenida a la isla */}
       <section className="home-imagery">
         <div className="home-imagery_video-container">
           <video

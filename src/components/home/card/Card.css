@@ -1,50 +1,37 @@
 .card {
   text-align: center;
   max-width: 300px;
-  /* Ancho máximo de la tarjeta */
   border-radius: 8px;
-  /* Esquinas redondeadas */
   overflow: hidden;
-  /* Oculta el contenido que sobresale */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Sombra de la tarjeta */
+
   transition: transform 0.2s;
-  /* Transición para efecto de hover */
   background-color: white;
 }
 
 .card:hover {
   transform: scale(1.05);
-  /* Escala ligeramente la tarjeta al pasar el mouse */
 }
 
 .card-image {
   margin-top: 10px;
   width: 100px;
-  /* Imagen ocupa todo el ancho de la tarjeta */
   height: 100px;
-  /* Altura fija para la imagen */
   object-fit: cover;
-  /* La imagen cubre el área disponible sin distorsionarse */
 }
 
 .card-content {
   padding: 16px;
-  /* Espaciado interno */
 }
 
 .card-title {
-  font-size: 1.5em;
-  /* Tamaño del título */
+  font-size: 1.5e;
   margin: 0;
-  /* Sin margen */
   color: #003ABC;
 }
 
 .card-description {
   margin-top: 8px;
-  /* Espaciado superior para la descripción */
   font-size: 1em;
-  /* Tamaño del texto de la descripción */
   color: #4A4A4A;
 }
