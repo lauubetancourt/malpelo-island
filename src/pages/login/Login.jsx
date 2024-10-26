@@ -62,7 +62,7 @@ export default function Login() {
         photo: user.photoURL,
       };
       User.createUser(newUser);
-      navigate("/Home");
+      navigate("/inicio");
     }
   }, [user, navigate]);
 
