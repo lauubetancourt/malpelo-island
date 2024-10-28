@@ -62,15 +62,17 @@ export default function Login() {
         photo: user.photoURL,
       };
       User.createUser(newUser);
-      navigate("/Home");
+      navigate("/inicio");
     }
   }, [user, navigate]);
 
   return (
-    <div className="container-main">
-      <div className="container-login">
-        <p className="welcome-text">Inicie sesión para continuar</p>
-        <button onClick={handleLogin}>Iniciar sesión</button>
+    <div className="container">
+      <div className="login-container">
+        <h2>Aquí inicia tu viaje a</h2>
+        <h1>Isla Malpelo</h1>
+        <p>¿Estás listo para descubrirlo?</p>
+        <button>Iniciar sesión</button>
       </div>
     </div>
   );

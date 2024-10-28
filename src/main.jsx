@@ -6,6 +6,7 @@ import Login from './pages/login/Login.jsx';
 import Quiz from './pages/quiz/Quiz.jsx';
 import Home from './pages/home/Home.jsx';
 import App from './App.jsx';
+import WaterPollution from './pages/waterPollution/WaterPollution.jsx';
 import Exploration from './pages/exploration/Exploration.jsx';
 
 /**
@@ -23,11 +24,11 @@ const router = createBrowserRouter([
     element: <Login/>
   },
   {
-    path: "/Quiz",
+    path: "/quiz",
     element: <Quiz/>
   },
   {
-    path: "/Home",
+    path: "/inicio",
     element: <Home/>
   },
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
     element: <App/>
   },
   {
+    path: "/contaminación-del-agua",
+    element: <WaterPollution/>
+  },
+    {  
     path: "/Exploration",
     element: <Exploration/>
   },

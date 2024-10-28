@@ -7,7 +7,7 @@ const NavBar = () => {
       <nav className="nav-menu">
         <ul>
           <li>
-            <a href="/Home">Inicio</a>
+            <a href="/inicio">Inicio</a>
           </li>
           <li>
             <a href="#">Isla Malpelo</a>
@@ -15,7 +15,7 @@ const NavBar = () => {
           <li className="nav-dropdown">
             <a href="#">Problemas ambientales</a>
             <ul className="dropdown-menu">
-              <li><a href="#">Contaminación del agua</a></li>
+              <li><a href="/contaminación-del-agua">Contaminación del agua</a></li>
               <li><a href="#">Acidificación de los océanos</a></li>
             </ul>
           </li>
@@ -23,7 +23,7 @@ const NavBar = () => {
             <a href="#">Experiencia 3D</a>
           </li>
           <li>
-            <a href="/Quiz">Quiz</a>
+            <a href="/quiz">Quiz</a>
           </li>
           <li className="nav-menu-logout">
             <a href="/">Cerrar sesión</a>

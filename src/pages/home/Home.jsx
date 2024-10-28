@@ -1,11 +1,15 @@
 import React from "react";
 import "./Home.css";
+import { useNavigate } from "react-router-dom";
 import "../exploration/Exploration.jsx";
 import NavBar from "../../components/navbar/NavBar";
 import ContentSection from "../../components/home/content/ContentSection";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+
+  const navigate = useNavigate();
+
   const islandContent = [
     {
       image: "/images/home/flora.png",
@@ -91,7 +95,7 @@ const Home = () => {
       />
 
       <div className="button-container-blue">
-        <button className="custom_button-white">Conocer más</button>
+        <button className="custom_button-white" onClick={() => navigate("/contaminación-del-agua") }>Conocer más</button>
         <button className="custom_button-white">Conocer más</button>
       </div>
 
