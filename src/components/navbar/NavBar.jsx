@@ -8,9 +8,9 @@ const NavBar = () => {
 
   const navigate = useNavigate();
 
-  const handleLogOut = useCallback(() => {
-    logout();
-    navigate('/')
+  const handleLogOut = useCallback(async () => {
+    await logout();
+    navigate("/");
   }, [logout]);
 
   return (
