@@ -1,6 +1,6 @@
 import { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import Ocean from "../../figures/waterPollutionScene/Ocean";
+import { Ocean } from "../../figures/waterPollutionScene/Ocean";
 import { OrbitControls, Loader } from "@react-three/drei";
 import "./WaterPollution.css";
 import NeonFish from "../../figures/waterPollutionScene/NeonFish";
@@ -27,7 +27,11 @@ const WaterPollution = () => {
           <directionalLight position={[10, 10, 0]} intensity={2} />
           <NeonFish position={[13, 8, 20]} />
           <StripedFish rotation={[0, 30, 0]} position={[0, 3, 16]} />
-          <NeonFish rotation={[0, 30, 0]} position={[15, 6, -20]} />
+          <NeonFish
+            scale={0.4}
+            rotation={[0, 30, 0]}
+            position={[-3, 2.5, -6]}
+          />
           <StripedFish position={[0, 3, -20]} />
           <Shark position={[15, 72, -2]} />
           <Bottles rotation={[0, 30, 0]} position={[-3, 0.3, 6]} />
