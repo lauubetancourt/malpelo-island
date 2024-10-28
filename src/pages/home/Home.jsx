@@ -1,7 +1,9 @@
 import React from "react";
 import "./Home.css";
+import "../exploration/Exploration.jsx";
 import NavBar from "../../components/navbar/NavBar";
 import ContentSection from "../../components/home/content/ContentSection";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const islandContent = [
@@ -35,6 +37,12 @@ const Home = () => {
         "¿Cómo afecta la acidificación de los océanos a la Isla Malpelo?",
     },
   ];
+
+  const navigate = useNavigate();
+
+  const handleLearnMoreClick = () => {
+    navigate('/Exploration')
+  }
 
   return (
     <>
@@ -72,7 +80,7 @@ const Home = () => {
         titleColor="#003ABC"
       />
       <div className="button-container">
-        <button className="custom_button-blue">Aprender más</button>
+        <button className="custom_button-blue" onClick={handleLearnMoreClick}>Aprender más</button>
       </div>
 
       <ContentSection
