@@ -42,7 +42,7 @@ const Home = () => {
   ];
 
   const handleLearnMoreClick = () => {
-    navigate('/Exploration')
+    navigate('/isla-malpelo')
   }
 
   return (
@@ -92,7 +92,7 @@ const Home = () => {
       />
 
       <div className="button-container-blue">
-        <button className="custom_button-white" onClick={() => navigate("/contaminación-del-agua") }>Conocer más</button>
+        <button className="custom_button-white" onClick={() => navigate("/contaminacion-del-agua") }>Conocer más</button>
         <button className="custom_button-white">Conocer más</button>
       </div>
 

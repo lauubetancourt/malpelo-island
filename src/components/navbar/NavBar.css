@@ -27,7 +27,7 @@
 .nav-menu li {
     display: flex;
     align-items: center;
-    position: relative; 
+    position: relative;
 }
 
 .nav-menu li a:hover {
@@ -35,7 +35,7 @@
     color: white;
     padding: 10px 15px;
     border-radius: 5px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
 }
 
@@ -50,14 +50,31 @@
     margin-left: auto;
 }
 
+.nav-menu-logout button {
+    padding: 10px 12px;
+    background-color: var(--color-cornflower-blue);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.nav-menu-logout button:hover {
+    background-color: var(--color-true-blue);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+
 .nav-dropdown .dropdown-menu {
-    display: none; 
+    display: none;
     position: absolute;
     background-color: var(--color-cornflower-blue);
     list-style: none;
     margin: 0;
     padding: 0;
-    top: 100%; 
+    top: 100%;
     left: 0;
     min-width: 200px;
     z-index: 10;
@@ -82,7 +99,7 @@
 }
 
 .dropdown-menu li a:hover {
-    background-color: var(--color-true-blue); 
+    background-color: var(--color-true-blue);
     color: white;
     padding: 10px 15px;
     border-radius: 5px;
