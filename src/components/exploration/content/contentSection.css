@@ -1,0 +1,12 @@
+.section {
+  display: flex;
+  align-items: center;
+  padding-left: 10rem;
+  padding-right : 10rem;
+}
+
+.section:nth-child(odd) {
+  flex-direction: row-reverse;
+}
+
+

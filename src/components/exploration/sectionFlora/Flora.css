@@ -1,0 +1,14 @@
+.flora-container-title{
+  background-color: #003ABC;
+  margin-top: 2rem;
+  padding: 1rem;
+  width: 30rem;
+  border-bottom-right-radius: 2rem;
+  border-top-right-radius: 2rem;
+  position: static;
+  right: 41rem;
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+  color: white;
+}
