@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../stores/use-auth-store";
-import Scene from "../../figures/homeScene/Scene";
 import "./Quiz.css"; 
 
 /**
@@ -29,9 +28,6 @@ export default function Quiz() {
   return (
     <div className="container">
       <h1 className="title">Bienvenido a la Isla Malpelo</h1>
-      <div className="scene-container">
-        <Scene />
-      </div>
       <button 
         className="logout-button" 
         onClick={handleLogOut}
