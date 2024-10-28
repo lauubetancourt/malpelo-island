@@ -42,7 +42,7 @@ const Home = () => {
   ];
 
   const handleLearnMoreClick = () => {
-    navigate('/Exploration')
+    navigate('/isla-malpelo')
   }
 
   return (

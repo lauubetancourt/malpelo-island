@@ -13,7 +13,7 @@ import "./Login.css";
  * @component
  */
 export default function Login() {
-  const { user, loginGoogleWithPopUp, observeAuthState, logout } =
+  const { user, loginGoogleWithPopUp, observeAuthState } =
     useAuthStore();
 
   const navigate = useNavigate();
@@ -27,14 +27,6 @@ export default function Login() {
     loginGoogleWithPopUp();
   }, [loginGoogleWithPopUp]);
 
-  /**
-   * Handles user logout.
-   *
-   * @function
-   */
-  const handleLogOut = useCallback(() => {
-    logout();
-  }, [logout]);
 
   /**
    * Observes the authentication state of the user.
@@ -72,7 +64,7 @@ export default function Login() {
         <h2>Aquí inicia tu viaje a</h2>
         <h1>Isla Malpelo</h1>
         <p>¿Estás listo para descubrirlo?</p>
-        <button>Iniciar sesión</button>
+        <button onClick={handleLogin}>Iniciar sesión</button>
       </div>
     </div>
   );

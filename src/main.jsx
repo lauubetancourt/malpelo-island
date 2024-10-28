@@ -40,7 +40,7 @@ const router = createBrowserRouter([
     element: <WaterPollution/>
   },
     {  
-    path: "/Exploration",
+    path: "/isla-malpelo",
     element: <Exploration/>
   },
 ]);
