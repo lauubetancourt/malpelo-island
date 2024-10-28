@@ -1,8 +1,10 @@
 import React from "react";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
+import "../exploration/Exploration.jsx";
 import NavBar from "../../components/navbar/NavBar";
 import ContentSection from "../../components/home/content/ContentSection";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
 
@@ -40,6 +42,12 @@ const Home = () => {
     },
   ];
 
+  const navigate = useNavigate();
+
+  const handleLearnMoreClick = () => {
+    navigate('/Exploration')
+  }
+
   return (
     <>
       <NavBar />
@@ -76,7 +84,7 @@ const Home = () => {
         titleColor="#003ABC"
       />
       <div className="button-container">
-        <button className="custom_button-blue">Aprender más</button>
+        <button className="custom_button-blue" onClick={handleLearnMoreClick}>Aprender más</button>
       </div>
 
       <ContentSection

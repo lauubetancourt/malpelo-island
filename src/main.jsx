@@ -7,6 +7,7 @@ import Quiz from './pages/quiz/Quiz.jsx';
 import Home from './pages/home/Home.jsx';
 import App from './App.jsx';
 import WaterPollution from './pages/waterPollution/WaterPollution.jsx';
+import Exploration from './pages/exploration/Exploration.jsx';
 
 /**
  * Creates a router with defined routes for the application.
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "/contaminación-del-agua",
     element: <WaterPollution/>
+  },
+    {  
+    path: "/Exploration",
+    element: <Exploration/>
   },
 ]);
 
