@@ -42,8 +42,6 @@ const Home = () => {
     },
   ];
 
-  const navigate = useNavigate();
-
   const handleLearnMoreClick = () => {
     navigate('/Exploration')
   }
