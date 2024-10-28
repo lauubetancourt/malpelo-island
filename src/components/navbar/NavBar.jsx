@@ -15,7 +15,7 @@ const NavBar = () => {
           <li className="nav-dropdown">
             <a href="#">Problemas ambientales</a>
             <ul className="dropdown-menu">
-              <li><a href="/contaminación-del-agua">Contaminación del agua</a></li>
+              <li><a href="/contaminacion-del-agua">Contaminación del agua</a></li>
               <li><a href="#">Acidificación de los océanos</a></li>
             </ul>
           </li>

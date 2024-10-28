@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     element: <App/>
   },
   {
-    path: "/contaminación-del-agua",
+    path: "/contaminacion-del-agua",
     element: <WaterPollution/>
   },
     {  
