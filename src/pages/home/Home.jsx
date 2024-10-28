@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import "../exploration/Exploration.jsx";
 import NavBar from "../../components/navbar/NavBar";
 import ContentSection from "../../components/home/content/ContentSection";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
 
