@@ -57,9 +57,8 @@ const WaterPollution = () => {
           vida marina.
           <br />
           <br />
-          Este fenómeno, causado por actividades humanas como la industria y la
-          agricultura, tiene efectos devastadores en ecosistemas frágiles como
-          el de la Isla Malpelo.
+          La acidificación de los océanos se debe a que el mar absorbe el exceso de CO₂
+           producido por actividades humanas, como quemar combustibles fósiles y talar bosques.
         </p>
       </Modal>
       <Loader />
