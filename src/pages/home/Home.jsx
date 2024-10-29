@@ -93,7 +93,7 @@ const Home = () => {
 
       <div className="button-container-blue">
         <button className="custom_button-white" onClick={() => navigate("/contaminacion-del-agua") }>Conocer más</button>
-        <button className="custom_button-white">Conocer más</button>
+        <button className="custom_button-white" onClick={() => navigate("/acidificacion-del-oceano") }>Conocer más</button>
       </div>
 
       <ContentSection
@@ -111,7 +111,7 @@ const Home = () => {
       />
 
       <div className="button-container">
-        <button className="custom_button-blue">Explorar</button>
+        <button className="custom_button-blue" >Explorar</button>
       </div>
       <ContentSection
         title="¡Pon a prueba tus conocimientos!"
