@@ -12,7 +12,8 @@
 }
 
 .modal {
-  background: white;
+  position: relative;
+  background-color: white;
   padding: 20px;
   border-radius: 8px;
   max-width: 600px;
@@ -26,17 +27,44 @@
   padding: 20px;
 }
 
-.modal-content h2 {
+.modal-title {
   color: var(--color-true-blue);
 }
 
-.modal-button {
+.modal-description {
+  color: black;
+  padding: 20px;
+}
+
+.modal-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.modal-arrow {
   background-color: var(--color-cornflower-blue);
   color: white;
 }
 
-.modal-button:hover {
+.modal-arrow:hover {
   background-color: var(--color-true-blue);
   color: white;
   filter: brightness(1.1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--color-charcoal-gray);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: var(--color-true-blue);
 }

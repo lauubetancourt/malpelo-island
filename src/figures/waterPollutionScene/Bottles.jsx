@@ -1,8 +1,10 @@
-import React from 'react'
-import { useGLTF } from '@react-three/drei'
+import React from "react";
+import { useGLTF } from "@react-three/drei";
 
 export function Bottles(props) {
-  const { nodes, materials } = useGLTF('/models-3d/waterPollution/plasticBottles.glb')
+  const { nodes, materials } = useGLTF(
+    "/models-3d/waterPollution/plasticBottles.glb"
+  );
   return (
     <group {...props} dispose={null} scale={[5, 5, 5]}>
       <mesh
@@ -26,7 +28,7 @@ export function Bottles(props) {
         position={[-0.367, 0, 0]}
       />
     </group>
-  )
+  );
 }
 
-useGLTF.preload('/models-3d/waterPollution/plasticBottles.glb')
+useGLTF.preload("/models-3d/waterPollution/plasticBottles.glb");

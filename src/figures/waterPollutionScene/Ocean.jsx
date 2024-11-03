@@ -1,10 +1,10 @@
-import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+import React, { useRef } from "react";
+import { useGLTF } from "@react-three/drei";
 
 export function Ocean(props) {
-  const { nodes, materials } = useGLTF('/models-3d/waterPollution/ocean.glb')
+  const { nodes, materials } = useGLTF("/models-3d/waterPollution/ocean.glb");
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} onPointerOver={(e) => e.stopPropagation()}>
       <mesh
         castShadow
         receiveShadow
@@ -36,7 +36,7 @@ export function Ocean(props) {
         material={materials.CoralRockMaterial}
       />
     </group>
-  )
+  );
 }
 
-useGLTF.preload('/models-3d/waterPollution/ocean.glb')
+useGLTF.preload("/models-3d/waterPollution/ocean.glb");

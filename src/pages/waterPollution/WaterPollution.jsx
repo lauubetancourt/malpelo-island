@@ -8,59 +8,161 @@ import Shark from "../../figures/waterPollutionScene/Shark";
 import StripedFish from "../../figures/waterPollutionScene/StripedFish";
 import TitleText from "../../figures/waterPollutionScene/TitleText";
 import { Bottles } from "../../figures/waterPollutionScene/Bottles";
-import { Crate } from "../../figures/waterPollutionScene/Crate";
 import Button from "../../components/Button";
 import Modal from "../../components/modal/Modal";
+import Tooltip from "../../components/tooltip/ToolTip";
+import Ligths from "./lights/Ligths";
+import { WhiteCoral } from "../../figures/waterPollutionScene/WhiteCoral";
+import { RedCoral } from "../../figures/waterPollutionScene/RedCoral";
+import { Turtle } from "../../figures/waterPollutionScene/Turtle";
+import { Crate } from "../../figures/waterPollutionScene/Crate";
+import { cameraSettings, itemsWithTooltip, modalContent } from "./content";
+import { useNavigate } from "react-router-dom";
 
 const WaterPollution = () => {
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+    icon: "",
+    background: "",
+    position: { x: 0, y: 0 },
+    title: "",
+    description: "",
+  });
 
-  const cameraSettings = {
-    position: [-18, 8, 0],
+  const handleMouseOver = (event, item) => {
+    setTooltip({
+      visible: true,
+      icon: itemsWithTooltip[item].icon,
+      background: itemsWithTooltip[item].background,
+      position: { x: event.clientX + 10, y: event.clientY + 10 },
+      title: itemsWithTooltip[item].name,
+      description: itemsWithTooltip[item].description,
+    });
   };
+
+  const handleMouseOut = () => {
+    setTooltip({ ...tooltip, visible: false });
+  };
+
+  const buttonContent = [
+    {
+      position: [0, 4, 0],
+      text: "Conocer más",
+      color: "#6A0DAD",
+      onClick: () => setIsModalOpen(true),
+      hover: "#8A2BE2",
+    },
+    {
+      position: [0, 2.5, 0],
+      text: "Volver al inicio",
+      color: "#6A0DAD",
+      onClick: () => navigate("/inicio"),
+      hover: "#8A2BE2",
+    },
+  ];
+
   return (
     <>
-      <Canvas camera={cameraSettings}>
+      <Canvas shadows camera={cameraSettings}>
         <Suspense fallback={null}>
           <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2.5} />
-          <ambientLight intensity={2} />
-          <directionalLight position={[10, 10, 0]} intensity={2} />
-          <NeonFish position={[13, 8, 20]} />
-          <StripedFish rotation={[0, 30, 0]} position={[0, 3, 16]} />
+          <Ligths />
           <NeonFish
             scale={0.4}
             rotation={[0, 30, 0]}
-            position={[-3, 2.5, -6]}
+            position={[50, 3, -6]}
+            onPointerOver={(event) => handleMouseOver(event, "neonFish")}
+            onPointerOut={handleMouseOut}
           />
-          <StripedFish position={[0, 3, -20]} />
-          <Shark position={[15, 72, -2]} />
-          <Bottles rotation={[0, 30, 0]} position={[-3, 0.3, 6]} />
-          <Crate rotation={[0.95, 30, 0]} position={[-6, -6, -2]} />
+          <StripedFish
+            onPointerOver={(event) => handleMouseOver(event, "stripedFish")}
+            onPointerOut={handleMouseOut}
+          />
+          <Shark
+            position={[15, 72, -2]}
+            onPointerOver={(event) => handleMouseOver(event, "shark")}
+            onPointerOut={handleMouseOut}
+          />
+          <Bottles
+            rotation={[0, 30, 0]}
+            position={[-3, 0.3, 6]}
+            onPointerOver={(event) => handleMouseOver(event, "bottles")}
+            onPointerOut={handleMouseOut}
+          />
+          <Bottles
+            rotation={[0, 11.5, 0]}
+            position={[-7, 0.3, -6]}
+            onPointerOver={(event) => handleMouseOver(event, "bottles")}
+            onPointerOut={handleMouseOut}
+          />
+          <Turtle
+            position={[-10, 3, -8]}
+            onPointerOver={(event) => handleMouseOver(event, "turtle")}
+            onPointerOut={handleMouseOut}
+          />
+          <WhiteCoral
+            position={[2, 2, 10]}
+            onPointerOver={(event) => handleMouseOver(event, "coral")}
+            onPointerOut={handleMouseOut}
+          />
+          <WhiteCoral
+            position={[-2, 2, 35]}
+            onPointerOver={(event) => handleMouseOver(event, "coral")}
+            onPointerOut={handleMouseOut}
+          />
+          <RedCoral
+            rotation={[0, 30, 0]}
+            position={[-7, 0.3, -12]}
+            onPointerOver={(event) => handleMouseOver(event, "coral")}
+            onPointerOut={handleMouseOut}
+          />
+          <RedCoral
+            rotation={[0, 10, 0]}
+            position={[0, 0.3, 12]}
+            onPointerOver={(event) => handleMouseOver(event, "coral")}
+            onPointerOut={handleMouseOut}
+          />
+          <Crate
+            rotation={[0.8, 30, 0]}
+            position={[-6, -6, -2]}
+            onPointerOver={(event) => handleMouseOver(event, "crate")}
+            onPointerOut={handleMouseOut}
+          />
           <TitleText />
-          <Button
-            position={[0, 4, 0]}
-            text="Conocer más"
-            onClick={() => setIsModalOpen(true)}
-            color={"#6A0DAD"}
-            hover={"#8A2BE2"}
-          />
+
+          {buttonContent.map((item, index) => (
+            <Button
+              key={index}
+              position={item.position}
+              text={item.text}
+              onClick={item.onClick}
+              color={item.color}
+              hover={item.hover}
+            />
+          ))}
           <Ocean />
         </Suspense>
       </Canvas>
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <h2>¿Qué es la contaminación del agua?</h2>
-        <br />
-        <p>
-          La contaminación del agua es la introducción de sustancias nocivas en
-          nuestros océanos, ríos y lagos, alterando su calidad y amenazando la
-          vida marina.
-          <br />
-          <br />
-          La acidificación de los océanos se debe a que el mar absorbe el exceso de CO₂
-           producido por actividades humanas, como quemar combustibles fósiles y talar bosques.
-        </p>
-      </Modal>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        content={modalContent}
+      />
+
+      {tooltip.visible && (
+        <Tooltip
+          icon={tooltip.icon}
+          background={tooltip.background}
+          position={tooltip.position}
+          title={tooltip.title}
+          description={tooltip.description}
+          className={tooltip.visible ? "visible" : ""}
+        />
+      )}
+
       <Loader />
     </>
   );
