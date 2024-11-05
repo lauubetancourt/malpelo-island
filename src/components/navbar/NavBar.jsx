@@ -30,12 +30,12 @@ const NavBar = () => {
                 <a href="/contaminacion-del-agua">Contaminación del agua</a>
               </li>
               <li>
-                <a href="#">Acidificación de los océanos</a>
+                <a href="/acidificacion-del-oceano">Acidificación de los océanos</a>
               </li>
             </ul>
           </li>
           <li>
-            <a href="#">Experiencia 3D</a>
+            <a href="/experiencia-3D">Experiencia 3D</a>
           </li>
           <li>
             <a href="/quiz">Quiz</a>

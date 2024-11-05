@@ -1,25 +1,6 @@
-.container {
+.title-container {
     display: flex;
+    align-items: center;
     justify-content: center;
     height: 100vh;
-    width: 100vw;
-    position: relative;
-}
-
-.title {
-    z-index: 1;
-    position: absolute;
-}
-
-
-.scene-container {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-}
-
-.logout-button {
-    position: absolute;
-    bottom: 20px;
-    z-index: 1;
 }

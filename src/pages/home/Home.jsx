@@ -4,46 +4,11 @@ import { useNavigate } from "react-router-dom";
 import "../exploration/Exploration.jsx";
 import NavBar from "../../components/navbar/NavBar";
 import ContentSection from "../../components/home/content/ContentSection";
+import Footer from "../../components/home/footer/Footer.jsx";
+import { islandContent, problemsContent } from "./content.js";
 
 const Home = () => {
-
   const navigate = useNavigate();
-
-  const islandContent = [
-    {
-      image: "/images/home/flora.png",
-      title: "Flora",
-      description: "Un vistazo a la singular flora de la Isla Malpelo",
-    },
-    {
-      image: "/images/home/fauna.png",
-      title: "Fauna",
-      description: "Conoce la asombrosa fauna de la Isla Malpelo",
-    },
-    {
-      image: "/images/home/datos.png",
-      title: "Datos curiosos",
-      description: "Curiosidades fascinantes sobre la Isla Malpelo",
-    },
-  ];
-
-  const problemsContent = [
-    {
-      image: "/images/home/contaminacion.png",
-      title: "Contaminación del agua",
-      description: "¿Cómo afecta la contaminación del agua a la Isla Malpelo?",
-    },
-    {
-      image: "/images/home/acidificacion.png",
-      title: "Acidificación de los océanos",
-      description:
-        "¿Cómo afecta la acidificación de los océanos a la Isla Malpelo?",
-    },
-  ];
-
-  const handleLearnMoreClick = () => {
-    navigate('/isla-malpelo')
-  }
 
   return (
     <>
@@ -81,7 +46,12 @@ const Home = () => {
         titleColor="#003ABC"
       />
       <div className="button-container">
-        <button className="custom_button-blue" onClick={handleLearnMoreClick}>Aprender más</button>
+        <button
+          className="custom_button-blue"
+          onClick={() => navigate("/isla-malpelo")}
+        >
+          Aprender más
+        </button>
       </div>
 
       <ContentSection
@@ -92,8 +62,18 @@ const Home = () => {
       />
 
       <div className="button-container-blue">
-        <button className="custom_button-white" onClick={() => navigate("/contaminacion-del-agua") }>Conocer más</button>
-        <button className="custom_button-white" onClick={() => navigate("/acidificacion-del-oceano") }>Conocer más</button>
+        <button
+          className="custom_button-white"
+          onClick={() => navigate("/contaminacion-del-agua")}
+        >
+          Conocer más
+        </button>
+        <button
+          className="custom_button-white"
+          onClick={() => navigate("/acidificacion-del-oceano")}
+        >
+          Conocer más
+        </button>
       </div>
 
       <ContentSection
@@ -111,7 +91,12 @@ const Home = () => {
       />
 
       <div className="button-container">
-        <button className="custom_button-blue" >Explorar</button>
+        <button
+          className="custom_button-blue"
+          onClick={() => navigate("/experiencia-3D")}
+        >
+          Explorar
+        </button>
       </div>
       <ContentSection
         title="¡Pon a prueba tus conocimientos!"
@@ -128,30 +113,15 @@ const Home = () => {
       />
 
       <div className="button-container-blue">
-        <button className="custom_button-white">Intentar</button>
+        <button
+          className="custom_button-white"
+          onClick={() => navigate("/quiz")}
+        >
+          Intentar
+        </button>
       </div>
 
-      <footer className="footer">
-        <div className="footer-container">
-          {/* Información del Proyecto */}
-          <div className="footer-section">
-            <div className="footer-image-container">
-              <img className="footer-logo" src="/images/home/logo.png" alt="logo" />
-            </div>
-            <p className="footer-description">
-              Este proyecto busca concientizar sobre los problemas de
-              contaminación y acidificación de los océanos <br/>con un enfoque en la
-              protección de la biodiversidad en la Isla Malpelo.
-            </p>
-          </div>
-        </div>
-
-        <div className="footer-bottom">
-          <p>© 2024 Isla Malpelo. Todos los derechos reservados.</p>
-          <a href="#legal">Términos y Condiciones</a> |{" "}
-          <a href="#privacidad">Política de Privacidad</a>
-        </div>
-      </footer>
+      <Footer/>
     </>
   );
 };
