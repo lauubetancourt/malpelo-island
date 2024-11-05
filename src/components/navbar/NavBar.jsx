@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import "./NavBar.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import useAuthStore from "/src/stores/use-auth-store.js";
 
 const NavBar = () => {
@@ -18,27 +18,27 @@ const NavBar = () => {
       <nav className="nav-menu">
         <ul>
           <li>
-            <a href="/inicio">Inicio</a>
+            <Link to="/inicio">Inicio</Link>
           </li>
           <li>
-            <a href="/isla-malpelo">Isla Malpelo</a>
+            <Link to="/isla-malpelo">Isla Malpelo</Link>
           </li>
           <li className="nav-dropdown">
-            <a href="#">Problemas ambientales</a>
+            <Link to="#">Problemas ambientales</Link>
             <ul className="dropdown-menu">
               <li>
-                <a href="/contaminacion-del-agua">Contaminación del agua</a>
+                <Link to="/contaminacion-del-agua">Contaminación del agua</Link>
               </li>
               <li>
-                <a href="/acidificacion-del-oceano">Acidificación de los océanos</a>
+                <Link to="/acidificacion-del-oceano">Acidificación de los océanos</Link>
               </li>
             </ul>
           </li>
           <li>
-            <a href="/experiencia-3D">Experiencia 3D</a>
+            <Link to="/experiencia-3D">Experiencia 3D</Link>
           </li>
           <li>
-            <a href="/quiz">Quiz</a>
+            <Link to="/quiz">Quiz</Link>
           </li>
           <li className="nav-menu-logout">
             <button onClick={handleLogOut}>Cerrar sesión</button>
