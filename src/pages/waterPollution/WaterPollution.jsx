@@ -1,14 +1,14 @@
-import { Suspense, useState } from "react";
+import { Suspense, useState, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Ocean } from "../../figures/waterPollutionScene/Ocean";
-import { OrbitControls, Loader } from "@react-three/drei";
+import { OrbitControls, Loader, KeyboardControls } from "@react-three/drei";
 import "./WaterPollution.css";
 import NeonFish from "../../figures/waterPollutionScene/NeonFish";
 import Shark from "../../figures/waterPollutionScene/Shark";
 import StripedFish from "../../figures/waterPollutionScene/StripedFish";
 import TitleText from "../../figures/waterPollutionScene/TitleText";
 import { Bottles } from "../../figures/waterPollutionScene/Bottles";
-import Button from "../../components/Button";
+import Button from "../../components/button/Button";
 import Modal from "../../components/modal/Modal";
 import Tooltip from "../../components/tooltip/ToolTip";
 import Ligths from "./lights/Ligths";
@@ -18,6 +18,7 @@ import { Turtle } from "../../figures/waterPollutionScene/Turtle";
 import { Crate } from "../../figures/waterPollutionScene/Crate";
 import { cameraSettings, itemsWithTooltip, modalContent } from "./content";
 import { useNavigate } from "react-router-dom";
+import Staging from "./staging/Staging";
 
 const WaterPollution = () => {
   const navigate = useNavigate();
@@ -63,12 +64,22 @@ const WaterPollution = () => {
     },
   ];
 
+  const map = useMemo(() => [
+    { name: "forward", keys: ["ArrowRight", "KeyD"] },
+    { name: "back", keys: ["ArrowLeft", "KeyA"] },
+    { name: "up", keys: ["ArrowUp", "KeyW"] },
+    { name: "down", keys: ["ArrowDown", "KeyS"] },
+  ]);
+
   return (
     <>
+    <KeyboardControls map={map}>
+
       <Canvas shadows camera={cameraSettings}>
         <Suspense fallback={null}>
           <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2.5} />
           <Ligths />
+          <Staging/>
           <NeonFish
             scale={0.4}
             rotation={[0, 30, 0]}
@@ -145,6 +156,7 @@ const WaterPollution = () => {
           <Ocean />
         </Suspense>
       </Canvas>
+    </KeyboardControls>
 
       <Modal
         isOpen={isModalOpen}
