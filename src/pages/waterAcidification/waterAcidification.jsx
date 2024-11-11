@@ -1,13 +1,17 @@
 import { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Loader } from "@react-three/drei";
+import { OrbitControls, Loader, Environment } from "@react-three/drei";
 import "./waterAcidification.css";
 import Button from "../../components/Button";
 import Modal from "../../components/modal/Modal";
-import { Ocean } from "../../figures/waterAcidification/Ocean";
-import TitleText from "../../figures/waterAcidification/TitleText";
-import Shark from "../../figures/waterPollutionScene/Shark";
+import { Ocean } from "../../figures/waterAcidificationScene/Ocean";
+import TitleText from "../../figures/waterAcidificationScene/TitleText";
 import { useNavigate } from "react-router-dom";
+import Bubbles from "../../figures/waterAcidificationScene/Bubbles";
+import Shark from "../../figures/waterAcidificationScene/Shark";
+import { Turtle } from "../../figures/waterAcidificationScene/Turtle";
+import StripedFish from "../../figures/waterAcidificationScene/StripedFish";
+import NeonFish from "../../figures/waterAcidificationScene/NeonFish";
 
 const WaterAcidification = () => {
   const navigate = useNavigate();
@@ -35,9 +39,13 @@ const WaterAcidification = () => {
       <Canvas camera={cameraSettings}>
         <Suspense fallback={null}>
           <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2.5} />
-          <ambientLight intensity={2} />
+          <ambientLight intensity={2.3} />
           <directionalLight position={[10, 10, 0]} intensity={2} />
-          <Shark position={[15, 72, -2]} />
+          <Bubbles />
+          <Shark position={[-10, -40, -8]} />
+          <Turtle position={[-8, 6, -8]} />
+          <StripedFish position={[-10, -5, -20]} />
+          {/* <NeonFish position={[10, 5, -20]} /> */}
           <TitleText />
           <Button
             position={[-2, 4, 0]}
