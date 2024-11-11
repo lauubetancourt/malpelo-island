@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useGLTF, useAnimations } from "@react-three/drei";
+import { useGLTF, useAnimations, useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
 export function Turtle(props) {
@@ -9,6 +9,7 @@ export function Turtle(props) {
   );
   const { actions } = useAnimations(animations, group);
   const [currentAction, setCurrentAction] = useState("Swim Cycle");
+  const [sub, get] = useKeyboardControls();
 
   useEffect(() => {
     actions[currentAction]?.fadeIn(0.5).play();
@@ -18,17 +19,52 @@ export function Turtle(props) {
 
   const maxZ = 15;
   const initialZ = -8;
-  const speed = 0.02;
+  const maxY = 8;
+  const initialY = 2;
+  const speed = 0.05;
 
   useFrame(() => {
-    if (group.current) {
-      group.current.position.z += speed;
+    const { forward, back, up, down } = get();
 
-      if (group.current.position.z >= maxZ) {
-        group.current.position.z = initialZ;
-      }
+    const currentGroup = group.current;
+    if (!currentGroup) return;
+
+    // Movimiento hacia adelante
+    if (forward) {
+      currentGroup.position.z = Math.min(currentGroup.position.z + speed, maxZ);
+    }
+
+    // Movimiento hacia atrás
+    if (back) {
+      currentGroup.position.z = Math.max(
+        currentGroup.position.z - speed,
+        initialZ
+      );
+    }
+
+    // Movimiento hacia arriba
+    if (up) {
+      currentGroup.position.y = Math.min(currentGroup.position.y + speed, maxY);
+    }
+
+    // Movimiento hacia abajo
+    if (down) {
+      currentGroup.position.y = Math.max(
+        currentGroup.position.y - speed,
+        initialY
+      );
     }
   });
+
+  // useFrame(() => {
+  //   if (group.current) {
+  //     group.current.position.z += speed;
+
+  //     if (group.current.position.z >= maxZ) {
+  //       group.current.position.z = initialZ;
+  //     }
+  //   }
+  // });
 
   return (
     <group ref={group} {...props} dispose={null} castShadow receiveShadow>
@@ -69,7 +105,6 @@ export function Turtle(props) {
                       geometry={nodes.Object_43.geometry}
                       material={materials.greenbody}
                       skeleton={nodes.Object_43.skeleton}
-                      
                     />
                     <group
                       name="Object_39"

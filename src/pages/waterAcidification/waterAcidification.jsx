@@ -2,7 +2,7 @@ import { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Loader, Environment } from "@react-three/drei";
 import "./waterAcidification.css";
-import Button from "../../components/Button";
+import Button from "../../components/button/Button";
 import Modal from "../../components/modal/Modal";
 import { Ocean } from "../../figures/waterAcidificationScene/Ocean";
 import TitleText from "../../figures/waterAcidificationScene/TitleText";
