@@ -35,9 +35,6 @@ const NavBar = () => {
             </ul>
           </li>
           <li>
-            <Link to="/experiencia-3D">Experiencia 3D</Link>
-          </li>
-          <li>
             <Link to="/quiz">Quiz</Link>
           </li>
           <li className="nav-menu-logout">

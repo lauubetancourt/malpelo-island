@@ -9,7 +9,6 @@ import App from './App.jsx';
 import WaterPollution from './pages/waterPollution/WaterPollution.jsx';
 import Exploration from './pages/exploration/Exploration.jsx';
 import WaterAcidification from './pages/waterAcidification/waterAcidification.jsx';
-import Experience from './pages/experience/Experience.jsx';
 
 /**
  * Creates a router with defined routes for the application.
@@ -48,10 +47,6 @@ const router = createBrowserRouter([
   {  
     path: "/isla-malpelo",
     element: <Exploration/>
-  },
-  {  
-    path: "/experiencia-3D",
-    element: <Experience/>
   },
 ]);
 
