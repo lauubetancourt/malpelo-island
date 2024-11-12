@@ -16,7 +16,7 @@ const SaveText = () => {
           size={120}
         >
           {`SAVE \n THE \n PLANET!`}
-          <meshStandardMaterial color="#FFCC00" />
+          <meshStandardMaterial color="gray" />
         </Text3D>
       </Center>
     </>
