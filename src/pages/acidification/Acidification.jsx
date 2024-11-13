@@ -36,7 +36,7 @@ const WaterAcidification = () => {
     },
     { 
       title: "¿Cómo ayudar?", 
-      description: "Contenido de cómo ayudar..." 
+      description: "Contenido de cómo ayudar para evitar..." 
     },
   ];
   return (
