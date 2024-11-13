@@ -6,10 +6,9 @@ export function Octopus(props) {
   return (
     <group {...props} dispose={null}>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.octopus1.geometry}
         material={materials.Material_0}
+        castShadow={true}
       />
     </group>
   )
