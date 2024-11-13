@@ -1,7 +1,7 @@
 import { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Loader } from "@react-three/drei";
-import "./waterAcidification.css";
+import "./Acidification.css";
 import Button from "../../components/button/Button";
 import Modal from "../../components/modal/Modal";
 import { Ocean } from "../../figures/waterAcidificationScene/Ocean";
@@ -15,7 +15,7 @@ import { Stingray } from "../../figures/waterAcidificationScene/Stingray";
 import { Octopus } from "../../figures/waterAcidificationScene/Octopus";
 import Ligths from "./lights/Lights";
 
-const WaterAcidification = () => {
+const Acidification = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -97,4 +97,4 @@ const WaterAcidification = () => {
   );
 };
 
-export default WaterAcidification;
+export default Acidification;
