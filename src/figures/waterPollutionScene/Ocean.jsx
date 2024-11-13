@@ -7,31 +7,25 @@ export function Ocean(props) {
     <group {...props} dispose={null} onPointerOver={(e) => e.stopPropagation()}>
       <mesh
         castShadow
-        receiveShadow
         geometry={nodes.Coral.geometry}
         material={materials.CoralMaterial}
       />
       <mesh
         castShadow
-        receiveShadow
         geometry={nodes.Sand.geometry}
         material={materials.SandMaterial}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.See.geometry}
         material={materials.SeeMaterial}
       />
       <mesh
         castShadow
-        receiveShadow
         geometry={nodes.Rocks_1.geometry}
         material={materials.CoralRockBlackMaterial}
       />
       <mesh
         castShadow
-        receiveShadow
         geometry={nodes.Rocks_2.geometry}
         material={materials.CoralRockMaterial}
       />

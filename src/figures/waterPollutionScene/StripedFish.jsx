@@ -27,7 +27,6 @@ const StripedFish = (props) => {
       <group position={[-0.219, 0.76, 0]} scale={0.453}>
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Cube001_1.geometry}
           material={materials["Material.001"]}
         />
@@ -41,13 +40,11 @@ const StripedFish = (props) => {
       <group position={[-2.164, 2.052, -0.457]} scale={0.453}>
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Cube002_1.geometry}
           material={materials["Material.001"]}
         />
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Cube002_2.geometry}
           material={materials["Material.003"]}
         />
@@ -55,13 +52,11 @@ const StripedFish = (props) => {
       <group position={[3.601, 1.981, 0.893]} scale={0.453}>
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Cube003_1.geometry}
           material={materials["Material.001"]}
         />
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Cube003_2.geometry}
           material={materials["Material.003"]}
         />
@@ -69,13 +64,11 @@ const StripedFish = (props) => {
       <group position={[0.958, 3.535, 0.201]} scale={0.453}>
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Cube004.geometry}
           material={materials["Material.001"]}
         />
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Cube004_1.geometry}
           material={materials["Material.003"]}
         />

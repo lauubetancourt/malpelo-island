@@ -1,6 +1,6 @@
-import { Suspense, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Loader } from "@react-three/drei";
+import { OrbitControls, Loader, KeyboardControls } from "@react-three/drei";
 import "./Acidification.css";
 import Button from "../../components/button/Button";
 import Modal from "../../components/modal/Modal";
@@ -15,66 +15,125 @@ import { Stingray } from "../../figures/waterAcidificationScene/Stingray";
 import { Octopus } from "../../figures/waterAcidificationScene/Octopus";
 import Ligths from "./lights/Lights";
 import LoaderComponent from "./loader/LoaderComponent";
+import { cameraSettings, itemsWithTooltip, modalContent } from "./information";
+import Tooltip from "../../components/tooltip/ToolTip";
 
 const Acidification = () => {
-   const navigate = useNavigate();
-   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [tooltip, setTooltip] = useState({
+    visible: false,
+    icon: "",
+    background: "",
+    position: { x: 0, y: 0 },
+    title: "",
+    description: "",
+  });
+
+  const handleMouseOver = (event, item) => {
+    setTooltip({
+      visible: true,
+      icon: itemsWithTooltip[item].icon,
+      background: itemsWithTooltip[item].background,
+      position: { x: event.clientX + 10, y: event.clientY + 10 },
+      title: itemsWithTooltip[item].name,
+      description: itemsWithTooltip[item].description,
+    });
+  };
+
+  const handleMouseOut = () => {
+    setTooltip({ ...tooltip, visible: false });
+  };
 
   const cameraSettings = {
     position: [-18, 8, 0],
   };
 
-  const modalContent = [
-    {
-      title: "¿Qué es la acidificación de los océanos?",
-      description:
-        "La acidificación de los océanos ocurre cuando el mar absorbe demasiado dióxido de carbono (CO₂), volviendo el agua más ácida. Esto afecta a especies marinas como corales y moluscos, ya que les cuesta formar sus caparazones y estructuras, poniendo en riesgo a todo el ecosistema. La acidificación de los océanos es causada principalmente por el aumento de dióxido de carbono (CO₂) en la atmósfera debido a actividades humanas como la quema de combustibles fósiles (petróleo,carbón y gas), la deforestación y la industria.",
-    },
-    {
-      title: "¿Cómo afecta?",
-      description: "Contenido de cómo afecta...",
-    },
-    { 
-      title: "¿Cómo ayudar?", 
-      description: "Contenido de cómo ayudar para evitar..." 
-    },
-  ];
+  const map = useMemo(() => [
+    { name: "forward", keys: ["ArrowRight", "KeyD"] },
+    { name: "back", keys: ["ArrowLeft", "KeyA"] },
+    { name: "up", keys: ["ArrowUp", "KeyW"] },
+    { name: "down", keys: ["ArrowDown", "KeyS"] },
+  ]);
+
   return (
     <>
-      <Canvas camera={cameraSettings} shadows={true}>
-        <Suspense fallback={<LoaderComponent/>}>
-          <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2.5} />
-          <Bubbles />
-          <Turtle position={[-8, 3, -8]} />
-          <StripedFish position={[-10, -5, -20]} />
-          <BlueWhale position={[7, 9.5, -4]}/>
-          <Stingray castShadow position={[-1, 5, 15]} scale={[0.012, 0.012,0.012]} rotation = {[0,-1,0]}/>
-          <Octopus position={[1.8, 0.5, -12]} rotation={[0.1,-1,0]}/>
-          <TitleText />
-          <Button
-            position={[-2, 4, 0]}
-            text="Conocer más"
-            onClick={() => setIsModalOpen(true)}
-            color={"#051E77"}
-            hover={"#0076CC"}
-          />
-          <Button
-            position={[-2, 2.5, 0]}
-            text="Volver al inicio"
-            onClick={() => navigate("/inicio")}
-            color={"#051E77"}
-            hover={"#0076CC"}
-          />
-          <Ocean/>
-          <Ligths />
+      <KeyboardControls map={map}>
+        <Canvas camera={cameraSettings} shadows={true}>
+          <Suspense fallback={<LoaderComponent />}>
+            <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2.5} />
+            <Bubbles />
+            <Turtle
+              position={[-8, 3, -8]}
+              onPointerOver={(event) => handleMouseOver(event, "turtle")}
+              onPointerOut={handleMouseOut}
+            />
+            <StripedFish
+              position={[-10, -5, -20]}
+              onPointerOver={(event) => handleMouseOver(event, "stripedFish")}
+              onPointerOut={handleMouseOut}
+            />
+            <BlueWhale
+              position={[7, 9.5, -4]}
+              onPointerOver={(event) => handleMouseOver(event, "blueWhale")}
+              onPointerOut={handleMouseOut}
+            />
+            <Stingray
+              position={[-1, 5, 15]}
+              scale={[0.012, 0.012, 0.012]}
+              rotation={[0, -1, 0]}
+              onPointerOver={(event) => handleMouseOver(event, "stingray")}
+              onPointerOut={handleMouseOut}
+              castShadow
+            />
+            <Octopus
+              position={[1.8, 0.5, -12]}
+              rotation={[0.1, -1, 0]}
+              onPointerOver={(event) => handleMouseOver(event, "octopus")}
+              onPointerOut={handleMouseOut}
+            />
+            <TitleText />
+
+            <Button
+              position={[-2, 4, 0]}
+              text="Conocer más"
+              onClick={() => setIsModalOpen(true)}
+              color={"#051E77"}
+              hover={"#0076CC"}
+            />
+
+            <Button
+              position={[-2, 2.5, 0]}
+              text="Volver al inicio"
+              onClick={() => navigate("/inicio")}
+              color={"#051E77"}
+              hover={"#0076CC"}
+            />
+
+            <Ocean />
+            <Ligths />
           </Suspense>
-      </Canvas>
+        </Canvas>
+      </KeyboardControls>
 
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         content={modalContent}
       />
+
+      {tooltip.visible && (
+        <Tooltip
+          icon={tooltip.icon}
+          background={tooltip.background}
+          position={tooltip.position}
+          title={tooltip.title}
+          description={tooltip.description}
+          className={tooltip.visible ? "visible" : ""}
+        />
+      )}
     </>
   );
 };

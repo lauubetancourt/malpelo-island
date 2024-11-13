@@ -5,6 +5,8 @@ export function Ocean(props) {
   const { nodes, materials } = useGLTF(
     "/models-3d/waterAcidification/ocean.glb"
   );
+
+
   return (
     <group {...props} dispose={null}>
       <mesh
