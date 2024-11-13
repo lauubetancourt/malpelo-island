@@ -78,7 +78,7 @@ const WaterPollution = () => {
 
       <Canvas shadows camera={cameraSettings}>
         <Suspense fallback={<LoaderComponent/>}>
-          <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2.5} />
+          <OrbitControls enableZoom={true} maxPolarAngle={Math.PI / 2.5} />
           <Ligths />
           <Staging/>
           <NeonFish
