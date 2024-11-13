@@ -16,7 +16,7 @@ import { Octopus } from "../../figures/waterAcidificationScene/Octopus";
 import Ligths from "./lights/Lights";
 import LoaderComponent from "./loader/LoaderComponent";
 
-const WaterAcidification = () => {
+const Acidification = () => {
    const navigate = useNavigate();
    const [isModalOpen, setIsModalOpen] = useState(false);
 
