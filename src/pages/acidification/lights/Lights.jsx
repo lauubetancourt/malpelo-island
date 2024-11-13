@@ -15,6 +15,12 @@ const Ligths = () => {
         shadow-camera-bottom={-100}
         castShadow 
       /> 
+
+      <directionalLight 
+        position={[-1, 5, 15]}
+        intensity={8} 
+        color={"#1C08B7"}
+      />
     </>
   );
 

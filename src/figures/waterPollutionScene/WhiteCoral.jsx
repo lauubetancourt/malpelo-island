@@ -14,13 +14,11 @@ export function WhiteCoral(props) {
         />
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Object_3.geometry}
           material={materials.PRI_13376}
         />
         <mesh
           castShadow
-          receiveShadow
           geometry={nodes.Object_4.geometry}
           material={materials.PRI_13376}
         />

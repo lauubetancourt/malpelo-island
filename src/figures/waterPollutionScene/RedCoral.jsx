@@ -7,7 +7,6 @@ export function RedCoral(props) {
     <group {...props} dispose={null} scale={0.5}>
       <mesh
         castShadow
-        receiveShadow
         geometry={nodes.Object_4.geometry}
         material={materials['Material.002']}
         position={[0.076, 0.299, 0.059]}
@@ -16,7 +15,6 @@ export function RedCoral(props) {
       />
       <mesh
         castShadow
-        receiveShadow
         geometry={nodes.Object_6.geometry}
         material={materials['Material.002']}
         position={[0.076, 0.299, 0.059]}

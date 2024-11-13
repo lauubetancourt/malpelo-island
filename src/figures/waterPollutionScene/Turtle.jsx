@@ -105,6 +105,7 @@ export function Turtle(props) {
                       geometry={nodes.Object_43.geometry}
                       material={materials.greenbody}
                       skeleton={nodes.Object_43.skeleton}
+                      castShadow
                     />
                     <group
                       name="Object_39"

@@ -46,7 +46,6 @@ const Shark = (props) => {
               material={materials.Diffuse}
               skeleton={nodes.BT_Shark__0.skeleton}
               castShadow
-              receiveShadow
             />
             <skinnedMesh
               name="BT_Shark__1"
@@ -54,7 +53,6 @@ const Shark = (props) => {
               material={materials.Diffuse_Eye}
               skeleton={nodes.BT_Shark__1.skeleton}
               castShadow
-              receiveShadow
             />
             <primitive object={nodes.Shark_Armature_rootJoint} />
           </group>

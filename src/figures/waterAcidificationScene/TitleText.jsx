@@ -16,7 +16,7 @@ const TitleText = () => {
           rotation={[0, 29.9, 0]}
         >
           {`Acidificación \n    de los océanos`}
-          <meshStandardMaterial color="#5C0A13"/>
+          <meshStandardMaterial color="#EA5422"/>
         </Text3D>
       </Center>
     </>
