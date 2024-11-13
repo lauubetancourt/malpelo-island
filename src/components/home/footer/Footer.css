@@ -1,6 +1,5 @@
 .footer {
-    background-color: white;
-    color: #ffffff;
+    background-color: var(--color-cornflower-blue);
     padding: 20px 0;
 }
 
@@ -23,25 +22,12 @@
     padding: 10px 0;
     font-size: 0.9rem;
     line-height: 1.6;
-    color: var(--color-charcoal-gray);
 }
 
 .footer-bottom {
     text-align: center;
     margin-top: 20px;
-    border-top: 1px solid #ffffff;
     padding-top: 15px;
-    color: var(--color-true-blue);
-}
-
-.footer-bottom a {
-    color: var(--color-charcoal-gray);
-    text-decoration: none;
-    margin: 0 5px;
-}
-
-.footer-bottom a:hover {
-    color: var(--color-cornflower-blue);
 }
 
 .footer-image-container {

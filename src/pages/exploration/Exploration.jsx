@@ -11,7 +11,7 @@ const Exploration = () => {
       <NavBar />
       <Flora />
       <Fauna />
-      <Footer />
+      <Footer bgcolor={"white"} color={"#486ECA"}/>
     </>
   );
 };

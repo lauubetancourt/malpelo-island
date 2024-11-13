@@ -1,9 +1,9 @@
 import React from "react";
-import "./Footer.css"
+import "./Footer.css";
 
-const Footer = () => {
+const Footer = ({ bgcolor, color }) => {
   return (
-    <footer className="footer">
+    <footer className="footer" style={{ backgroundColor: bgcolor, color: color }}>
       <div className="footer-container">
         {/* Información del Proyecto */}
         <div className="footer-section">
@@ -25,8 +25,6 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <p>© 2024 Isla Malpelo. Todos los derechos reservados.</p>
-        <a href="#legal">Términos y Condiciones</a> |{" "}
-        <a href="#privacidad">Política de Privacidad</a>
       </div>
     </footer>
   );

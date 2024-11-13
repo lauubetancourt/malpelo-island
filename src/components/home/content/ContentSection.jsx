@@ -2,13 +2,11 @@ import React from "react";
 import Card from "../card/Card";
 import "./ContentSection.css"
 
-const ContentSection = ({ title, content, backgroundColor, titleColor }) => {
+const ContentSection = ({ content }) => {
   return (
     <section
       className="home-content-section"
-      style={{ backgroundColor: backgroundColor}}
     >
-      <h2 style={{ color: titleColor }}>{title}</h2>
       <div className="content_card-container">
         {content.map((item, index) => (
           <Card

@@ -1,7 +1,7 @@
 import { Suspense, useState, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Ocean } from "../../figures/waterPollutionScene/Ocean";
-import { OrbitControls, Loader, KeyboardControls } from "@react-three/drei";
+import { OrbitControls,  KeyboardControls } from "@react-three/drei";
 import "./WaterPollution.css";
 import NeonFish from "../../figures/waterPollutionScene/NeonFish";
 import Shark from "../../figures/waterPollutionScene/Shark";
@@ -19,6 +19,7 @@ import { Crate } from "../../figures/waterPollutionScene/Crate";
 import { cameraSettings, itemsWithTooltip, modalContent } from "./content";
 import { useNavigate } from "react-router-dom";
 import Staging from "./staging/Staging";
+import LoaderComponent from "./loader/LoaderComponent";
 
 const WaterPollution = () => {
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ const WaterPollution = () => {
     <KeyboardControls map={map}>
 
       <Canvas shadows camera={cameraSettings}>
-        <Suspense fallback={null}>
+        <Suspense fallback={<LoaderComponent/>}>
           <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2.5} />
           <Ligths />
           <Staging/>
@@ -174,8 +175,6 @@ const WaterPollution = () => {
           className={tooltip.visible ? "visible" : ""}
         />
       )}
-
-      <Loader />
     </>
   );
 };

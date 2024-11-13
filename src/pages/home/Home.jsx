@@ -6,6 +6,10 @@ import NavBar from "../../components/navbar/NavBar";
 import ContentSection from "../../components/home/content/ContentSection";
 import Footer from "../../components/home/footer/Footer.jsx";
 import { islandContent, problemsContent } from "./content.js";
+import Content3D from "../../components/home/content3D/Content3D.jsx";
+import StingrayComponent from "../../components/home/content3D/StingrayComponent.jsx";
+import QuestionBoxComponent from "../../components/home/content3D/QuestionBoxComponent.jsx";
+import SaveTextComponent from "../../components/home/content3D/SaveTextComponent.jsx";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -39,12 +43,12 @@ const Home = () => {
         </h2>
       </section>
 
-      <ContentSection
-        title="¡Descubre la isla!"
-        content={islandContent}
-        backgroundColor="white"
-        titleColor="#003ABC"
+      <Content3D
+        title="¡Descubre la increíble flora y fauna de la isla!"
+        model={<StingrayComponent />}
       />
+
+      <ContentSection content={islandContent} />
       <div className="button-container">
         <button
           className="custom_button-blue"
@@ -54,52 +58,34 @@ const Home = () => {
         </button>
       </div>
 
-      <ContentSection
-        title="¡Aprende de las problemáticas ambientales!"
-        content={problemsContent}
-        backgroundColor="#486ECA"
-        titleColor="white"
+      <Content3D
+        title="¡Aprende sobre las problemáticas ambientales!"
+        model={<SaveTextComponent />}
       />
 
-      <div className="button-container-blue">
+      <ContentSection content={problemsContent} />
+
+      <div className="button-container">
         <button
-          className="custom_button-white"
+          className="custom_button-blue"
           onClick={() => navigate("/contaminacion-del-agua")}
         >
           Conocer más
         </button>
         <button
-          className="custom_button-white"
+          className="custom_button-blue"
           onClick={() => navigate("/acidificacion-del-oceano")}
         >
           Conocer más
         </button>
       </div>
 
-      <ContentSection
-        title="¡Sumérgete en la Isla Malpelo!"
-        content={[
-          {
-            image: "/images/home/3d.png",
-            title: "Experiencia 3D",
-            description:
-              "Disfruta de una experiencia inmersiva en la Isla Malpelo",
-          },
-        ]}
-        backgroundColor="white"
-        titleColor="#003ABC"
+      <Content3D
+        title="¡Pon a prueba tus conocimientos!"
+        model={<QuestionBoxComponent />}
       />
 
-      <div className="button-container">
-        <button
-          className="custom_button-blue"
-          onClick={() => navigate("/experiencia-3D")}
-        >
-          Explorar
-        </button>
-      </div>
       <ContentSection
-        title="¡Pon a prueba tus conocimientos!"
         content={[
           {
             image: "/images/home/quiz.png",
@@ -108,20 +94,18 @@ const Home = () => {
               "Demuestra tu aprendizaje sobre la Isla Malpelo y las problemáticas ambientales",
           },
         ]}
-        backgroundColor="#486ECA"
-        titleColor="white"
       />
 
-      <div className="button-container-blue">
+      <div className="button-container">
         <button
-          className="custom_button-white"
+          className="custom_button-blue"
           onClick={() => navigate("/quiz")}
         >
           Intentar
         </button>
       </div>
 
-      <Footer/>
+      <Footer bgcolor={"#486ECA"} color={"white"}/>
     </>
   );
 };
