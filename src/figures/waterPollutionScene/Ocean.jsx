@@ -10,15 +10,7 @@ export function Ocean(props) {
         geometry={nodes.Coral.geometry}
         material={materials.CoralMaterial}
       />
-      <mesh
-        castShadow
-        geometry={nodes.Sand.geometry}
-        material={materials.SandMaterial}
-      />
-      <mesh
-        geometry={nodes.See.geometry}
-        material={materials.SeeMaterial}
-      />
+      <mesh geometry={nodes.See.geometry} material={materials.SeeMaterial} />
       <mesh
         castShadow
         geometry={nodes.Rocks_1.geometry}
@@ -29,6 +21,9 @@ export function Ocean(props) {
         geometry={nodes.Rocks_2.geometry}
         material={materials.CoralRockMaterial}
       />
+      <mesh geometry={nodes.Sand.geometry} receiveShadow={true}>
+        <meshStandardMaterial color={"rgba(234, 213, 173, 0.8)"} />
+      </mesh>
     </group>
   );
 }
