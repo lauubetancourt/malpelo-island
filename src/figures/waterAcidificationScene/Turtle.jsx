@@ -36,7 +36,7 @@ export function Turtle(props) {
         <group
           name="Sketchfab_model"
           rotation={[-Math.PI / 2, 0, 0]}
-          scale={0.075}
+          scale={4}
         >
           <group
             name="green_016_round5changes_johnsonfbx"
@@ -46,12 +46,11 @@ export function Turtle(props) {
               <group name="RootNode">
                 <group
                   name="green_juvenilearmature"
-                  position={[-2.266, 2.989, -2.188]}
+                  position={[0, 0, -2.188]}
                   rotation={[-Math.PI / 2, 0, -3.117]}
-                  scale={100}
                 >
                   <group name="Object_5">
-                    <primitive object={nodes._rootJoint} />
+                    <primitive object={nodes._rootJoint}   />
                     <skinnedMesh
                       name="Object_40"
                       geometry={nodes.Object_40.geometry}
@@ -69,29 +68,25 @@ export function Turtle(props) {
                       geometry={nodes.Object_43.geometry}
                       material={materials.greenbody}
                       skeleton={nodes.Object_43.skeleton}
-                      
+                      castShadow
                     />
                     <group
                       name="Object_39"
                       rotation={[-Math.PI / 2, 0, 0]}
-                      scale={100}
                     />
                     <group
                       name="Object_42"
                       rotation={[-Math.PI / 2, 0, 0]}
-                      scale={100}
                     />
                   </group>
                 </group>
                 <group
                   name="green_juvenileeye"
                   rotation={[-Math.PI / 2, 0, 0]}
-                  scale={100}
                 />
                 <group
                   name="green_juvenilemesh"
                   rotation={[-Math.PI / 2, 0, 0]}
-                  scale={100}
                 />
               </group>
             </group>

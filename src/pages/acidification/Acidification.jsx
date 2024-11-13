@@ -14,10 +14,11 @@ import { BlueWhale } from "../../figures/waterAcidificationScene/BlueWhale";
 import { Stingray } from "../../figures/waterAcidificationScene/Stingray";
 import { Octopus } from "../../figures/waterAcidificationScene/Octopus";
 import Ligths from "./lights/Lights";
+import LoaderComponent from "./loader/LoaderComponent";
 
-const Acidification = () => {
-  const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const WaterAcidification = () => {
+   const navigate = useNavigate();
+   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const cameraSettings = {
     position: [-18, 8, 0],
@@ -38,34 +39,17 @@ const Acidification = () => {
       description: "Contenido de cómo ayudar..." 
     },
   ];
-
   return (
     <>
-      <Canvas shadows="soft" camera={cameraSettings}>
-        <Suspense fallback={null}>
-          
+      <Canvas camera={cameraSettings} shadows={true}>
+        <Suspense fallback={<LoaderComponent/>}>
           <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2.5} />
-          <ambientLight intensity={1.3} />
-          <Ligths />
-          <directionalLight 
-            castShadow 
-            position={[10, 10, 0]} 
-            intensity={2} 
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
-            shadow-camera-far={50}
-            shadow-camera-left={-10}
-            shadow-camera-right={10}
-            shadow-camera-top={10}
-            shadow-camera-bottom={-10}
-          />
-          
           <Bubbles />
           <Turtle position={[-8, 3, -8]} />
           <StripedFish position={[-10, -5, -20]} />
           <BlueWhale position={[7, 9.5, -4]}/>
           <Stingray castShadow position={[-1, 5, 15]} scale={[0.012, 0.012,0.012]} rotation = {[0,-1,0]}/>
-          <Octopus  position={[1.8, 0.5, -12]} rotation = {[0.1,-1,0]}/>
+          <Octopus position={[1.8, 0.5, -12]} rotation={[0.1,-1,0]}/>
           <TitleText />
           <Button
             position={[-2, 4, 0]}
@@ -81,10 +65,9 @@ const Acidification = () => {
             color={"#051E77"}
             hover={"#0076CC"}
           />
-          <mesh receiveShadow>
-            <Ocean/>
-          </mesh>
-        </Suspense>
+          <Ocean/>
+          <Ligths />
+          </Suspense>
       </Canvas>
 
       <Modal
@@ -92,7 +75,6 @@ const Acidification = () => {
         onClose={() => setIsModalOpen(false)}
         content={modalContent}
       />
-      <Loader />
     </>
   );
 };
