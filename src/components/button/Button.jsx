@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Html } from "@react-three/drei";
+import "./Button.css"
 
 const Button = ({ onClick, position, text, color, hover }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -12,13 +13,9 @@ const Button = ({ onClick, position, text, color, hover }) => {
       rotation={[0, 30, 0]}
       zIndexRange={[100, 0]}
     >
-      <button
+      <button className="button-3d"
         style={{
           backgroundColor: isHovered ? hover : color,
-          color: "white",
-          cursor: "pointer",
-          transition: "background-color 0.3s",
-          userSelect: "none"
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}

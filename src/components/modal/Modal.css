@@ -47,7 +47,22 @@
 .modal-arrow {
   background-color: var(--color-cornflower-blue);
   color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  font-weight: bold;
+  user-select: none;
 }
+
+.button-3d:hover {
+  filter: brightness(0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
 
 .modal-arrow:hover {
   background-color: var(--color-true-blue);
@@ -69,4 +84,9 @@
 
 .modal-close:hover {
   color: var(--color-true-blue);
+}
+
+.modal-arrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

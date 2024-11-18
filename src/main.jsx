@@ -7,8 +7,10 @@ import Quiz from './pages/quiz/Quiz.jsx';
 import Home from './pages/home/Home.jsx';
 import App from './App.jsx';
 import WaterPollution from './pages/waterPollution/WaterPollution.jsx';
-import Exploration from './pages/exploration/Exploration.jsx';
 import Acidification from './pages/acidification/Acidification.jsx';
+import Curious from './pages/exploration/Curious.jsx';
+import FaunaPage from './pages/exploration/FaunaPage.jsx';
+import FloraPage from './pages/exploration/FloraPage.jsx';
 
 /**
  * Creates a router with defined routes for the application.
@@ -44,9 +46,17 @@ const router = createBrowserRouter([
     path: "/acidificacion-del-oceano",
     element: <Acidification/>
   },
-  {  
-    path: "/isla-malpelo",
-    element: <Exploration/>
+  {
+    path: "/fauna",
+    element: <FaunaPage/>
+  },
+  {
+    path: "/flora",
+    element: <FloraPage/>
+  },
+  {
+    path: "/datos-curiosos",
+    element: <Curious/>
   },
 ]);
 
