@@ -8,4 +8,12 @@ body, html {
     display: block;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
+  }
+
+  .water-pollution-container {
+    width: 100%;
+    height: 100vh; /* Opcional, asegura que ocupe toda la ventana */
+    overflow: hidden; /* Oculta barras de scroll */
+    position: relative; /* Para manejar hijos con posición absoluta si es necesario */
   }

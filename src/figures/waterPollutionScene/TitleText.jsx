@@ -3,7 +3,7 @@ import { Center, Text3D } from "@react-three/drei";
 const TitleText = () => {
   return (
     <>
-      <Center top left position={[1, 5, 0]}>
+      <Center top left position={[1, 4, 0]}>
         <Text3D
           font="/fonts/blue-ocean.json"
           bevelEnabled
@@ -12,7 +12,7 @@ const TitleText = () => {
           height={0.5}
           lineHeight={0.75}
           letterSpacing={0.2}
-          size={0.9}
+          size={1}
           rotation={[0, 30, 0]}
         >
           {`Contaminación \n    del agua`}

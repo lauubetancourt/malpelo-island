@@ -20,8 +20,19 @@ const NavBar = () => {
           <li>
             <Link to="/inicio">Inicio</Link>
           </li>
-          <li>
-            <Link to="/isla-malpelo">Isla Malpelo</Link>
+          <li className="nav-dropdown">
+            <Link to="#">Isla Malpelo</Link>
+            <ul className="dropdown-menu">
+              <li>
+                <Link to="/flora">Flora</Link>
+              </li>
+              <li>
+                <Link to="/fauna">Fauna</Link>
+              </li>
+              <li>
+                <Link to="/datos-curiosos">Datos curiosos</Link>
+              </li>
+            </ul>
           </li>
           <li className="nav-dropdown">
             <Link to="#">Problemas ambientales</Link>
@@ -30,7 +41,9 @@ const NavBar = () => {
                 <Link to="/contaminacion-del-agua">Contaminación del agua</Link>
               </li>
               <li>
-                <Link to="/acidificacion-del-oceano">Acidificación de los océanos</Link>
+                <Link to="/acidificacion-del-oceano">
+                  Acidificación de los océanos
+                </Link>
               </li>
             </ul>
           </li>

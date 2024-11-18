@@ -17,6 +17,7 @@ import Ligths from "./lights/Lights";
 import LoaderComponent from "./loader/LoaderComponent";
 import { cameraSettings, itemsWithTooltip, modalContent } from "./information";
 import Tooltip from "../../components/tooltip/ToolTip";
+import NavBar from "../../components/navbar/NavBar";
 
 const Acidification = () => {
   const navigate = useNavigate();
@@ -59,7 +60,8 @@ const Acidification = () => {
   ]);
 
   return (
-    <>
+    <div className="acidification-container">
+    <NavBar/>
       <KeyboardControls map={map}>
         <Canvas camera={cameraSettings} shadows={true}>
           <Suspense fallback={<LoaderComponent />}>
@@ -104,14 +106,6 @@ const Acidification = () => {
               hover={"#0076CC"}
             />
 
-            <Button
-              position={[-2, 2.5, 0]}
-              text="Volver al inicio"
-              onClick={() => navigate("/inicio")}
-              color={"#051E77"}
-              hover={"#0076CC"}
-            />
-
             <Ocean />
             <Ligths />
           </Suspense>
@@ -134,7 +128,7 @@ const Acidification = () => {
           className={tooltip.visible ? "visible" : ""}
         />
       )}
-    </>
+    </div>
   );
 };
 

@@ -1,11 +1,10 @@
 import React from "react";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
-import "../exploration/Exploration.jsx";
 import NavBar from "../../components/navbar/NavBar";
 import ContentSection from "../../components/home/content/ContentSection";
 import Footer from "../../components/home/footer/Footer.jsx";
-import { islandContent, problemsContent } from "./content.js";
+import { useIslandContent, useProblemsContent } from "./content.jsx";
 import Content3D from "../../components/home/content3D/Content3D.jsx";
 import StingrayComponent from "../../components/home/content3D/StingrayComponent.jsx";
 import QuestionBoxComponent from "../../components/home/content3D/QuestionBoxComponent.jsx";
@@ -13,6 +12,8 @@ import SaveTextComponent from "../../components/home/content3D/SaveTextComponent
 
 const Home = () => {
   const navigate = useNavigate();
+  const IslandContent = useIslandContent();
+  const ProblemsContent = useProblemsContent();
 
   return (
     <>
@@ -44,41 +45,18 @@ const Home = () => {
       </section>
 
       <Content3D
-        title="¡Descubre la increíble flora y fauna de la isla!"
+        title="¡Descubre la Isla Malpelo!"
         model={<StingrayComponent />}
       />
 
-      <ContentSection content={islandContent} />
-      <div className="button-container">
-        <button
-          className="custom_button-blue"
-          onClick={() => navigate("/isla-malpelo")}
-        >
-          Aprender más
-        </button>
-      </div>
+      <ContentSection content={IslandContent} />
 
       <Content3D
         title="¡Aprende sobre las problemáticas ambientales!"
         model={<SaveTextComponent />}
       />
 
-      <ContentSection content={problemsContent} />
-
-      <div className="button-container">
-        <button
-          className="custom_button-blue"
-          onClick={() => navigate("/contaminacion-del-agua")}
-        >
-          Conocer más
-        </button>
-        <button
-          className="custom_button-blue"
-          onClick={() => navigate("/acidificacion-del-oceano")}
-        >
-          Conocer más
-        </button>
-      </div>
+      <ContentSection content={ProblemsContent} />
 
       <Content3D
         title="¡Pon a prueba tus conocimientos!"
@@ -92,20 +70,12 @@ const Home = () => {
             title: "Quiz",
             description:
               "Demuestra tu aprendizaje sobre la Isla Malpelo y las problemáticas ambientales",
+            action: () => navigate("/quiz"),
           },
         ]}
       />
 
-      <div className="button-container">
-        <button
-          className="custom_button-blue"
-          onClick={() => navigate("/quiz")}
-        >
-          Intentar
-        </button>
-      </div>
-
-      <Footer bgcolor={"#486ECA"} color={"white"}/>
+      <Footer bgcolor={"#486ECA"} color={"white"} />
     </>
   );
 };

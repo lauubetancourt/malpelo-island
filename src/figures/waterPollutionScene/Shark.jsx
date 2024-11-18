@@ -1,68 +1,126 @@
-import React, { useRef } from "react";
-import { useGLTF } from "@react-three/drei";
+import React, { useEffect, useRef, useState } from "react";
+import { useGLTF, useAnimations, useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
+import * as THREE from "three";
 
-const Shark = (props) => {
+export function Shark(props) {
   const group = useRef();
-  const { nodes, materials } = useGLTF("/models-3d/waterPollution/shark.glb");
+  const { nodes, materials, animations } = useGLTF(
+    "/models-3d/waterPollution/great_white_shark.glb"
+  );
+  const { actions } = useAnimations(animations, group);
 
-  const initialZ = -10; 
-  const maxZ = 20; 
-  const speed = 0.02;
+  const [currentAction, setCurrentAction] = useState("Shark_Armature|Swim");
+  const [sub, get] = useKeyboardControls();
 
-  useFrame((state) => {
-    const t = state.clock.getElapsedTime();
+  useEffect(() => {
+    const currentAnimation = actions[currentAction];
+    if (currentAnimation) {
+      currentAnimation.reset().fadeIn(0.5).play();
 
-    if (group.current) {
-      group.current.position.x = Math.sin(t) * 3; // Oscilación en x
-      group.current.position.y = Math.sin(t * 2) * 0.5; // Oscilación en y
+      if (currentAction === "Shark_Armature|Bite") {
+        currentAnimation.setLoop(THREE.LoopOnce);
+        currentAnimation.clampWhenFinished = true;
 
-      group.current.position.z += speed;
-      if (group.current.position.z >= maxZ) {
-        group.current.position.z = initialZ;
+        const timeout = setTimeout(() => {
+          setCurrentAction("Shark_Armature|Swim2");
+        }, currentAnimation.getClip().duration * 1000);
+
+        return () => clearTimeout(timeout);
       }
+    }
 
-      group.current.rotation.y = Math.sin(t * 2) * 0.1; // Rotación ligera en y
+    return () => currentAnimation?.fadeOut(0.5).stop();
+  }, [actions, currentAction]);
+  const minZ = 584;
+  const initialZ = 602;
+  const maxY = 8;
+  const initialY = 2;
+  const speed = 0.05;
+
+  useFrame(() => {
+    const { forward, back, bite, up, down } = get();
+
+    const currentGroup = group.current;
+    if (!currentGroup) return;
+
+    // Movimiento hacia adelante
+    if (forward) {
+      currentGroup.position.z = Math.max(currentGroup.position.z - speed, minZ);
+    }
+
+    if (back) {
+      currentGroup.position.z = Math.min(
+        currentGroup.position.z + speed,
+        initialZ
+      );
+    }
+
+    // Movimiento hacia arriba
+    if (up) {
+      currentGroup.position.y = Math.min(currentGroup.position.y + speed, maxY);
+    }
+
+    // Movimiento hacia abajo
+    if (down) {
+      currentGroup.position.y = Math.max(
+        currentGroup.position.y - speed,
+        initialY
+      );
+    }
+
+    if (bite) {
+      setCurrentAction("Shark_Armature|Bite");
     }
   });
 
   return (
-    <group ref={group} {...props} dispose={null} castShadow receiveShadow>
-      <group name="Animated_underwater_shark" position={[10, 70, -12]} scale={3}>
+    <group ref={group} {...props} dispose={null}>
+      <group name="Sketchfab_Scene">
         <group
-          name="Model_9A_-_Blacktip_Shark"
-          rotation={[-1.584, 0, 45]}
-          scale={5.8}
+          name="Sketchfab_model"
+          position={[-0.289, 0.11, -73.898]}
+          rotation={[-Math.PI / 2, -0.004, -Math.PI]}
+          scale={0.004}
         >
-          <group name="Shark_Armature" rotation={[0, -1.571, 0]} scale={0.304}>
-            <group
-              name="BT_Shark_"
-              rotation={[0, Math.PI / 2, 0]}
-              scale={3.285}
-            />
-            <skinnedMesh
-              name="BT_Shark__0"
-              geometry={nodes.BT_Shark__0.geometry}
-              material={materials.Diffuse}
-              skeleton={nodes.BT_Shark__0.skeleton}
-              castShadow
-            />
-            <skinnedMesh
-              name="BT_Shark__1"
-              geometry={nodes.BT_Shark__1.geometry}
-              material={materials.Diffuse_Eye}
-              skeleton={nodes.BT_Shark__1.skeleton}
-              castShadow
-            />
-            <primitive object={nodes.Shark_Armature_rootJoint} />
+          <group
+            name="46e90fa384ec4dd780b63e7ee83669f4fbx"
+            rotation={[Math.PI / 2, 0, 0]}
+          >
+            <group name="Object_2">
+              <group name="RootNode">
+                <group
+                  name="Shark_Armature"
+                  rotation={[-Math.PI / 2, 0, 0]}
+                  scale={100}
+                >
+                  <group name="Object_5">
+                    <primitive object={nodes._rootJoint} />
+                    <skinnedMesh
+                      name="Object_21"
+                      geometry={nodes.Object_21.geometry}
+                      material={materials.Material}
+                      skeleton={nodes.Object_21.skeleton}
+                    />
+                    <group
+                      name="Object_20"
+                      rotation={[-Math.PI / 2, 0, 0]}
+                      scale={100}
+                    />
+                  </group>
+                </group>
+                <group
+                  name="RetopoFlow001"
+                  rotation={[-Math.PI / 2, 0, 0]}
+                  scale={100}
+                />
+              </group>
+            </group>
           </group>
         </group>
-        <group name="Camera_focus" position={[-8.541, -20.603, 0.633]} />
       </group>
     </group>
   );
-};
+}
 
-useGLTF.preload("/models-3d/waterPollution/shark.glb");
-
-export default Shark;
+useGLTF.preload("/models-3d/waterPollution/great_white_shark.glb");

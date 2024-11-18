@@ -14,6 +14,7 @@ const ContentSection = ({ content }) => {
             image={item.image}
             title={item.title}
             description={item.description}
+            action={item.action}
           />
         ))}
       </div>

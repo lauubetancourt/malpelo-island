@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useGLTF, useAnimations, useKeyboardControls } from "@react-three/drei";
+import { useGLTF, useAnimations } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
 export function Turtle(props) {
@@ -9,7 +9,6 @@ export function Turtle(props) {
   );
   const { actions } = useAnimations(animations, group);
   const [currentAction, setCurrentAction] = useState("Swim Cycle");
-  const [sub, get] = useKeyboardControls();
 
   useEffect(() => {
     actions[currentAction]?.fadeIn(0.5).play();
@@ -19,52 +18,17 @@ export function Turtle(props) {
 
   const maxZ = 15;
   const initialZ = -8;
-  const maxY = 8;
-  const initialY = 2;
-  const speed = 0.05;
+  const speed = 0.01;
 
   useFrame(() => {
-    const { forward, back, up, down } = get();
+    if (group.current) {
+      group.current.position.z += speed;
 
-    const currentGroup = group.current;
-    if (!currentGroup) return;
-
-    // Movimiento hacia adelante
-    if (forward) {
-      currentGroup.position.z = Math.min(currentGroup.position.z + speed, maxZ);
-    }
-
-    // Movimiento hacia atrás
-    if (back) {
-      currentGroup.position.z = Math.max(
-        currentGroup.position.z - speed,
-        initialZ
-      );
-    }
-
-    // Movimiento hacia arriba
-    if (up) {
-      currentGroup.position.y = Math.min(currentGroup.position.y + speed, maxY);
-    }
-
-    // Movimiento hacia abajo
-    if (down) {
-      currentGroup.position.y = Math.max(
-        currentGroup.position.y - speed,
-        initialY
-      );
+      if (group.current.position.z >= maxZ) {
+        group.current.position.z = initialZ;
+      }
     }
   });
-
-  // useFrame(() => {
-  //   if (group.current) {
-  //     group.current.position.z += speed;
-
-  //     if (group.current.position.z >= maxZ) {
-  //       group.current.position.z = initialZ;
-  //     }
-  //   }
-  // });
 
   return (
     <group ref={group} {...props} dispose={null} castShadow receiveShadow>

@@ -51,11 +51,16 @@
 }
 
 .nav-menu-logout button {
-    padding: 10px 12px;
     background-color: var(--color-cornflower-blue);
     color: white;
-    font-size: 15px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
     font-weight: bold;
+    user-select: none;
 }
 
 .nav-menu-logout button:hover {
