@@ -65,8 +65,7 @@ export const modalContent = [
   },
   {
     title: "Principales fuentes de contaminación en la Isla Malpelo",
-    description:
-      `Plásticos: representan un peligro para la fauna marina que puede ingerir estos plásticos o enredarse en ellos.\n
+    description: `Plásticos: representan un peligro para la fauna marina que puede ingerir estos plásticos o enredarse en ellos.\n
 Equipos de pesca: redes y líneas abandonadas, pueden seguir atrapando y matando animales durante años. Estas redes también liberan microplásticos y otros materiales tóxicos al descomponerse en el agua. \n
 Químicos y metales pesados: Estos contaminantes se acumulan en los organismos marinos y pueden afectar desde los corales hasta los grandes depredadores.`,
   },
@@ -75,5 +74,43 @@ Químicos y metales pesados: Estos contaminantes se acumulan en los organismos m
     description:
       "La contaminación del agua afecta gravemente a los ecosistemas acuáticos al introducir sustancias tóxicas que matan o dañan a muchas especias acuáticas, destruyendo hábitats vitales como arrecifes de coral y manglares, esenciales para muchas especies.",
   },
-  { title: "¿Cómo ayudar?", description: "Contenido de cómo ayudar..." },
+  { title: "¿Cómo ayudar?", description: `Reducir el uso de plásticos: evita los productos plásticos y elige productos biodegradables.\n
+Tratar los desechos correctamente: asegúrate de reciclar y desechar la basura de forma adecuada. \n
+Educar a otros sobre la importancia de Malpelo: crea conciencia sobre la importancia ecológica de la isla y la necesidad de proteger su biodiversidad con tu familia y amigos \n
+¡Pequeñas acciones individuales pueden marcar una gran diferencia en la protección de la Isla Malpelo y sus ecosistemas!`, },
+];
+
+export const mouseControls = [
+  {
+    control: "Clic izquierdo",
+    description:
+      "Rota la cámara para explorar diferentes ángulos de la escena.",
+  },
+  {
+    control: "Pasar el cursor sobre un objeto",
+    description: "Muestra información sobre los objetos seleccionados.",
+  },
+];
+
+export const keyControls = [
+  {
+    control: "Tecla A o Flecha Izquierda",
+    description: "Mueve al tiburón hacia la izquierda.",
+  },
+  {
+    control: "Tecla D o Flecha Derecha",
+    description: "Mueve al tiburón hacia la derecha.",
+  },
+  {
+    control: "Tecla W o Flecha Arriba",
+    description: "Mueve al tiburón hacia arriba.",
+  },
+  {
+    control: "Tecla S o Flecha Abajo",
+    description: "Mueve al tiburón hacia abajo.",
+  },
+  {
+    control: "Barra Espaciadora",
+    description: "El tiburón realiza una mordida.",
+  },
 ];
