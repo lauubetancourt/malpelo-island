@@ -10,7 +10,7 @@ const Footer = ({ bgcolor, color }) => {
           <div className="footer-image-container">
             <img
               className="footer-logo"
-              src="/images/home/logo.png"
+              src="/images/home/logo.webp"
               alt="logo"
             />
           </div>
