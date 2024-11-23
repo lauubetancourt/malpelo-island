@@ -13,7 +13,7 @@ export function Ocean(props) {
           material={materials.CoralMaterial}
         />
       </RigidBody>
-      <RigidBody type="fixed" colliders="trimesh">
+      <RigidBody name="rbSea" type="fixed" colliders="trimesh">
         <mesh geometry={nodes.See.geometry} material={materials.SeeMaterial} />
       </RigidBody>
       <RigidBody type="fixed" colliders="hull">

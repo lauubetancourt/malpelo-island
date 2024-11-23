@@ -27,12 +27,12 @@ export const itemsWithTooltip = {
     description:
       "Con sus brillantes colores azul y rojo, es pequeño pero llamativo, y suele habitar en aguas tranquilas de zonas tropicales",
   },
-  stripedFish: {
+  crab: {
     icon: <FaInfoCircle />,
     background: "#486ECA",
-    name: "Pez rayado",
+    name: "Cangrejo",
     description:
-      "Conocido por sus distintivas líneas en el cuerpo, es adaptable y suele encontrarse en hábitats variados",
+      "Un crustáceo que habita en zonas rocosas y arenosas del océano, conocido por su caparazón duro y su capacidad para moverse lateralmente.",
   },
   turtle: {
     icon: <FaInfoCircle />,
@@ -55,6 +55,13 @@ export const itemsWithTooltip = {
     description:
       "Puede liberar sustancias químicas y fragmentarse, afectando el hábitat marino y contribuyendo al deterioro de los ecosistemas acuático",
   },
+  tire: {
+    icon: <IoIosWarning />,
+    background: "red",
+    name: "Llanta",
+    description:
+      "Un residuo persistente que libera microplásticos y sustancias tóxicas al degradarse, dañando el ecosistema marino y afectando la vida de diversas especies.",
+  },
 };
 
 export const modalContent = [
@@ -74,17 +81,25 @@ Químicos y metales pesados: Estos contaminantes se acumulan en los organismos m
     description:
       "La contaminación del agua afecta gravemente a los ecosistemas acuáticos al introducir sustancias tóxicas que matan o dañan a muchas especias acuáticas, destruyendo hábitats vitales como arrecifes de coral y manglares, esenciales para muchas especies.",
   },
-  { title: "¿Cómo ayudar?", description: `Reducir el uso de plásticos: evita los productos plásticos y elige productos biodegradables.\n
+  {
+    title: "¿Cómo ayudar?",
+    description: `Reducir el uso de plásticos: evita los productos plásticos y elige productos biodegradables.\n
 Tratar los desechos correctamente: asegúrate de reciclar y desechar la basura de forma adecuada. \n
 Educar a otros sobre la importancia de Malpelo: crea conciencia sobre la importancia ecológica de la isla y la necesidad de proteger su biodiversidad con tu familia y amigos \n
-¡Pequeñas acciones individuales pueden marcar una gran diferencia en la protección de la Isla Malpelo y sus ecosistemas!`, },
+¡Pequeñas acciones individuales pueden marcar una gran diferencia en la protección de la Isla Malpelo y sus ecosistemas!`,
+  },
 ];
 
 export const mouseControls = [
   {
-    control: "Clic izquierdo",
+    control: "Clic izquierdo sostenido",
     description:
       "Rota la cámara para explorar diferentes ángulos de la escena.",
+  },
+  {
+    control: "Clic izquierdo sobre el cangrejo",
+    description:
+      "El cangrejo te atacará con sus pinzas.",
   },
   {
     control: "Pasar el cursor sobre un objeto",
@@ -96,10 +111,6 @@ export const keyControls = [
   {
     control: "Tecla A o Flecha Izquierda",
     description: "Mueve al tiburón hacia la izquierda.",
-  },
-  {
-    control: "Tecla D o Flecha Derecha",
-    description: "Mueve al tiburón hacia la derecha.",
   },
   {
     control: "Tecla W o Flecha Arriba",
