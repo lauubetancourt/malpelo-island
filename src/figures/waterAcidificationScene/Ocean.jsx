@@ -10,14 +10,14 @@ export function Ocean(props) {
 
   return (
     <group {...props} dispose={null} >
-      <RigidBody type="fixed" colliders="hull">
+      <RigidBody type="fixed" colliders="cuboid">
         <mesh
           castShadow
           geometry={nodes.Coral.geometry}
           material={materials.coralMaterial}
         />
       </RigidBody>
-      <RigidBody type="fixed" colliders="hull">
+      <RigidBody type="fixed" colliders="cuboid">
         <mesh
           castShadow
           geometry={nodes.Coral2.geometry}
@@ -26,7 +26,7 @@ export function Ocean(props) {
           rotation={[0.112, 0.006, 0.135]}
         />
       </RigidBody>
-      <RigidBody type="fixed" colliders="hull">
+      <RigidBody type="fixed" colliders="cuboid">
         <mesh
           castShadow
           geometry={nodes.Coral3.geometry}
@@ -36,7 +36,7 @@ export function Ocean(props) {
           scale={0.053}
         />
       </RigidBody>
-      <RigidBody type="fixed" colliders="hull">
+      <RigidBody type="fixed" colliders="cuboid">
         <mesh
           castShadow
           geometry={nodes.Coral4.geometry}
@@ -46,7 +46,7 @@ export function Ocean(props) {
           scale={0.053}
         />
       </RigidBody>
-      <RigidBody type="fixed" colliders="hull">
+      <RigidBody type="fixed" colliders="cuboid">
         <mesh
           castShadow
           geometry={nodes.Coral5.geometry}
@@ -56,7 +56,7 @@ export function Ocean(props) {
           scale={0.053}
         />
       </RigidBody>
-      <RigidBody type="fixed" colliders="hull">
+      <RigidBody type="fixed" colliders="cuboid">
         <mesh
           castShadow
           geometry={nodes.Coral6.geometry}
@@ -66,7 +66,7 @@ export function Ocean(props) {
           scale={0.053}
         />
       </RigidBody>
-      <RigidBody type="fixed" colliders="hull">
+      <RigidBody type="fixed" colliders="cuboid">
         <mesh
           castShadow
           geometry={nodes.Coral7.geometry}
@@ -76,7 +76,7 @@ export function Ocean(props) {
           scale={0.053}
         />
       </RigidBody>
-      <RigidBody type="fixed" colliders="hull">
+      <RigidBody type="fixed" colliders="cuboid">
         <mesh
           castShadow
           geometry={nodes.coral8.geometry}
@@ -86,7 +86,7 @@ export function Ocean(props) {
           scale={0.571}
         />
       </RigidBody>
-      <RigidBody type="fixed" colliders="hull">
+      <RigidBody type="fixed" colliders="cuboid">
         <mesh
           castShadow
           geometry={nodes.Coral9.geometry}
@@ -96,7 +96,7 @@ export function Ocean(props) {
           scale={0.3}
         />
       </RigidBody>
-      <RigidBody type="fixed" colliders="hull">
+      <RigidBody type="fixed" colliders="cuboid">
         <mesh
           castShadow
           geometry={nodes.Coral10.geometry}
@@ -106,17 +106,17 @@ export function Ocean(props) {
           scale={0.053}
         />
       </RigidBody>
-      <RigidBody type="fixed" colliders="trimesh">
+      <RigidBody type="fixed" colliders="trimesh" restitution={0} friction={1}>
         <mesh geometry={nodes.See.geometry} material={materials.SeeMaterial} />
       </RigidBody>
-      <RigidBody type="fixed" colliders="hull">
+      <RigidBody type="fixed" colliders="cuboid">
         <mesh
           geometry={nodes.Rocks_1.geometry}
           material={materials.CoralRockBlackMaterial}
           castShadow={true}
         />
       </RigidBody>
-      <RigidBody type="fixed" colliders="hull">
+      <RigidBody type="fixed" colliders="cuboid">
         <mesh
           geometry={nodes.Rocks_2.geometry}
           material={materials.CoralRockMaterial}

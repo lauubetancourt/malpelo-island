@@ -32,14 +32,14 @@ export const useProblemsContent = () => {
     {
       image: "/images/home/contaminacion.png",
       title: "Contaminación del agua",
-      description: "¿Cómo afecta la contaminación del agua a la Isla Malpelo?",
+      description: "Descubre cómo se pone en riesgo la biodiversidad de la Isla Malpelo",
       action: () => navigate("/contaminacion-del-agua"),
     },
     {
       image: "/images/home/acidificacion.png",
       title: "Acidificación de los océanos",
       description:
-        "¿Cómo afecta la acidificación de los océanos a la Isla Malpelo?",
+        "Descubre la amenaza de la Isla Malpelo que altera el equilibrio de sus ecosistemas marinos",
       action: () => navigate("/acidificacion-del-oceano"),
     },
   ];

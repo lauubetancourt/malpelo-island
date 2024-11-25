@@ -19,6 +19,7 @@ export function Turtle(props) {
   }, [actions, currentAction]);
 
   const [speed, setSpeed] = useState(0.05);
+  const [rotation, setRotation] = useState(Math.PI);
 
   useFrame(() => {
     if (colliderRef.current) {
@@ -30,8 +31,12 @@ export function Turtle(props) {
     }
   });
 
+  
   const handleCollision= () => {
     setSpeed(speed * -1)
+    setRotation(rotation - Math.PI)
+    group.current.rotation.y = rotation;
+    console.log(group.current.rotation.y)
   }
 
 
@@ -40,6 +45,9 @@ export function Turtle(props) {
       ref={colliderRef}
       type="dynamic"
       position={[-8, 3, -14]}
+      restitution={0}
+      friction={1}
+      enabledRotations={[false, false, false]}
       gravityScale={0}
       colliders={false}
       onCollisionEnter={handleCollision}

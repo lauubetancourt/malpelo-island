@@ -69,7 +69,7 @@ const Acidification = () => {
             <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2.5} />
             <Bubbles />
             <Ligths />
-            <Physics gravity={[0, 0, 0]} debug>
+            <Physics gravity={[0, 0, 0]}>
               <Turtle
                 onPointerOver={(event) => handleMouseOver(event, "turtle")}
                 onPointerOut={handleMouseOut}
