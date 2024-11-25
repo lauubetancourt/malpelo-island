@@ -5,7 +5,6 @@ import { OrbitControls, KeyboardControls } from "@react-three/drei";
 import "./WaterPollution.css";
 import NeonFish from "../../figures/waterPollutionScene/NeonFish";
 import { Shark } from "../../figures/waterPollutionScene/Shark";
-import StripedFish from "../../figures/waterPollutionScene/StripedFish";
 import TitleText from "../../figures/waterPollutionScene/TitleText";
 import { Bottles } from "../../figures/waterPollutionScene/Bottles";
 import Button from "../../components/button/Button";
@@ -28,6 +27,8 @@ import LoaderComponent from "./loader/LoaderComponent";
 import NavBar from "../../components/navbar/NavBar";
 import { Physics } from "@react-three/rapier";
 import EventsInfo from "../../components/eventsInfo/EventsInfo";
+import { Crab } from "../../figures/waterPollutionScene/Crab";
+import { Tire } from "../../figures/waterPollutionScene/Tire";
 
 const WaterPollution = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,7 +58,6 @@ const WaterPollution = () => {
 
   const map = useMemo(() => [
     { name: "forward", keys: ["ArrowLeft", "KeyA"] },
-    { name: "back", keys: ["ArrowRight", "KeyD"] },
     { name: "up", keys: ["ArrowUp", "KeyW"] },
     { name: "down", keys: ["ArrowDown", "KeyS"] },
     { name: "bite", keys: ["Space"] },
@@ -69,19 +69,22 @@ const WaterPollution = () => {
       <KeyboardControls map={map}>
         <Canvas shadows camera={cameraSettings}>
           <Suspense fallback={<LoaderComponent />}>
-            <OrbitControls enableZoom={true} maxPolarAngle={Math.PI / 2.5} />
+            <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2.5} />
             <Ligths />
             <Staging />
-            <Physics gravity={[0, 0, 0]}>
+            <Physics gravity={[0, 0, 0]} debug>
               <NeonFish
+                position={[0, 4, 10]}
                 scale={0.4}
                 rotation={[0, 30, 0]}
-                position={[50, 3, -6]}
                 onPointerOver={(event) => handleMouseOver(event, "neonFish")}
                 onPointerOut={handleMouseOut}
               />
-              <StripedFish
-                onPointerOver={(event) => handleMouseOver(event, "stripedFish")}
+              <Crab
+                scale={6}
+                rotation={[0, 30, 0]}
+                position={[-2.5, 1.8, -6]}
+                onPointerOver={(event) => handleMouseOver(event, "crab")}
                 onPointerOut={handleMouseOut}
               />
               <Shark
@@ -91,13 +94,13 @@ const WaterPollution = () => {
               />
               <Bottles
                 rotation={[0, 30, 0]}
-                position={[-3, 1.2, 6]}
+                position={[-3, 0.3, 6]}
                 onPointerOver={(event) => handleMouseOver(event, "bottles")}
                 onPointerOut={handleMouseOut}
               />
               <Bottles
                 rotation={[0, 11.5, 0]}
-                position={[-10, 1.2, -6]}
+                position={[-10, 0.5, -6]}
                 onPointerOver={(event) => handleMouseOver(event, "bottles")}
                 onPointerOut={handleMouseOut}
               />
@@ -131,6 +134,12 @@ const WaterPollution = () => {
                 rotation={[0.8, 30, 0]}
                 position={[-6, -6, -2]}
                 onPointerOver={(event) => handleMouseOver(event, "crate")}
+                onPointerOut={handleMouseOut}
+              />
+              <Tire
+                scale={0.2}
+                rotation={[0, 10, 80]}
+                onPointerOver={(event) => handleMouseOver(event, "tire")}
                 onPointerOut={handleMouseOut}
               />
               <TitleText />
