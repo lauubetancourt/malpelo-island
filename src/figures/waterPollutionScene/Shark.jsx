@@ -34,7 +34,8 @@ export function Shark(props) {
     return () => currentAnimation?.fadeOut(0.5).stop();
   }, [actions, currentAction]);
 
-  const speed = 0.05;
+  const [speed, setSpeed] = useState(0.05);
+  const [rotation, setRotation] = useState(Math.PI);
 
   useFrame(() => {
     const { forward, bite, up, down } = get();
@@ -70,28 +71,25 @@ export function Shark(props) {
     }
   });
 
-  const handleProximity = ({ other }) => {
+  const handleCollision = ({ other }) => {
     if (other.rigidBodyObject.name === "rbSea") {
-      colliderRef.current.setTranslation({
-        x: 8,
-        y: 6,
-        z: 8,
-      });
-    } else if (other.rigidBodyObject.name !== "rbSea") {
-      colliderRef.current.setLinearVelocity({ x: 0, y: 0, z: 0 });
+      setSpeed(speed * -1);
+      setRotation(rotation - Math.PI);
+      group.current.rotation.y = rotation;
     }
   };
 
   return (
     <RigidBody
       ref={colliderRef}
-      position={[8, 8, 8]}
-      type="dynamic"
+      position={[8, 6, 8]}
       gravityScale={0}
-      mass={100}
-      friction={1}
       restitution={0}
+      friction={1}
+      enabledRotations={[false, false, false]}
+      type="dynamic"
       colliders={false}
+      onCollisionEnter={handleCollision}
     >
       <group ref={group} {...props} dispose={null}>
         <group name="Sketchfab_Scene">
@@ -139,9 +137,9 @@ export function Shark(props) {
         </group>
       </group>
       <CuboidCollider
-        args={[12, 2, 3]}
+        args={[11, 4.5, 4]}
+        position={[1.5, 2, 0]}
         rotation={[0, 30, 0]}
-        onCollisionEnter={({ other }) => handleProximity({ other })}
       />
     </RigidBody>
   );

@@ -110,7 +110,7 @@ export const mouseControls = [
 export const keyControls = [
   {
     control: "Tecla A o Flecha Izquierda",
-    description: "Mueve al tiburón hacia la izquierda.",
+    description: "Mueve el tiburón hacia adelante.",
   },
   {
     control: "Tecla W o Flecha Arriba",
