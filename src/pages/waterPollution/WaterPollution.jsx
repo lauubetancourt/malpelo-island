@@ -72,7 +72,7 @@ const WaterPollution = () => {
             <OrbitControls enableZoom={true} maxPolarAngle={Math.PI / 2.5} />
             <Ligths />
             <Staging />
-            <Physics gravity={[0, 0, 0]}>
+            <Physics gravity={[0, 0, 0]} debug>
               <NeonFish
                 scale={0.4}
                 rotation={[0, 30, 0]}

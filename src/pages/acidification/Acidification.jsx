@@ -18,6 +18,7 @@ import LoaderComponent from "./loader/LoaderComponent";
 import { cameraSettings, itemsWithTooltip, modalContent } from "./information";
 import Tooltip from "../../components/tooltip/ToolTip";
 import NavBar from "../../components/navbar/NavBar";
+import { Physics } from "@react-three/rapier";
 
 const Acidification = () => {
   const navigate = useNavigate();
@@ -67,47 +68,47 @@ const Acidification = () => {
           <Suspense fallback={<LoaderComponent />}>
             <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2.5} />
             <Bubbles />
-            <Turtle
-              position={[-8, 3, -8]}
-              onPointerOver={(event) => handleMouseOver(event, "turtle")}
-              onPointerOut={handleMouseOut}
-            />
-            <StripedFish
-              position={[-10, -5, -20]}
-              onPointerOver={(event) => handleMouseOver(event, "stripedFish")}
-              onPointerOut={handleMouseOut}
-            />
-            <BlueWhale
-              position={[7, 9.5, -4]}
-              onPointerOver={(event) => handleMouseOver(event, "blueWhale")}
-              onPointerOut={handleMouseOut}
-            />
-            <Stingray
-              position={[-1, 5, 15]}
-              scale={[0.012, 0.012, 0.012]}
-              rotation={[0, -1, 0]}
-              onPointerOver={(event) => handleMouseOver(event, "stingray")}
-              onPointerOut={handleMouseOut}
-              castShadow
-            />
-            <Octopus
-              position={[1.8, 0.5, -12]}
-              rotation={[0.1, -1, 0]}
-              onPointerOver={(event) => handleMouseOver(event, "octopus")}
-              onPointerOut={handleMouseOut}
-            />
-            <TitleText />
-
-            <Button
-              position={[-2, 4, 0]}
-              text="Conocer más"
-              onClick={() => setIsModalOpen(true)}
-              color={"#051E77"}
-              hover={"#0076CC"}
-            />
-
-            <Ocean />
             <Ligths />
+            <Physics gravity={[0, 0, 0]} debug>
+              <Turtle
+                onPointerOver={(event) => handleMouseOver(event, "turtle")}
+                onPointerOut={handleMouseOut}
+              />
+              <StripedFish
+                onPointerOver={(event) => handleMouseOver(event, "stripedFish")}
+                onPointerOut={handleMouseOut}
+              />
+              <BlueWhale
+                position={[7, 9.5, -4]}
+                onPointerOver={(event) => handleMouseOver(event, "blueWhale")}
+                onPointerOut={handleMouseOut}
+              />
+              <Stingray
+                position={[-1, 5, 15]}
+                scale={[0.012, 0.012, 0.012]}
+                rotation={[0, -1, 0]}
+                onPointerOver={(event) => handleMouseOver(event, "stingray")}
+                onPointerOut={handleMouseOut}
+                castShadow
+              />
+              <Octopus
+                position={[1.8, 0.5, -12]}
+                rotation={[0.1, -1, 0]}
+                onPointerOver={(event) => handleMouseOver(event, "octopus")}
+                onPointerOut={handleMouseOut}
+              />
+              <TitleText />
+
+              <Button
+                position={[-2, 4, 0]}
+                text="Conocer más"
+                onClick={() => setIsModalOpen(true)}
+                color={"#051E77"}
+                hover={"#0076CC"}
+              />
+
+              <Ocean />
+            </Physics>
           </Suspense>
         </Canvas>
       </KeyboardControls>
