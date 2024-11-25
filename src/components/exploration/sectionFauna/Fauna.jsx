@@ -52,7 +52,7 @@ const Fauna = () => {
       <ContentSection
         content={faunaContent}
         backgroundColor="white"
-        nameColor="white"
+        nameColor="#003ABC"
       />
      
     </>

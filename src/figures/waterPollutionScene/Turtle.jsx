@@ -18,7 +18,8 @@ export function Turtle(props) {
     return () => actions[currentAction]?.fadeOut(0.5).stop();
   }, [actions, currentAction]);
 
-  const speed = 0.05;
+  const [speed, setSpeed] = useState(0.05);
+  const [rotation, setRotation] = useState(Math.PI);
 
   useFrame(() => {
     if (colliderRef.current) {
@@ -30,20 +31,24 @@ export function Turtle(props) {
     }
   });
 
-  const handleProximity = () => {
-    colliderRef.current.setTranslation({
-      x: -10,
-      y: 8,
-      z: -8,
-    });
-  };
+  
+  const handleCollision= () => {
+    setSpeed(speed * -1)
+    setRotation(rotation - Math.PI)
+    group.current.rotation.y = rotation;
+  }
 
   return (
     <RigidBody
       ref={colliderRef}
       type="dynamic"
       position={[-10, 8, -8]}
+      restitution={0}
+      friction={1}
+      enabledRotations={[false, false, false]}
       gravityScale={0}
+      colliders={false}
+      onCollisionEnter={handleCollision}
     >
       <group ref={group} {...props} dispose={null} castShadow receiveShadow>
         <group name="Sketchfab_Scene">
@@ -113,11 +118,7 @@ export function Turtle(props) {
           </group>
         </group>
       </group>
-      <CuboidCollider
-        args={[2, 2, 2]}
-        sensor={true}
-        onIntersectionEnter={() => handleProximity()}
-      />
+      <CuboidCollider args={[1, 1, 1]} />
     </RigidBody>
   );
 }

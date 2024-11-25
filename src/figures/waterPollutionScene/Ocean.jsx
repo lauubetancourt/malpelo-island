@@ -6,7 +6,7 @@ export function Ocean(props) {
   const { nodes, materials } = useGLTF("/models-3d/waterPollution/ocean.glb");
   return (
     <group {...props} dispose={null} onPointerOver={(e) => e.stopPropagation()}>
-      <RigidBody type="fixed" colliders="hull">
+      <RigidBody type="fixed" colliders="cuboid">
         <mesh
           castShadow
           geometry={nodes.Coral.geometry}
@@ -16,14 +16,14 @@ export function Ocean(props) {
       <RigidBody name="rbSea" type="fixed" colliders="trimesh">
         <mesh geometry={nodes.See.geometry} material={materials.SeeMaterial} />
       </RigidBody>
-      <RigidBody type="fixed" colliders="hull">
+      <RigidBody type="fixed" colliders="cuboid">
         <mesh
           castShadow
           geometry={nodes.Rocks_1.geometry}
           material={materials.CoralRockBlackMaterial}
         />
       </RigidBody>
-      <RigidBody type="fixed" colliders="hull">
+      <RigidBody type="fixed" colliders="cuboid">
         <mesh
           castShadow
           geometry={nodes.Rocks_2.geometry}

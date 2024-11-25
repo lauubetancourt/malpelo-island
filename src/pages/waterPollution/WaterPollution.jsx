@@ -72,11 +72,9 @@ const WaterPollution = () => {
             <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2.5} />
             <Ligths />
             <Staging />
-            <Physics gravity={[0, 0, 0]} debug>
+            <Physics gravity={[0, 0, 0]}>
               <NeonFish
-                position={[0, 4, 10]}
                 scale={0.4}
-                rotation={[0, 30, 0]}
                 onPointerOver={(event) => handleMouseOver(event, "neonFish")}
                 onPointerOut={handleMouseOut}
               />
