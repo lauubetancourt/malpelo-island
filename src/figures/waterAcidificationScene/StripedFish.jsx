@@ -7,32 +7,40 @@ const StripedFish = (props) => {
   const group = useRef();
   const colliderRef = useRef();
   const { nodes, materials } = useGLTF(
-    "/models-3d/waterPollution/stripedFish.glb"
+    "/models-3d/waterAcidification/stripedFish.glb"
   );
 
   const [speed, setSpeed] = useState(-0.08);
+  const [rotation, setRotation] = useState(Math.PI);
 
   useFrame(() => {
     if (colliderRef.current) {
       const currentTranslation = colliderRef.current.translation();
 
       colliderRef.current.setTranslation({
-        x: currentTranslation.x,
-        y: currentTranslation.y,
-        z: currentTranslation.z + speed,
+        x: currentTranslation.x + speed,
+        y: 6,
+        z: -20,
       });
     }
   });
 
   const handleCollision= () => {
     setSpeed(speed * -1)
+    setRotation(rotation - Math.PI)
+    group.current.rotation.y = rotation;
+    console.log(group.current.rotation.y)
   }
+
 
   return (
     <RigidBody
       ref={colliderRef}
-      gravityScale={3}
-      position={[15, 6, -20]}
+      gravityScale={0}
+      position={[8, 6, -20]}
+      restitution={0}
+      friction={1}
+      enabledRotations={[false, false, false]}
       type="dynamic"
       colliders={false}
       onCollisionEnter={handleCollision}
@@ -95,11 +103,11 @@ const StripedFish = (props) => {
           />
         </group>
       </group>
-      <CuboidCollider args={[2, 2, 2]} />
+      <CuboidCollider args={[6, 2, 0.2]} position={[0.7, 2, 0]}/>
     </RigidBody>
   );
 };
 
-useGLTF.preload("/models-3d/waterPollution/stripedFish.glb");
+useGLTF.preload("/models-3d/waterAcidification/stripedFish.glb");
 
 export default StripedFish;
