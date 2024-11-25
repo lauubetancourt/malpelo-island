@@ -2,12 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useGLTF, useAnimations, useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import {
-  RigidBody,
-  ConeCollider,
-  BallCollider,
-  CuboidCollider,
-} from "@react-three/rapier";
+import { RigidBody, CuboidCollider } from "@react-three/rapier";
 
 export function Shark(props) {
   const group = useRef();
@@ -39,14 +34,10 @@ export function Shark(props) {
     return () => currentAnimation?.fadeOut(0.5).stop();
   }, [actions, currentAction]);
 
-  const minZ = 584;
-  const initialZ = 602;
-  const maxY = 8;
-  const initialY = 2;
   const speed = 0.05;
 
   useFrame(() => {
-    const { forward, back, bite, up, down } = get();
+    const { forward, bite, up, down } = get();
 
     if (!colliderRef.current) return;
 
@@ -55,14 +46,6 @@ export function Shark(props) {
         x: colliderRef.current.translation().x,
         y: colliderRef.current.translation().y,
         z: colliderRef.current.translation().z - speed,
-      });
-    }
-
-    if (back) {
-      colliderRef.current.setTranslation({
-        x: colliderRef.current.translation().x,
-        y: colliderRef.current.translation().y,
-        z: colliderRef.current.translation().z + speed,
       });
     }
 
@@ -87,12 +70,27 @@ export function Shark(props) {
     }
   });
 
+  const handleProximity = ({ other }) => {
+    if (other.rigidBodyObject.name === "rbSea") {
+      colliderRef.current.setTranslation({
+        x: 8,
+        y: 6,
+        z: 8,
+      });
+    } else if (other.rigidBodyObject.name !== "rbSea") {
+      colliderRef.current.setLinearVelocity({ x: 0, y: 0, z: 0 });
+    }
+  };
+
   return (
     <RigidBody
       ref={colliderRef}
-      position={[8, 6, 8]}
-      type="fixed"
+      position={[8, 8, 8]}
+      type="dynamic"
       gravityScale={0}
+      mass={100}
+      friction={1}
+      restitution={0}
       colliders={false}
     >
       <group ref={group} {...props} dispose={null}>
@@ -140,7 +138,11 @@ export function Shark(props) {
           </group>
         </group>
       </group>
-      <CuboidCollider args={[10, 5, 5]} rotation={[0, 30, 0]} />
+      <CuboidCollider
+        args={[12, 2, 3]}
+        rotation={[0, 30, 0]}
+        onCollisionEnter={({ other }) => handleProximity({ other })}
+      />
     </RigidBody>
   );
 }
