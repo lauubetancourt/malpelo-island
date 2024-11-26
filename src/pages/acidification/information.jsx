@@ -63,3 +63,30 @@ export const modalContent = [
     description: "Para ayudar a evitar la acidificación de los océanos, es crucial reducir las emisiones de CO2 mediante el uso de energías renovables, la mejora de la eficiencia energética y la protección de los ecosistemas naturales. La acidificación está alterando los océanos y amenazando ecosistemas como el de Malpelo, poniendo en riesgo la biodiversidad marina. Cada acción cuenta, desde reducir nuestro consumo de combustibles fósiles hasta apoyar políticas de conservación. ¡El futuro de nuestros océanos depende de lo que hagamos hoy!" 
   },
 ];
+
+export const mouseControls = [
+  {
+    control: "Clic izquierdo sostenido",
+    description:
+      "Rota la cámara para explorar diferentes ángulos de la escena.",
+  },
+  {
+    control: "Pasar el cursor sobre un objeto",
+    description: "Muestra información sobre los objetos seleccionados.",
+  },
+];
+
+export const keyControls = [
+  {
+    control: "Tecla A o Flecha Izquierda",
+    description: "Mueve la ballena hacia adelante.",
+  },
+  {
+    control: "Tecla W o Flecha Arriba",
+    description: "Mueve la ballena hacia arriba.",
+  },
+  {
+    control: "Tecla S o Flecha Abajo",
+    description: "Mueve la ballena hacia abajo.",
+  },
+];
