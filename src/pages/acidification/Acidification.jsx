@@ -15,10 +15,11 @@ import { Stingray } from "../../figures/waterAcidificationScene/Stingray";
 import { Octopus } from "../../figures/waterAcidificationScene/Octopus";
 import Ligths from "./lights/Lights";
 import LoaderComponent from "./loader/LoaderComponent";
-import { cameraSettings, itemsWithTooltip, modalContent } from "./information";
+import { cameraSettings, itemsWithTooltip, modalContent, mouseControls, keyControls} from "./information";
 import Tooltip from "../../components/tooltip/ToolTip";
 import NavBar from "../../components/navbar/NavBar";
 import { Physics } from "@react-three/rapier";
+import EventsInfo from "../../components/eventsInfo/EventsInfo";
 
 const Acidification = () => {
   const navigate = useNavigate();
@@ -129,6 +130,9 @@ const Acidification = () => {
           className={tooltip.visible ? "visible" : ""}
         />
       )}
+
+      <EventsInfo mouseControls={mouseControls} keyControls={keyControls} />
+
     </div>
   );
 };
