@@ -5,7 +5,7 @@ import { RigidBody } from "@react-three/rapier";
 export function Tire(props) {
   const { nodes, materials } = useGLTF("/models-3d/waterPollution/tire.glb");
   return (
-    <RigidBody type="fixed" position={[10, 2, -12]} colliders="cuboid">
+    <RigidBody type="fixed" position={[13, 2, 16]} colliders="cuboid">
       <group {...props} dispose={null}>
         <group rotation={[-Math.PI, 0, 0]}>
           <group rotation={[Math.PI / 2, 0, 0]}>

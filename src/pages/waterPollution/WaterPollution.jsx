@@ -1,7 +1,11 @@
-import { Suspense, useState, useMemo } from "react";
+import { Suspense, useState, useMemo, useRef, useCallback } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Ocean } from "../../figures/waterPollutionScene/Ocean";
-import { OrbitControls, KeyboardControls } from "@react-three/drei";
+import {
+  OrbitControls,
+  KeyboardControls,
+  PositionalAudio,
+} from "@react-three/drei";
 import "./WaterPollution.css";
 import NeonFish from "../../figures/waterPollutionScene/NeonFish";
 import { Shark } from "../../figures/waterPollutionScene/Shark";
@@ -29,8 +33,17 @@ import { Physics } from "@react-three/rapier";
 import EventsInfo from "../../components/eventsInfo/EventsInfo";
 import { Crab } from "../../figures/waterPollutionScene/Crab";
 import { Tire } from "../../figures/waterPollutionScene/Tire";
+import PostProcessing from "./postprocessing/PostProcessing";
+
 
 const WaterPollution = () => {
+  const audioRef = useRef();
+
+  const handleAudio = useCallback(() => {
+    audioRef.current.play();
+    audioRef.current.setVolume(5);
+  }, []);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tooltip, setTooltip] = useState({
     visible: false,
@@ -67,9 +80,15 @@ const WaterPollution = () => {
     <div className="water-pollution-container">
       <NavBar />
       <KeyboardControls map={map}>
-        <Canvas shadows camera={cameraSettings}>
+        <Canvas shadows camera={cameraSettings} onClick={handleAudio}>
           <Suspense fallback={<LoaderComponent />}>
-            <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2.5} />
+            <OrbitControls
+              enableZoom={true}
+              maxPolarAngle={Math.PI / 2.5}
+              minDistance={0}
+              maxDistance={20}
+            />
+            <PostProcessing />
             <Ligths />
             <Staging />
             <Physics gravity={[0, 0, 0]}>
@@ -81,7 +100,7 @@ const WaterPollution = () => {
               <Crab
                 scale={6}
                 rotation={[0, 30, 0]}
-                position={[-2.5, 1.8, -6]}
+                position={[0.5, 2.8, 6.8]}
                 onPointerOver={(event) => handleMouseOver(event, "crab")}
                 onPointerOut={handleMouseOut}
               />
@@ -151,6 +170,14 @@ const WaterPollution = () => {
               />
               <Ocean />
             </Physics>
+            <group>
+              <PositionalAudio
+                ref={audioRef}
+                loop
+                url="/sounds/underwater.mp3"
+                distance={5}
+              />
+            </group>
           </Suspense>
         </Canvas>
       </KeyboardControls>

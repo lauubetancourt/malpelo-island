@@ -1,11 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import "./NavBar.css";
 import { useNavigate, Link } from "react-router-dom";
 import useAuthStore from "/src/stores/use-auth-store.js";
 
 const NavBar = () => {
-  const { logout } = useAuthStore();
-
+  const { user, logout } = useAuthStore();
   const navigate = useNavigate();
 
   const handleLogOut = useCallback(async () => {
@@ -50,8 +49,33 @@ const NavBar = () => {
           <li>
             <Link to="/quiz">Quiz</Link>
           </li>
-          <li className="nav-menu-logout">
-            <button onClick={handleLogOut}>Cerrar sesión</button>
+          <li className="nav-dropdown profile">
+            {user && user.photoURL ? (
+              <div className="profile-container">
+                <div className="profile-summary">
+                  <img
+                    src={user.photoURL}
+                    className="profile-picture"
+                  />
+                  <span className="profile-name">{user.displayName}</span>
+                </div>
+                <ul className="dropdown-menu">
+                  <li>
+                    <Link to="#">Mi perfil</Link>
+                  </li>
+                  <li>
+                    <Link onClick={handleLogOut}>Cerrar sesión</Link>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <button
+                className="nav-menu-sign"
+                onClick={() => navigate("/")}
+              >
+                Iniciar sesión
+              </button>
+            )}
           </li>
         </ul>
       </nav>
