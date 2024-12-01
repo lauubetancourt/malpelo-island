@@ -46,32 +46,6 @@
     font-weight: bold;
 }
 
-.nav-menu-logout {
-    margin-left: auto;
-}
-
-.nav-menu-logout button {
-    background-color: var(--color-cornflower-blue);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    font-weight: bold;
-    user-select: none;
-}
-
-.nav-menu-logout button:hover {
-    background-color: var(--color-true-blue);
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-}
-
 .nav-dropdown .dropdown-menu {
     display: none;
     position: absolute;
@@ -111,3 +85,64 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
 }
+
+.nav-menu li.profile {
+    margin-left: auto; 
+    display: flex; 
+}
+
+.nav-dropdown .profile {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.profile-summary {
+    display: flex;
+    align-items: center;
+}
+
+.profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.profile-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.nav-menu-sign {
+    background-color: var(--color-cornflower-blue);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    font-weight: bold;
+    user-select: none;
+}
+
+.nav-menu-sign:hover {
+    background-color: var(--color-true-blue);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+

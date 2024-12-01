@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ContentSection from "../content/contentSection";
 import './Fauna.css'
 
