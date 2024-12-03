@@ -84,6 +84,7 @@ const WaterPollution = () => {
           <Suspense fallback={<LoaderComponent />}>
             <OrbitControls
               enableZoom={true}
+              enablePan={false}
               maxPolarAngle={Math.PI / 2.5}
               minDistance={0}
               maxDistance={20}

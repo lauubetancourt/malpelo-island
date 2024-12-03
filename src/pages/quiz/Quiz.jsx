@@ -1,9 +1,8 @@
 import "./Quiz.css"; 
+import Question from "./waterPollution/Question";
 
 export default function Quiz() {
   return (
-    <div className="title-container">
-      <p>En construcción...</p>
-    </div>
+    <Question/>
   );
 }
