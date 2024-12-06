@@ -38,14 +38,14 @@ const Home = () => {
               image: "/images/home/recycleQuiz.png",
               title: "Contaminación del agua",
               description:
-                "Entra y conoce qué acciones nos ayudarán a mejorar la contaminación en los océanos.",
+                "Conoce qué acciones nos ayudarán a mejorar la contaminación en los océanos",
               action: () => navigate("/quiz-contamination"),
             },
             {
               image: "/images/home/acidificationQuiz.png",
               title: "Acidificación de los océanos",
               description:
-                "Entra y evalúa los conocimientos adquiridos acerca de esta problemática.",
+                "Evalúa los conocimientos adquiridos acerca de esta problemática",
               action: () => navigate("/quiz-acidification"),
             },
           ]}

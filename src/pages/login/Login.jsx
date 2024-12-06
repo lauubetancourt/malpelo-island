@@ -5,55 +5,54 @@ import User from "../../daos/User";
 import { FcGoogle } from "react-icons/fc";
 import "./Login.css";
 
-/**
- * Login component for handling user authentication.
- *
- * This component manages user login through Google authentication, monitors the
- * authentication state, and redirects the user to the Quiz page upon successful login.
- *
- * @component
- */
 export default function Login() {
   const { user, loginGoogleWithPopUp, observeAuthState } = useAuthStore();
-
   const navigate = useNavigate();
 
-  /**
-   * Handles user login using Google pop-up authentication.
-   *
-   * @function
-   */
   const handleLogin = useCallback(() => {
     loginGoogleWithPopUp();
   }, [loginGoogleWithPopUp]);
 
-  /**
-   * Observes the authentication state of the user.
-   *
-   * @function
-   * @useEffect
-   */
   useEffect(() => {
     observeAuthState();
   }, [observeAuthState]);
 
-  /**
-   * Effect hook that runs when the user state changes. If a user is authenticated,
-   * it creates a new user in the database and navigates to the Quiz page.
-   *
-   * @function
-   * @useEffect
-   */
   useEffect(() => {
     if (user) {
-      const newUser = {
-        id: user.uid,
-        email: user.email,
-        name: user.displayName,
-        photo: user.photoURL,
-      };
-      User.createUser(newUser);
-      navigate("/inicio");
+      const userRef = User.getUserById(user.uid);
+
+      // Si el usuario ya existe en la base de datos, no lo creamos de nuevo
+      userRef.then((userData) => {
+        if (!userData.success) {
+          const newUser = {
+            id: user.uid,
+            email: user.email,
+            name: user.displayName,
+            photo: user.photoURL,
+            bestScore: 0,
+            scorePollution: 0,
+            scoreAcidification: 0,
+            timePollution: 0,
+            timeAcidification: 0,
+            ranking: 0,
+          };
+
+          // Crea el usuario si no existe
+          User.createUser(newUser).then(() => {
+            navigate("/inicio");
+          });
+        } else {
+          // Si el usuario ya existe, solo navegamos a la página
+          console.log(
+            "Usuario existente, puntajes:",
+            userData.data.scorePollution,
+            userData.data.scoreAcidification,
+            userData.data.timePollution,
+            userData.data.timeAcidification
+          );
+          navigate("/inicio");
+        }
+      });
     }
   }, [user, navigate]);
 
@@ -65,7 +64,7 @@ export default function Login() {
         <p>¿Estás listo para descubrirlo?</p>
         <p className="login-text">Inicia sesión para continuar</p>
         <button onClick={handleLogin}>
-          <FcGoogle className="google-icon"/>
+          <FcGoogle className="google-icon" />
         </button>
       </div>
     </div>

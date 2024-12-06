@@ -1,5 +1,10 @@
-import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
-import { create } from 'zustand';
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import { create } from "zustand";
 import { auth } from "../../firebase.config";
 import User from "../daos/User";
 const provider = new GoogleAuthProvider();
@@ -24,6 +29,12 @@ const useAuthStore = create(
               email: user.email,
               name: user.displayName,
               photo: user.photoURL,
+              bestScore: 0,
+              scorePollution: 0,
+              scoreAcidification: 0,
+              timePollution: 0,
+              timeAcidification: 0,
+              ranking: 0,
             });
           }
 
@@ -55,7 +66,7 @@ const useAuthStore = create(
       },
     }),
     {
-      name: "auth-storage", 
+      name: "auth-storage",
       getStorage: () => localStorage,
     }
   )

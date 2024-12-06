@@ -46,3 +46,28 @@ export const useProblemsContent = () => {
 
   return problemsContent;
 };
+
+export const useQuizContent = () => {
+  const navigate = useNavigate();
+
+  const QuizContent = [
+    {
+      image: "/images/home/quiz.png",
+      title: "Quiz",
+      description:
+        "Demuestra tu aprendizaje sobre la Isla Malpelo y las problemáticas ambientales",
+      action: () => navigate("/quiz"),
+    },
+    {
+      image: "/images/home/ranking.png",
+      title: "Ranking",
+      description:
+        "Descubre el top 10 de jugadores con los mejores puntajes y compite para liderar la tabla",
+      action: () => navigate("#"),
+    },
+  ];
+
+  return QuizContent;
+};
+
+
