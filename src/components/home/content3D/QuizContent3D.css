@@ -1,0 +1,27 @@
+.quiz-experience-section {
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: space-between; */
+  text-align: center;
+  padding: 0; /* Cambiar de 40px a 0 para eliminar el relleno */
+  margin-top: 0; /* También, elimina el margen superior si es necesario */
+}
+
+
+.quiz-experience-container {
+  height: 100%;
+  scroll-snap-align: center;
+  width: 100%; /* Asegúrate de que el contenedor se ajuste al 100% de su espacio */
+}
+
+.canvas-container {
+  width: 120px; 
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0; /* Elimina el margen si hay alguno */
+  border: none; /* Asegúrate de que no haya borde */
+}

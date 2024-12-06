@@ -1,6 +1,6 @@
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useCallback, useMemo, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Loader, KeyboardControls } from "@react-three/drei";
+import { OrbitControls, Loader, KeyboardControls, PositionalAudio } from "@react-three/drei";
 import "./Acidification.css";
 import Button from "../../components/button/Button";
 import Modal from "../../components/modal/Modal";
@@ -20,9 +20,16 @@ import Tooltip from "../../components/tooltip/ToolTip";
 import NavBar from "../../components/navbar/NavBar";
 import { Physics } from "@react-three/rapier";
 import EventsInfo from "../../components/eventsInfo/EventsInfo";
+import PostProcessing from "./postprocessing/PostProcessing";
 
 const Acidification = () => {
   const navigate = useNavigate();
+  const soundRef = useRef();
+
+  const handleAudio = useCallback(() => {
+    soundRef.current.play();
+    soundRef.current.setVolume(3.5);
+  }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -65,10 +72,11 @@ const Acidification = () => {
     <div className="acidification-container">
     <NavBar/>
       <KeyboardControls map={map}>
-        <Canvas camera={cameraSettings} shadows={true}>
+        <Canvas camera={cameraSettings} shadows={true} onClick={handleAudio}>
           <Suspense fallback={<LoaderComponent />}>
             <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2.5} />
             <Bubbles />
+            <PostProcessing />
             <Ligths />
             <Physics gravity={[0, 0, 0]}>
               <Turtle
@@ -110,6 +118,14 @@ const Acidification = () => {
 
               <Ocean />
             </Physics>
+            <group>
+              <PositionalAudio 
+                ref={soundRef} 
+                loop 
+                url="/sounds/bubbles.mp3" 
+                distance={5}
+              />
+            </group>
           </Suspense>
         </Canvas>
       </KeyboardControls>
