@@ -46,22 +46,32 @@ const NavBar = () => {
               </li>
             </ul>
           </li>
-          <li>
-            <Link to="/quiz">Quiz</Link>
+          <li className="nav-dropdown">
+            <Link to="#">Quiz</Link>
+            <ul className="dropdown-menu">
+              <li>
+                <Link to="/quiz">Pruebas</Link>
+              </li>
+              <li>
+                <Link to="#">
+                  Ranking
+                </Link>
+              </li>
+            </ul>
           </li>
           <li className="nav-dropdown profile">
             {user && user.photoURL ? (
-              <div className="profile-container">
-                <div className="profile-summary">
+              <div className="navbar-profile-container">
+                <div className="navbar-profile-summary">
                   <img
                     src={user.photoURL}
-                    className="profile-picture"
+                    className="navbar-profile-picture"
                   />
-                  <span className="profile-name">{user.displayName}</span>
+                  <span className="navbar-profile-name">{user.displayName}</span>
                 </div>
                 <ul className="dropdown-menu">
                   <li>
-                    <Link to="#">Mi perfil</Link>
+                    <Link to="/perfil">Mi perfil</Link>
                   </li>
                   <li>
                     <Link onClick={handleLogOut}>Cerrar sesión</Link>

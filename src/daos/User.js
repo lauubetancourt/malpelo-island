@@ -64,17 +64,24 @@ class User {
    * 
    * @param {string} id - The ID of the user to be updated.
    * @param {Object} userData - The updated user data.
-   * @returns {void}
-   * 
-   * If an error occurs during the update process, it logs the error.
+   * @returns {Object} - An object indicating whether the update was successful or not.
    */
   async updateUser(id, userData) {
+    if (!id || !userData) {
+      return { success: false, error: "ID or user data is missing." };
+    }
+
     try {
       const userRef = doc(this.collectionRef, id);
+
+      // Perform the update
       await updateDoc(userRef, userData);
+
       console.log("Document successfully updated!");
+      return { success: true, message: "User updated successfully." };
     } catch (error) {
       console.error("Error updating document: ", error);
+      return { success: false, error: error.message };
     }
   }
 

@@ -13,7 +13,6 @@ export function Stingray(props) {
     return () => actions[currentAction]?.fadeOut(0.05).stop();
   }, [actions, currentAction]);
 
-  console.log(actions)
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Sketchfab_Scene">

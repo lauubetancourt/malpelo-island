@@ -13,6 +13,7 @@ import Curious from './pages/exploration/Curious.jsx';
 import FaunaPage from './pages/exploration/FaunaPage.jsx';
 import FloraPage from './pages/exploration/FloraPage.jsx';
 import Quiz from './pages/quiz/Quiz.jsx';
+import Profile from './pages/profile/Profile.jsx';
 
 /**
  * Creates a router with defined routes for the application.
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
   {
     path: "/datos-curiosos",
     element: <Curious/>
+  },
+  {
+    path: "/perfil",
+    element: <Profile/>
   },
 ]);
 

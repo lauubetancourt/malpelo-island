@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../../components/navbar/NavBar";
 import ContentSection from "../../components/home/content/ContentSection";
 import Footer from "../../components/home/footer/Footer.jsx";
-import { useIslandContent, useProblemsContent } from "./content.jsx";
+import {
+  useIslandContent,
+  useProblemsContent,
+  useQuizContent,
+} from "./content.jsx";
 import Content3D from "../../components/home/content3D/Content3D.jsx";
 import StingrayComponent from "../../components/home/content3D/StingrayComponent.jsx";
 import QuestionBoxComponent from "../../components/home/content3D/QuestionBoxComponent.jsx";
@@ -14,6 +18,7 @@ const Home = () => {
   const navigate = useNavigate();
   const IslandContent = useIslandContent();
   const ProblemsContent = useProblemsContent();
+  const QuizContent = useQuizContent();
 
   return (
     <>
@@ -63,17 +68,7 @@ const Home = () => {
         model={<QuestionBoxComponent />}
       />
 
-      <ContentSection
-        content={[
-          {
-            image: "/images/home/quiz.png",
-            title: "Quiz",
-            description:
-              "Demuestra tu aprendizaje sobre la Isla Malpelo y las problemáticas ambientales",
-            action: () => navigate("/quiz"),
-          },
-        ]}
-      />
+      <ContentSection content={QuizContent} />
 
       <Footer bgcolor={"#486ECA"} color={"white"} />
     </>

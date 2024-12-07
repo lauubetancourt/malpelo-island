@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { RecyclingBin } from "../../../figures/waterPollutionQuiz/RecyclingBin";
 import { PlasticBottle } from "../../../figures/waterPollutionQuiz/PlasticBottle";
 import { Apple } from "../../../figures/waterPollutionQuiz/Apple";
-import { Suspense, useCallback, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { Banana } from "../../../figures/waterPollutionQuiz/Banana";
 import { Chips } from "../../../figures/waterPollutionQuiz/Chips";
 import { CoffeeCup } from "../../../figures/waterPollutionQuiz/CoffeeCup";
@@ -15,20 +15,21 @@ import Swal from "sweetalert2"; // Importa SweetAlert2
 import EventsInfo from "../../../components/eventsInfo/EventsInfo";
 import LoaderComponent from "../../waterPollution/loader/LoaderComponent";
 import NavBar from "../../../components/navbar/NavBar";
-import {
-  cameraSettings,
-  mouseControls,
-  keyControls,
-  recyclingRules,
-  names,
-} from "./content";
+import { cameraSettings, mouseControls, keyControls, recyclingRules, names } from "./content";
 import Staging from "./Staging";
 import Lights from "./Lights";
+import { getDoc, doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../../firebase.config";
+import useAuthStore from "/src/stores/use-auth-store.js";
+import { useNavigate } from "react-router-dom";
 
 const Question = () => {
+  const navigate = useNavigate();
+  const { user } = useAuthStore();
   const incorrectAudioRef = useRef();
   const correctAudioRef = useRef();
   const [selectedObject, setSelectedObject] = useState(null);
+  const [timeInterval, setTimeInterval] = useState(null);
   const [visibleObjects, setVisibleObjects] = useState({
     PlasticBottle: true,
     Apple: true,
@@ -40,6 +41,116 @@ const Question = () => {
     Can: true,
     Eggs: true,
   });
+  const [score, setScore] = useState(0);
+  const [startTime, setStartTime] = useState(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
+
+  // Comienza el temporizador cuando el componente se monta
+  useEffect(() => {
+    if (user) {
+      setStartTime(Date.now()); // Establece la hora de inicio
+    }
+  }, [user]);
+
+  // Calcula el tiempo transcurrido
+  useEffect(() => {
+    let interval;
+    if (startTime) {
+      interval = setInterval(() => {
+        setElapsedTime(Math.floor((Date.now() - startTime) / 1000)); // Calcula el tiempo en segundos
+      }, 1000); // Actualiza cada segundo
+      setTimeInterval(interval); // Guarda el intervalo para usarlo más tarde
+    }
+    return () => clearInterval(interval); // Limpiar el intervalo al desmontar el componente
+  }, [startTime]);
+
+  useEffect(() => {
+    const remainingObjects = Object.values(visibleObjects).filter(
+      (value) => value === true
+    );
+
+    if (remainingObjects.length === 0) {
+      // Detener el intervalo cuando se han reciclado todos los objetos
+      clearInterval(timeInterval);
+
+      // Verificar si el puntaje final es mayor que el almacenado
+      const updateScoreIfBetter = async () => {
+        if (user) {
+          const userRef = doc(db, "users", user.uid);
+          const userSnap = await getDoc(userRef);
+
+          if (userSnap.exists()) {
+            const currentScore = userSnap.data().scorePollution || 0;
+            const currentTime = userSnap.data().timePollution || 0;
+
+            if (score > currentScore) {
+              await updateDoc(userRef, {
+                scorePollution: score,
+                timePollution: elapsedTime,
+              });
+
+              Swal.fire({
+                title: "¡Felicidades!",
+                text: `¡Has mejorado tu puntaje! Tu puntaje final es ${score} con tiempo total de ${elapsedTime} segundos.`,
+                icon: "success",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  navigate("/quiz");
+                }
+              });
+            } else {
+              Swal.fire({
+                title: "Prueba terminada",
+                text: `Has completado la prueba. Sin embargo, no mejoraste tu puntaje. Tu puntaje se mantiene en ${currentScore} con tiempo total de ${currentTime} segundos.`,
+                icon: "error",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  navigate("/quiz");
+                }
+              });
+            }
+          }
+        }
+      };
+      updateScoreIfBetter();
+    }
+  }, [visibleObjects, score, elapsedTime, timeInterval, user, navigate]);
+
+  const handleCorrectRecycle = async () => {
+    if (selectedObject) {
+      const newScore = score + 5;
+
+      setScore(newScore); // Actualiza el estado local de puntaje
+      Swal.fire({
+        title: "¡Éxito!",
+        text: `${names[selectedObject]} correctamente reciclado. Tu puntaje es ahora ${newScore}.`,
+        icon: "success",
+      });
+      setVisibleObjects((prev) => ({
+        ...prev,
+        [selectedObject]: false,
+      }));
+      setSelectedObject(null);
+    }
+  };
+
+  const handleIncorrectRecycle = async () => {
+    if (selectedObject) {
+      const newScore = score - 5;
+
+      setScore(newScore); // Actualiza el estado local de puntaje
+      Swal.fire({
+        title: "¡Error!",
+        text: `${names[selectedObject]} no pertenece a este contenedor. Tu puntaje es ahora ${newScore}.`,
+        icon: "error",
+      });
+      setVisibleObjects((prev) => ({
+        ...prev,
+        [selectedObject]: false,
+      }));
+      setSelectedObject(null);
+    }
+  };
 
   const handleClick = (e) => {
     const clickedName = e.object.name;
@@ -57,23 +168,10 @@ const Question = () => {
     ) {
       const correctBin = recyclingRules[selectedObject];
       if (clickedName === correctBin) {
-        Swal.fire({
-          title: "¡Éxito!",
-          text: `${names[selectedObject]} correctamente reciclado.`,
-          icon: "success",
-        });
+        handleCorrectRecycle();
         handleCorrectAudio();
-        setVisibleObjects((prev) => ({
-          ...prev,
-          [selectedObject]: false,
-        }));
-        setSelectedObject(null);
       } else {
-        Swal.fire({
-          title: "¡Error!",
-          text: `${names[selectedObject]} no pertenece a este contenedor.`,
-          icon: "error",
-        });
+        handleIncorrectRecycle();
         handleIncorrectAudio();
       }
     } else if (Object.values(recyclingRules).includes(clickedName)) {
