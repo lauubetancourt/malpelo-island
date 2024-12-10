@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../components/navbar/NavBar";
-import ContentSection from "../../components/home/content/QuizContent.jsx";
+import QuizContent from "../../components/home/content/QuizContent.jsx";
 import Footer from "../../components/home/footer/Footer.jsx";
 import "./Quiz.css"; 
 import QuizContent3D from "../../components/home/content3D/QuizContent3D.jsx";
@@ -24,15 +24,13 @@ const Home = () => {
         <div className="quiz-content-item">
           <QuizContent3D
             model={<NumberOneComponent />}
-            description="¡Descubre la Isla Malpelo!"
           />
           <QuizContent3D
             model={<NumberTwoComponent />}
-            description="¡Descubre la Isla Malpelo!"
           />
         </div>
 
-        <ContentSection
+        <QuizContent
           content={[
             {
               image: "/images/home/recycleQuiz.png",

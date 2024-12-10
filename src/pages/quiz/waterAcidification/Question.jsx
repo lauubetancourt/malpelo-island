@@ -166,8 +166,8 @@ const Question = () => {
         )}
 
         {allBleachedCoralsFound && !scoreImproved && (
-          <div className="modal">
-            <div className="modal-content">
+          <div className="modal-desing">
+            <div className="modal-container">
               <h2>¡Prueba terminada!</h2>
               <p>
                 Has completado la prueba. Sin embargo, no mejoraste tu puntaje.
@@ -178,8 +178,8 @@ const Question = () => {
         )}
 
         {allBleachedCoralsFound && scoreImproved && (
-          <div className="modal">
-            <div className="modal-content">
+          <div className="modal-desing">
+            <div className="modal-container">
               <h2>¡Felicitaciones!</h2>
               <p>Has podido salvar la flora de la Isla Malpelo.</p>
               <p>

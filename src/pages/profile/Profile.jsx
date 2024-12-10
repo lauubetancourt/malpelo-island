@@ -23,7 +23,6 @@ const Profile = () => {
     }
   }, [user]);
 
-  console.log(user.photoURL)
 
   return (
     <>
