@@ -1,0 +1,108 @@
+.game-background {
+  background: linear-gradient(135deg, #ffffff, #89cfff, #003abc);
+  min-height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
+  display: flex;
+  flex-direction: column;
+}
+
+
+.description-container {
+  display: flex;
+  justify-content: center;
+}
+
+.quiz-description {
+  background-color: #003ABC;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  border-radius: 8px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 4rem;
+  left: 1rem;
+  
+}
+
+.canvas {
+  width: 70%; 
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quiz-information {
+  width: 600px; /* Ancho fijo */
+  height: auto; /* Altura automática para adaptarse al contenido */
+  border: 2px solid rgb(72, 110, 202);
+  background: rgba(255, 255, 255, 0.6); /* Azul transparente con opacidad */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; /* Bordes redondeados */
+  display: flex; /* Habilitar flexbox */
+  flex-direction: column; /* Colocar elementos en columna */
+  justify-content: center; /* Centrar verticalmente el contenido */
+  align-items: center; /* Centrar horizontalmente el contenido */
+  font-size: 1.2rem; /* Tamaño de fuente */
+  font-weight: bold; /* Texto en negrita */
+  position: fixed; /* Fijo en la pantalla */
+  top: 55%; /* Posición vertical */
+  left: 80%; /* Posición horizontal */
+  transform: translate(-50%, -50%); /* Centrar completamente */
+  padding: 10px; /* Añadir espacio interno */
+  text-align: center; /* Centrar texto */
+}
+
+.time-score {
+  display: flex; /* Habilitar diseño en fila */
+  justify-content: space-between; /* Separar elementos horizontalmente */
+  width: 100%; /* Tomar todo el ancho disponible */
+  margin-top: 10px; /* Separar del contenido superior */
+  padding: 5px; /* Espaciado interno */
+}
+
+.time-box, .score-box {
+  flex: 1; /* Dividir el espacio equitativamente */
+  border: 2px solid rgb(72, 110, 202); /* Bordes para cada caja */
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #fff; /* Fondo blanco */
+  color: #003ABC; /* Color de texto */
+  font-size: 1rem; /* Tamaño de fuente ajustado */
+  padding: 5px; /* Espaciado interno */
+  text-align: center; /* Centrar texto */
+  margin: 0 5px; /* Espaciado entre las cajas */
+}
+
+.modal {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 80%);
+  background: white; /* Azul transparente con opacidad */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 10px 12px rgba(1, 1, 1, 0.10);
+  z-index: 1000;
+  text-align: center;
+}
+
+.modal-content h2 {
+  color: rgb(173, 30, 30);
+  margin-bottom: 10px;
+}
+
+.modal-content button {
+  padding: 10px 20px;
+  background-color: #003abc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 32%;
+  margin-top: 1rem;
+}
+
+.modal-content button:hover {
+  background-color: #0056f2;
+}
+
