@@ -14,6 +14,7 @@ import FaunaPage from './pages/exploration/FaunaPage.jsx';
 import FloraPage from './pages/exploration/FloraPage.jsx';
 import Quiz from './pages/quiz/Quiz.jsx';
 import Profile from './pages/profile/Profile.jsx';
+import Ranking from './pages/ranking/Ranking.jsx';
 
 /**
  * Creates a router with defined routes for the application.
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
   {
     path: "/perfil",
     element: <Profile/>
+  },
+  {
+    path: "/ranking",
+    element: <Ranking/>
   },
 ]);
 

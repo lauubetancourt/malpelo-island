@@ -53,7 +53,7 @@ const NavBar = () => {
                 <Link to="/quiz">Pruebas</Link>
               </li>
               <li>
-                <Link to="#">
+                <Link to="/ranking">
                   Ranking
                 </Link>
               </li>

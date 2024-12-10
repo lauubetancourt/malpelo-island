@@ -62,8 +62,8 @@ export const useQuizContent = () => {
       image: "/images/home/ranking.png",
       title: "Ranking",
       description:
-        "Descubre el top 10 de jugadores con los mejores puntajes y compite para liderar la tabla",
-      action: () => navigate("#"),
+        "Descubre el top 5 de usuarios con los mejores puntajes y compite para liderar la tabla",
+      action: () => navigate("/ranking"),
     },
   ];
 
