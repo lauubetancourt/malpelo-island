@@ -5,8 +5,15 @@ import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Ocean } from "../../../figures/waterAcidificationQuiz/Ocean";
 import PostProcessing from "../../acidification/postprocessing/PostProcessing";
 import "./Question.css";
+import { getDoc, doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../../firebase.config";
+import useAuthStore from "/src/stores/use-auth-store.js";
+import { useNavigate } from "react-router-dom";
 
 const Question = () => {
+  const { user } = useAuthStore();
+  const navigate = useNavigate();
+  const [scoreImproved, setScoreImproved] = useState(false);
   const [score, setScore] = useState(0); // Puntaje del jugador
   const [timeLeft, setTimeLeft] = useState(60); // 60 segundos para encontrar los corales blanqueados
   const [gameOver, setGameOver] = useState(false); // Indicador de fin del juego
@@ -46,7 +53,11 @@ const Question = () => {
       setSelectedBleachedCorals((prev) => [...prev, coralId]); // Agregar coral seleccionado
     } else if (coralState === "healthy") {
       setScore((prevScore) => Math.max(0, prevScore - 5)); // Restar 5 puntos si el coral está sano
-      alert("¡Este coral está sano!"); // Muestra un mensaje si el coral es sano
+      Swal.fire({
+        title: "¡Cuidado!",
+        text: `Este coral está sano.`,
+        icon: "info",
+      });
     }
   };
 
@@ -59,14 +70,40 @@ const Question = () => {
     setAllBleachedCoralsFound(false); // Reiniciar la verificación
   };
 
+  useEffect(() => {
+    if (!gameOver && !allBleachedCoralsFound) return;
+
+    const updateScoreIfBetter = async () => {
+      if (user) {
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          const currentScore = userSnap.data().scoreAcidification || 0;
+
+          if (score > currentScore) {
+            await updateDoc(userRef, {
+              scoreAcidification: score,
+              timeAcidification: 60 - timeLeft,
+            });
+            setScoreImproved(true);
+          }
+        }
+      }
+    };
+
+    updateScoreIfBetter();
+  }, [gameOver, allBleachedCoralsFound, score, timeLeft, user, navigate]);
+
   return (
-  <>
-    <div className="game-background">
-      <NavBar />
+    <>
+      <div className="game-background">
+        <NavBar />
 
         <div className="description-container">
           <h1 className="quiz-description">
-            ¡Encuentra los corales que están siendo afectados por la acidificación!
+            ¡Encuentra los corales que están siendo afectados por la
+            acidificación!
           </h1>
         </div>
 
@@ -117,31 +154,44 @@ const Question = () => {
           </div>
         </div>
 
-      {gameOver && !allBleachedCoralsFound && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>¡Has perdido!</h2>
-            <p>El reloj ha terminado.</p>
-            <p>Tu puntaje es: {score}</p>
-            <button onClick={handleRetry}>Volver a Intentarlo</button>
+        {gameOver && !allBleachedCoralsFound && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>¡Has perdido!</h2>
+              <p>El reloj ha terminado.</p>
+              <p>Tu puntaje es: {score}</p>
+              <button onClick={handleRetry}>Volver a Intentarlo</button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {allBleachedCoralsFound && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>¡Felicitaciones!</h2>
-            <p>Has podido salvar la flora de la Isla Malpelo.</p>
-            <p>Tu puntaje es: {score}</p>
-            <button onClick={handleRetry}>Volver a Intentarlo</button>
+        {allBleachedCoralsFound && !scoreImproved && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>¡Prueba terminada!</h2>
+              <p>
+                Has completado la prueba. Sin embargo, no mejoraste tu puntaje.
+              </p>
+              <button onClick={handleRetry}>Volver a Intentarlo</button>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
-  </>
-);
+        )}
 
+        {allBleachedCoralsFound && scoreImproved && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>¡Felicitaciones!</h2>
+              <p>Has podido salvar la flora de la Isla Malpelo.</p>
+              <p>
+                ¡Has mejorado tu puntaje! Tu puntaje final es {score}.
+              </p>
+              <button onClick={handleRetry}>Volver a Intentarlo</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default Question;
