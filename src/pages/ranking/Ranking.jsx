@@ -45,8 +45,7 @@ const Ranking = () => {
       // Tomar los 5 mejores
       return players.slice(0, 5);
     } catch (error) {
-      console.error("Error al obtener los jugadores:", error);
-      return [];
+        return [];
     }
   };
 

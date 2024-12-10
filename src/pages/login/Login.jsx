@@ -42,15 +42,7 @@ export default function Login() {
             navigate("/inicio");
           });
         } else {
-          // Si el usuario ya existe, solo navegamos a la página
-          console.log(
-            "Usuario existente, puntajes:",
-            userData.data.scorePollution,
-            userData.data.scoreAcidification,
-            userData.data.timePollution,
-            userData.data.timeAcidification
-          );
-          navigate("/inicio");
+            navigate("/inicio");
         }
       });
     }

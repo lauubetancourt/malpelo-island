@@ -74,7 +74,7 @@
   margin: 0 5px; /* Espaciado entre las cajas */
 }
 
-.modal {
+.modal-desing {
   position: fixed;
   left: 50%;
   transform: translate(-50%, 80%);
@@ -86,12 +86,12 @@
   text-align: center;
 }
 
-.modal-content h2 {
+.modal-container h2 {
   color: rgb(173, 30, 30);
   margin-bottom: 10px;
 }
 
-.modal-content button {
+.modal-container button {
   padding: 10px 20px;
   background-color: #003abc;
   color: white;
@@ -102,7 +102,7 @@
   margin-top: 1rem;
 }
 
-.modal-content button:hover {
+.modal-container button:hover {
   background-color: #0056f2;
 }
 

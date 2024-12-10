@@ -36,7 +36,6 @@ export function Turtle(props) {
     setSpeed(speed * -1)
     setRotation(rotation - Math.PI)
     group.current.rotation.y = rotation;
-    console.log(group.current.rotation.y)
   }
 
 
