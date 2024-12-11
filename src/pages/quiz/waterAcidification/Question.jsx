@@ -155,8 +155,8 @@ const Question = () => {
         </div>
 
         {gameOver && !allBleachedCoralsFound && (
-          <div className="modal">
-            <div className="modal-content">
+          <div className="modal-desing">
+            <div className="modal-container">
               <h2>¡Has perdido!</h2>
               <p>El reloj ha terminado.</p>
               <p>Tu puntaje es: {score}</p>
