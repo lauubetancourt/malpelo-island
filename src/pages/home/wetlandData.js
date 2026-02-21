@@ -220,6 +220,11 @@ export const tgsPrinciples = {
         "La presencia de comunidades especializadas de aves es una propiedad emergente del sistema. Especies como el colibrí cienaguero es endémica de esta zona. Esta especie no existiría si no interactuaran de manera acoplada el manglar, la disponibilidad de nutrientes, la productividad del fitoplancton y la estructura hidrológica del sistema.",
     },
     {
+      title: "Entropía",
+      description:
+        "La entropía es la tendencia natural de un sistema a perder organización sin energía externa. En la Ciénaga, sin luz solar las algas no realizarían fotosíntesis, el zooplancton no tendría alimento, los peces disminuirían y la red trófica colapsaría progresivamente.",
+    },
+    {
       title: "Neguentropía",
       description:
         "Como sistema abierto, la Ciénaga importa energía solar y nutrientes fluviales que le permiten mantener organización frente a la tendencia al desorden. Sin flujo de energía y materia, el sistema tendería a simplificarse y perder estructura biológica.",
@@ -233,6 +238,21 @@ export const tgsPrinciples = {
       title: "Sinergia",
       description:
         "La interacción entre procesos físicos (mezcla), químicos (nutrientes) y biológicos (plancton) produce una productividad mayor que la suma de los procesos individuales.",
+    },
+    {
+      title: "Resiliencia",
+      description:
+        "A pesar de décadas de desvío de cauces, construcción de infraestructura vial, alteración de flujos y sobreexplotación pesquera, la Ciénaga ha mostrado capacidad de recuperación parcial natural. Pese a todas estas intervenciones, sigue siendo un ecosistema donde hay vida.",
+    },
+    {
+      title: "Adaptación",
+      description:
+        "La flora de la Ciénaga ha desarrollado características para sobrevivir en condiciones de baja profundidad, variabilidad salina y bajos niveles de oxígeno. Plantas halófitas toleran altas concentraciones de sal, mientras que especies subacuáticas y raíces especializadas soportan suelos anóxicos e inestables.",
+    },
+    {
+      title: "Equifinalidad",
+      description:
+        "El equilibrio ecológico de la Ciénaga puede restablecerse por distintas vías: mayor aporte de agua dulce en lluvias o menor evaporación por cambios estacionales. Aunque los mecanismos difieran, ambos conducen al mismo resultado: la recuperación del equilibrio dinámico del ecosistema.",
     },
   ],
 };
