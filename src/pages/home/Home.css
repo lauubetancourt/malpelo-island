@@ -50,8 +50,10 @@ html {
 }
 
 .home-imagery_welcome-text {
-    top: 30%;
-    font-size: 2vw;
+    top: 28%;
+    font-size: 1.6vw;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 }
 
 .home-imagery_island-text {
@@ -61,7 +63,8 @@ html {
 
 .home-imagery_location-text {
     top: 55%;
-    font-size: 2vw;
+    font-size: 1.5vw;
+    font-style: italic;
 }
 
 .home-imagery_location-icon {
