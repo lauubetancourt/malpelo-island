@@ -27,7 +27,7 @@ import Ranking from './pages/ranking/Ranking.jsx';
  */
 const router = createBrowserRouter([
   {
-    path: "/inicio",
+    path: "/",
     element: <Home/>
   },
   {
