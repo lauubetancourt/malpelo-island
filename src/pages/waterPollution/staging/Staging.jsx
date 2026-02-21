@@ -3,19 +3,15 @@ import { Sparkles } from "@react-three/drei";
 const Staging = () => {
   return (
     <>
+      <color attach="background" args={["#1f3318"]} />
+      <fog attach="fog" args={["#1f3318", 5, 50]} />
       <Sparkles
-        /** Number of particles (default: 100) */
-        count={200}
-        /** Speed of particles (default: 1) */
-        //   speed={1.5}
-        /** Opacity of particles (default: 1) */
-        opacity={0.5}
-        /** Color of particles (default: 100) */
-        color="#486ECA"
-        /** Size of particles (default: randomized between 0 and 1) */
-        size={20}
-        /** The space the particles occupy (default: 1) */
-        scale={30}
+        count={800}
+        scale={[40, 15, 40]}
+        size={3}
+        speed={0.2}
+        opacity={0.2}
+        color="#a4b587"
       />
     </>
   );

@@ -28,7 +28,7 @@ import Ranking from './pages/ranking/Ranking.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login/>
+    element: <WaterPollution/>
   },
   {
     path: "/quiz-contamination",

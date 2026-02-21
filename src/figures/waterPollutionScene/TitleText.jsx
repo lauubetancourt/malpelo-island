@@ -15,8 +15,15 @@ const TitleText = () => {
           size={1}
           rotation={[0, 30, 0]}
         >
-          {`Contaminación \n    del agua`}
-          <meshStandardMaterial color="#FF1493"/>
+          {`Ciénaga Grande de \n    Santa Marta`}
+          <meshStandardMaterial
+            color="#FFD100"
+            emissive="#FFD100"
+            emissiveIntensity={
+              0.5
+            } /* Ajusta entre 0.2 y 0.8 para que "brille" ligeramente */
+            toneMapped={false}
+          />
         </Text3D>
       </Center>
     </>

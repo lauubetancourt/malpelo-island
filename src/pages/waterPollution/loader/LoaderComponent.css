@@ -1,14 +1,14 @@
-/* LoaderComponent.css */
+/* LoaderComponent.css - Temática Ciénaga */
 
 .loader-main-container {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;   /* Cambiado de 100vw a 100% */
+    height: 100%;  /* Cambiado de 100vh a 100% */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: linear-gradient(to bottom, #0077be, #001f3f);
-    color: #ffffff;
+    background: linear-gradient(to bottom, #2c4a1f, #0d170b) !important;
+    color: #e6eed8; 
 }
 
 .loader-controls-container {
@@ -16,7 +16,6 @@
     align-items: center;
     gap: 50px;
     padding: 20px;
-    color: #ffffff;
     text-align: center;
 }
 
@@ -25,60 +24,63 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(255, 255, 255, 0.1);
+    /* Fondo oscuro translúcido imitando agua turbia */
+    background: rgba(18, 33, 13, 0.6);
+    /* Borde sutil color musgo */
+    border: 1px solid #4a7c29;
     padding: 20px;
     border-radius: 10px;
     width: 300px; 
     height: 220px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
+    /* Sombra pesada para dar sensación de profundidad */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto hover interactivo: se levantan sutilmente y emiten un brillo tenue */
+.loader-keys:hover,
+.loader-mouse:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.8), 0 0 15px rgba(74, 124, 41, 0.3); 
 }
 
 .loader-keys h2,
 .loader-mouse h2 {
     font-size: 22px;
     margin: 10px 10px;
+    color: #b5c78f; /* Verde alga claro para destacar los títulos */
 }
 
 .loader-mouse img {
     margin-top: 10px;
     width: 110px;
     height: auto;
-    filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.6));
+    /* Sombra adaptada a los tonos del fondo */
+    filter: drop-shadow(0px 4px 8px rgba(10, 20, 5, 0.8));
 }
 
 .loader-keys img {
     margin-top: 20px;
     width: 200px;
     height: auto;
-    filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.6));
+    filter: drop-shadow(0px 4px 8px rgba(10, 20, 5, 0.8));
 }
 
 .loader-loading {
     font-size: 24px;
-    color: #ffffff;
+    color: #b5c78f; /* Texto en verde claro */
     margin-top: 60px;
+    letter-spacing: 2px;
 }
 
 .loader-loading::after {
     content: '...';
     display: inline-block;
-    animation: dots 1s steps(3, end) infinite;
+    animation: dots 1.5s steps(3, end) infinite;
 }
 
 @keyframes dots {
-
-    0%,
-    20% {
-        content: '.';
-    }
-
-    40% {
-        content: '..';
-    }
-
-    60%,
-    100% {
-        content: '...';
-    }
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60%, 100% { content: '...'; }
 }

@@ -4,21 +4,17 @@ import "./LoaderComponent.css";
 
 const LoaderComponent = () => {
   return (
-    <Html center>
+    // Cambiamos "center" por "fullscreen"
+    <Html fullscreen>
       <div className="loader-main-container">
         <div className="loader-controls-container">
           <div className="loader-mouse">
-            <h2>Controles de mouse</h2>
-            <p>Mantén presionado para navegar</p>
-            <img src="/images/loader/mouse.webp" />
-          </div>
-          <div className="loader-keys">
-            <h2>Controles de teclado</h2>
-            <p>Descubre las diferentes interacciones con teclado</p>
-            <img src="/images/loader/keyboard.webp" />
+            <h2>Navegación</h2>
+            <p>Mantén presionado para observar a tu alrededor</p>
+            <img src="/images/loader/mouse.webp" alt="Controles de mouse" />
           </div>
         </div>
-        <p className="loader-loading">Cargando</p>
+        <p className="loader-loading">Sumergiéndose en la Ciénaga</p>
       </div>
     </Html>
   );
