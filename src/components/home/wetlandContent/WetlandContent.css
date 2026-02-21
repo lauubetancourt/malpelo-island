@@ -1,15 +1,15 @@
 /* ===== WETLAND CONTENT SECTION ===== */
 .wetland-section {
     padding: 60px 20px;
-    background-color: #f8fafb;
+    background-color: #f4f1eb;
 }
 
 .wetland-section.wetland-section--white {
-    background-color: #ffffff;
+    background-color: #faf9f6;
 }
 
 .wetland-section.wetland-section--light-blue {
-    background-color: #eef4fb;
+    background-color: #e6efe8;
 }
 
 .wetland-section__container {
@@ -21,7 +21,7 @@
     font-family: var(--font-family-secondary);
     font-weight: var(--font-weight-bold);
     font-size: 2.2rem;
-    color: var(--color-true-blue);
+    color: var(--color-dark-green);
     text-align: center;
     margin-bottom: 12px;
 }
@@ -46,8 +46,8 @@
 
 /* ===== HIGHLIGHT BOX ===== */
 .wetland-highlight {
-    background: linear-gradient(135deg, #e8f0fe, #d4e4fc);
-    border-left: 5px solid var(--color-cornflower-blue);
+    background: linear-gradient(135deg, #dce8d8, #c5d9c0);
+    border-left: 5px solid var(--color-swamp-green);
     border-radius: 8px;
     padding: 24px 28px;
     margin: 30px 0;
@@ -57,7 +57,7 @@
     font-family: var(--font-family-primary);
     font-size: 1.08rem;
     line-height: 1.75;
-    color: #1a3a6a;
+    color: #1B4332;
     font-weight: var(--font-weight-medium);
 }
 
@@ -93,7 +93,7 @@
     font-family: var(--font-family-secondary);
     font-weight: var(--font-weight-bold);
     font-size: 1.2rem;
-    color: var(--color-cerulean-blue);
+    color: var(--color-dark-green);
     margin-bottom: 10px;
 }
 
@@ -124,7 +124,7 @@
 }
 
 .wetland-item__bullet {
-    color: var(--color-cornflower-blue);
+    color: var(--color-swamp-green);
     font-size: 0.7rem;
     margin-top: 6px;
     flex-shrink: 0;
@@ -139,7 +139,7 @@
 }
 
 .wetland-item__bold {
-    color: var(--color-cerulean-blue);
+    color: var(--color-dark-green);
 }
 
 /* ===== SUBSYSTEMS GRID ===== */
@@ -151,7 +151,7 @@
 }
 
 .wetland-subsystem-card {
-    background: linear-gradient(135deg, #0077be, #001f3f);
+    background: linear-gradient(135deg, var(--color-swamp-green), var(--color-dark-green));
     border-radius: 14px;
     padding: 24px 18px;
     text-align: center;
@@ -204,7 +204,7 @@
     font-family: var(--font-family-secondary);
     font-weight: var(--font-weight-bold);
     font-size: 1.1rem;
-    color: var(--color-cerulean-blue);
+    color: var(--color-dark-green);
     margin-bottom: 18px;
 }
 
@@ -219,7 +219,7 @@
     font-family: var(--font-family-primary);
     font-size: 0.92rem;
     color: #333;
-    background: #eef4fb;
+    background: #e6efe8;
     padding: 8px 16px;
     border-radius: 8px;
     width: 100%;
@@ -227,7 +227,7 @@
 }
 
 .wetland-feedback-card__arrow {
-    color: var(--color-cornflower-blue);
+    color: var(--color-swamp-green);
     font-size: 1.1rem;
     font-weight: bold;
 }
@@ -267,7 +267,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--color-cornflower-blue), var(--color-cerulean-blue));
+    background: linear-gradient(135deg, var(--color-swamp-green), var(--color-dark-green));
     color: white;
     font-family: var(--font-family-secondary);
     font-weight: var(--font-weight-bold);
@@ -279,7 +279,7 @@
     font-family: var(--font-family-secondary);
     font-weight: var(--font-weight-bold);
     font-size: 1.15rem;
-    color: var(--color-true-blue);
+    color: var(--color-dark-green);
 }
 
 .wetland-principle-card__description {
@@ -293,7 +293,7 @@
 .wetland-bibliography {
     margin-top: 40px;
     padding: 30px;
-    background: #f0f4f8;
+    background: #e8e0d4;
     border-radius: 14px;
 }
 
@@ -301,7 +301,7 @@
     font-family: var(--font-family-secondary);
     font-weight: var(--font-weight-bold);
     font-size: 1.5rem;
-    color: var(--color-true-blue);
+    color: var(--color-dark-green);
     margin-bottom: 18px;
     text-align: center;
 }
@@ -323,7 +323,7 @@
 
 .wetland-bibliography__number {
     font-weight: var(--font-weight-bold);
-    color: var(--color-cerulean-blue);
+    color: var(--color-swamp-green);
 }
 
 /* ===== RESPONSIVE ===== */

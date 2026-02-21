@@ -1,39 +1,53 @@
 :root {
-  --font-family-primary: 'Poppins', sans-serif;
-  --font-family-secondary: 'Raleway', sans-serif;
-  --font-family-button: 'Quicksand', sans-serif;
+    --font-family-primary: 'Poppins', sans-serif;
+    --font-family-secondary: 'Raleway', sans-serif;
+    --font-family-button: 'Quicksand', sans-serif;
 
-  --font-weight-normal: 400;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-  --font-weight-medium: 500;
+    --font-weight-normal: 400;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-medium: 500;
 
-  --color-cornflower-blue: #486ECA;
-  --color-cerulean-blue: #2C53AB;
-  --color-true-blue: #003ABC;
-  --color-slate-blue: #5752B9;
-  --color-persian-blue: #3E399A;
-  --color-charcoal-gray: #4A4A4A;
+    /* ── Swamp palette ── */
+    --color-swamp-green: #2E6F40;
+    --color-moss: #4A7C59;
+    --color-dark-green: #1B4332;
+    --color-olive: #606C38;
+    --color-fern: #588157;
+    --color-bark-brown: #6B4226;
+    --color-mud-brown: #8B6914;
+    --color-swamp-blue: #2C6E7A;
+    --color-lagoon: #3A8F9E;
+    --color-deep-water: #1A4B5C;
+    --color-sand: #D4C5A9;
+    --color-charcoal-gray: #3D3D3D;
+
+    /* ── Legacy aliases (used elsewhere) ── */
+    --color-cornflower-blue: #2E6F40;
+    --color-cerulean-blue: #1B4332;
+    --color-true-blue: #2E6F40;
+    --color-slate-blue: #4A7C59;
+    --color-persian-blue: #2C6E7A;
 }
 
 body {
-  font-family: var(--font-family-primary);
+    font-family: var(--font-family-primary);
 }
 
 h1,
 h2 {
-  font-family: var(--font-family-secondary);
-  font-weight: var(--font-weight-bold);
+    font-family: var(--font-family-secondary);
+    font-weight: var(--font-weight-bold);
 }
 
 h3,
 h4 {
-  font-family: var(--font-family-primary);
-  font-weight: var(--font-weight-semibold);
+    font-family: var(--font-family-primary);
+    font-weight: var(--font-weight-semibold);
 }
 
 button,
 label {
-  font-family: var(--font-family-button);
-  font-weight: var(--font-weight-medium);
+    font-family: var(--font-family-button);
+    font-weight: var(--font-weight-medium);
 }
