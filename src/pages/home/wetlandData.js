@@ -254,6 +254,23 @@ export const tgsPrinciples = {
       description:
         "El equilibrio ecológico de la Ciénaga puede restablecerse por distintas vías: mayor aporte de agua dulce en lluvias o menor evaporación por cambios estacionales. Aunque los mecanismos difieran, ambos conducen al mismo resultado: la recuperación del equilibrio dinámico del ecosistema.",
     },
+    {
+      title: "Centralización",
+      description: "El flujo de agua dulce actúa como la 'parte líder'; una pequeña variación en este componente central provoca un cambio masivo en el sistema total." 
+    },
+    {
+      title: "Coevolución",
+      description: "Las especies vegetales y los microorganismos del suelo no evolucionan solos; coevolucionan en una red de interdependecia."
+    },
+    {
+      title: "Autoorganización",
+      description: "La Ciénaga surge de las interacciones autónomas de los agentes. Su organización surge de la interacción constante entre sus componentes bióticos y abióticos."
+    },
+    {
+      title: "Individualidad",
+      description: "La Ciénaga está compuesta por 'individuos autónomos' llamados agentes. Son los elementos que caracterizan al sistema y lo estructuran, tales como la flora, fauna y los microorganismos."
+
+    }
   ],
 };
 
