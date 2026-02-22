@@ -9,10 +9,7 @@ import {
 import "./WaterPollution.css";
 import TitleText from "../../figures/waterPollutionScene/TitleText";
 import Ligths from "./lights/Ligths";
-import {
-  cameraSettings,
-  itemsWithTooltip,
-} from "./content";
+import { cameraSettings, itemsWithTooltip } from "./content";
 import Staging from "./staging/Staging";
 import LoaderComponent from "./loader/LoaderComponent";
 import { Physics } from "@react-three/rapier";
@@ -22,6 +19,7 @@ import { WaterLilly } from "../../figures/wetLand/WaterLilly";
 import { Tortoise } from "../../figures/wetLand/Tortoise";
 import { PondWeed } from "../../figures/wetLand/PondWeed";
 import { Mullet } from "../../figures/wetLand/Mullet";
+import NavBar from "../../components/navbar/NavBar";
 
 const WaterPollution = () => {
   const audioRef = useRef();
@@ -130,127 +128,132 @@ const WaterPollution = () => {
   }, []);
 
   return (
-    <div className="water-pollution-container">
-      <KeyboardControls map={map}>
-        <Canvas shadows camera={cameraSettings} onClick={handleAudio}>
-          <Suspense fallback={<LoaderComponent />}>
-            <OrbitControls
-              enableZoom={true}
-              enablePan={false}
-              maxPolarAngle={Math.PI / 2.5}
-              minDistance={0}
-              maxDistance={20}
-            />
-            <PostProcessing />
-            <Ligths />
-            <Staging />
-            <Physics gravity={[0, 0, 0]}>
-              <Mullet
-                position={[10, 12, 0]}
-                scale={0.2}
-                onPointerOver={(event) => handleMouseOver(event, "neonFish")}
-                onPointerOut={handleMouseOut}
+    <>
+      <NavBar />
+      <div className="water-pollution-container">
+        <KeyboardControls map={map}>
+          <Canvas shadows camera={cameraSettings} onClick={handleAudio}>
+            <Suspense fallback={<LoaderComponent />}>
+              <OrbitControls
+                enableZoom={true}
+                enablePan={false}
+                maxPolarAngle={Math.PI / 2.5}
+                minDistance={0}
+                maxDistance={20}
               />
-              <Mullet
-                position={[10, 8, 10]}
-                scale={0.2}
-                onPointerOver={(event) => handleMouseOver(event, "neonFish")}
-                onPointerOut={handleMouseOut}
-              />
-              <group position={[0, 0, 0]}>
-                {/* Bombillo más alto y con mayor alcance */}
-                <pointLight
-                  position={[
-                    -10, 3, 2,
-                  ]} /* Subimos el bombillo al doble de altura */
-                  intensity={80} /* Más fuerza porque ahora está más lejos */
-                  color="#fff6e5"
-                  distance={
-                    60
-                  } /* Aumentamos el radio para que abarque la cola y la cabeza */
-                  decay={1.5} /* Suavizamos cómo se desvanece la luz */
-                />
-
-                <Alligator
-                  scale={2}
-                  onPointerOver={(event) => handleMouseOver(event, "alligator")}
+              <PostProcessing />
+              <Ligths />
+              <Staging />
+              <Physics gravity={[0, 0, 0]}>
+                <Mullet
+                  position={[10, 12, 0]}
+                  scale={0.2}
+                  onPointerOver={(event) => handleMouseOver(event, "neonFish")}
                   onPointerOut={handleMouseOut}
+                />
+                <Mullet
+                  position={[10, 8, 10]}
+                  scale={0.2}
+                  onPointerOver={(event) => handleMouseOver(event, "neonFish")}
+                  onPointerOut={handleMouseOut}
+                />
+                <group position={[0, 0, 0]}>
+                  {/* Bombillo más alto y con mayor alcance */}
+                  <pointLight
+                    position={[
+                      -10, 3, 2,
+                    ]} /* Subimos el bombillo al doble de altura */
+                    intensity={80} /* Más fuerza porque ahora está más lejos */
+                    color="#fff6e5"
+                    distance={
+                      60
+                    } /* Aumentamos el radio para que abarque la cola y la cabeza */
+                    decay={1.5} /* Suavizamos cómo se desvanece la luz */
+                  />
+
+                  <Alligator
+                    scale={2}
+                    onPointerOver={(event) =>
+                      handleMouseOver(event, "alligator")
+                    }
+                    onPointerOut={handleMouseOut}
+                  />
+                </group>
+                {liliesZone1.map((props, index) => (
+                  <WaterLilly
+                    key={`zone1-${index}`}
+                    position={props.position}
+                    rotation={props.rotation}
+                    scale={props.scale}
+                    onPointerOver={(event) => handleMouseOver(event, "coral")}
+                    onPointerOut={handleMouseOut}
+                  />
+                ))}
+                {liliesZone2.map((props, index) => (
+                  <WaterLilly
+                    key={`zone2-${index}`}
+                    position={props.position}
+                    rotation={props.rotation}
+                    scale={props.scale}
+                    onPointerOver={(event) => handleMouseOver(event, "coral")}
+                    onPointerOut={handleMouseOut}
+                  />
+                ))}
+                {liliesProps.map((props, index) => (
+                  <WaterLilly
+                    key={index} // React necesita una key única para los elementos en lista
+                    position={props.position}
+                    rotation={props.rotation}
+                    scale={props.scale}
+                    // Puedes dejar los eventos del mouse si quieres que al tocarlas salga tooltip
+                    onPointerOver={(event) => handleMouseOver(event, "coral")}
+                    onPointerOut={handleMouseOut}
+                  />
+                ))}
+                <Tortoise
+                  scale={0.1}
+                  rotation={[0, 100, 0]}
+                  position={[-5, 1, -16]}
+                  onPointerOver={(event) => handleMouseOver(event, "coral")}
+                  onPointerOut={handleMouseOut}
+                />
+                <PondWeed
+                  scale={400}
+                  rotation={[0, 10, 0]}
+                  position={[10, 0.3, 20]}
+                  onPointerOver={(event) => handleMouseOver(event, "coral")}
+                  onPointerOut={handleMouseOut}
+                />
+                <PondWeed
+                  scale={300}
+                  rotation={[0, 10, 0]}
+                  position={[10, 0.3, -20]}
+                  onPointerOver={(event) => handleMouseOver(event, "coral")}
+                  onPointerOut={handleMouseOut}
+                />
+                <PondWeed
+                  scale={350}
+                  rotation={[0, 10, 0]}
+                  position={[13, 0.3, -20]}
+                  onPointerOver={(event) => handleMouseOver(event, "coral")}
+                  onPointerOut={handleMouseOut}
+                />
+                <TitleText />
+                <Ocean />
+              </Physics>
+              <group>
+                <PositionalAudio
+                  ref={audioRef}
+                  loop
+                  url="/sounds/underwater.mp3"
+                  distance={5}
                 />
               </group>
-              {liliesZone1.map((props, index) => (
-                <WaterLilly
-                  key={`zone1-${index}`}
-                  position={props.position}
-                  rotation={props.rotation}
-                  scale={props.scale}
-                  onPointerOver={(event) => handleMouseOver(event, "coral")}
-                  onPointerOut={handleMouseOut}
-                />
-              ))}
-              {liliesZone2.map((props, index) => (
-                <WaterLilly
-                  key={`zone2-${index}`}
-                  position={props.position}
-                  rotation={props.rotation}
-                  scale={props.scale}
-                  onPointerOver={(event) => handleMouseOver(event, "coral")}
-                  onPointerOut={handleMouseOut}
-                />
-              ))}
-              {liliesProps.map((props, index) => (
-                <WaterLilly
-                  key={index} // React necesita una key única para los elementos en lista
-                  position={props.position}
-                  rotation={props.rotation}
-                  scale={props.scale}
-                  // Puedes dejar los eventos del mouse si quieres que al tocarlas salga tooltip
-                  onPointerOver={(event) => handleMouseOver(event, "coral")}
-                  onPointerOut={handleMouseOut}
-                />
-              ))}
-              <Tortoise
-                scale={0.1}
-                rotation={[0, 100, 0]}
-                position={[-5, 1, -16]}
-                onPointerOver={(event) => handleMouseOver(event, "coral")}
-                onPointerOut={handleMouseOut}
-              />
-              <PondWeed
-                scale={400}
-                rotation={[0, 10, 0]}
-                position={[10, 0.3, 20]}
-                onPointerOver={(event) => handleMouseOver(event, "coral")}
-                onPointerOut={handleMouseOut}
-              />
-              <PondWeed
-                scale={300}
-                rotation={[0, 10, 0]}
-                position={[10, 0.3, -20]}
-                onPointerOver={(event) => handleMouseOver(event, "coral")}
-                onPointerOut={handleMouseOut}
-              />
-              <PondWeed
-                scale={350}
-                rotation={[0, 10, 0]}
-                position={[13, 0.3, -20]}
-                onPointerOver={(event) => handleMouseOver(event, "coral")}
-                onPointerOut={handleMouseOut}
-              />
-              <TitleText />
-              <Ocean />
-            </Physics>
-            <group>
-              <PositionalAudio
-                ref={audioRef}
-                loop
-                url="/sounds/underwater.mp3"
-                distance={5}
-              />
-            </group>
-          </Suspense>
-        </Canvas>
-      </KeyboardControls>
-    </div>
+            </Suspense>
+          </Canvas>
+        </KeyboardControls>
+      </div>
+    </>
   );
 };
 
