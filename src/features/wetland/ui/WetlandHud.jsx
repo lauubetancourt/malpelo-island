@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  CLIMATE_CONFIG,
-  PRESETS,
-  formatHour,
-  valueLabel,
-} from "../simulation";
+import { valueLabel } from "../simulation";
 import "./WetlandHud.css";
 
 function MetricCard({ label, value, kind }) {
@@ -27,15 +22,7 @@ function MetricCard({ label, value, kind }) {
   );
 }
 
-export default function WetlandHud({
-  controls,
-  setControls,
-  state,
-  setManualTime,
-  onPreset,
-  onReset,
-  insights,
-}) {
+export default function WetlandHud({ controls, setControls, state, onReset }) {
   const setField = (field, value) =>
     setControls((previousState) => ({ ...previousState, [field]: value }));
 
@@ -45,15 +32,14 @@ export default function WetlandHud({
     { label: "Biomasa algal", value: state.algae, kind: "algae" },
     { label: "Oxigeno", value: state.oxygen, kind: "oxygen" },
     { label: "Estado de peces", value: state.fishHealth, kind: "generic" },
-    { label: "Estado sistemico", value: state.ecosystemHealth, kind: "generic" },
   ];
 
   return (
     <div className="wetland-hud">
-      <section className="wetland-panel">
+      <section className="wetland-panel wetland-panel--controls">
         <h3 className="wetland-panel-title">Controles del sistema</h3>
         <p className="wetland-panel-subtitle">
-          Modelo conceptual TGS para la Cienaga Grande
+          Modelo conceptual basado en dinamica hidrologica del humedal
         </p>
 
         <div className="wetland-control-group">
@@ -67,71 +53,9 @@ export default function WetlandHud({
             min={0}
             max={100}
             value={controls.freshwater}
-            onChange={(event) => setField("freshwater", Number(event.target.value))}
-          />
-        </div>
-
-        <div className="wetland-control-group">
-          <div className="wetland-control-header">
-            <span>Conectividad de canos</span>
-            <strong>{controls.connectivity}</strong>
-          </div>
-          <input
-            className="wetland-range"
-            type="range"
-            min={0}
-            max={100}
-            value={controls.connectivity}
-            onChange={(event) => setField("connectivity", Number(event.target.value))}
-          />
-        </div>
-
-        <div className="wetland-control-group">
-          <div className="wetland-control-header">
-            <span>Clima</span>
-          </div>
-          <select
-            className="wetland-select"
-            value={controls.climate}
-            onChange={(event) => setField("climate", event.target.value)}
-          >
-            {Object.entries(CLIMATE_CONFIG).map(([value, config]) => (
-              <option key={value} value={value}>
-                {config.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="wetland-control-group">
-          <div className="wetland-control-header">
-            <span>Hora del dia</span>
-            <strong>{formatHour(state.timeOfDay)}</strong>
-          </div>
-          <input
-            className="wetland-range"
-            type="range"
-            min={0}
-            max={23.75}
-            step={0.25}
-            value={state.timeOfDay}
-            onChange={(event) => setManualTime(Number(event.target.value))}
-          />
-        </div>
-
-        <div className="wetland-control-group">
-          <div className="wetland-control-header">
-            <span>Velocidad</span>
-            <strong>{controls.speed.toFixed(1)}x</strong>
-          </div>
-          <input
-            className="wetland-range"
-            type="range"
-            min={0.5}
-            max={3}
-            step={0.5}
-            value={controls.speed}
-            onChange={(event) => setField("speed", Number(event.target.value))}
+            onChange={(event) =>
+              setField("freshwater", Number(event.target.value))
+            }
           />
         </div>
 
@@ -147,25 +71,12 @@ export default function WetlandHud({
             Reiniciar
           </button>
         </div>
-
-        <div className="wetland-presets">
-          {Object.entries(PRESETS).map(([key, preset]) => (
-            <button
-              key={key}
-              type="button"
-              className="wetland-button"
-              onClick={() => onPreset(preset.controls)}
-            >
-              {preset.label}
-            </button>
-          ))}
-        </div>
       </section>
 
-      <section className="wetland-panel">
+      <section className="wetland-panel wetland-panel--status">
         <h3 className="wetland-panel-title">Estado ecologico en tiempo real</h3>
         <p className="wetland-panel-subtitle">
-          Indices normalizados 0-100 para visualizacion didactica
+          Indicadores relativos (0-100) de salinidad, oxigeno y salud biologica
         </p>
 
         <div className="wetland-metrics">
@@ -176,15 +87,6 @@ export default function WetlandHud({
               value={metric.value}
               kind={metric.kind}
             />
-          ))}
-        </div>
-
-        <div className="wetland-insights">
-          {insights.map((insight) => (
-            <article key={insight.title} className="wetland-insight">
-              <p className="wetland-insight-title">{insight.title}</p>
-              <p className="wetland-insight-text">{insight.text}</p>
-            </article>
           ))}
         </div>
       </section>

@@ -19,23 +19,19 @@ import { WaterLilly } from "../../figures/wetLand/WaterLilly";
 import { Tortoise } from "../../figures/wetLand/Tortoise";
 import { PondWeed } from "../../figures/wetLand/PondWeed";
 import { Mullet } from "../../figures/wetLand/Mullet";
+import { DeadFish } from "../../figures/wetLand/DeadFish";
 import NavBar from "../../components/navbar/NavBar";
 import WetlandHud from "../../features/wetland/ui/WetlandHud";
 import {
   INITIAL_CONTROLS,
   clamp,
-  getTGSInsights,
   useWetlandSimulation,
 } from "../../features/wetland/simulation";
 
 const WaterPollution = () => {
   const audioRef = useRef();
   const [controls, setControls] = useState(INITIAL_CONTROLS);
-  const { state, setManualTime, resetState } = useWetlandSimulation(controls);
-  const insights = useMemo(
-    () => getTGSInsights(state, controls),
-    [state, controls],
-  );
+  const { state, resetState } = useWetlandSimulation(controls);
 
   const handleAudio = useCallback(() => {
     if (!audioRef.current) return;
@@ -82,6 +78,7 @@ const WaterPollution = () => {
         });
       }
     }
+
     return generated;
   };
 
@@ -103,28 +100,69 @@ const WaterPollution = () => {
     }));
   }, []);
 
-  const fishSpawns = useMemo(
+  const liveFishSpawns = useMemo(
     () => [
       { position: [10, 12, 0], scale: 0.2 },
       { position: [10, 8, 10], scale: 0.2 },
       { position: [7, 10, -8], scale: 0.18 },
+      { position: [4, 9, 5], scale: 0.16 },
     ],
     [],
   );
 
-  const visibleFishCount = useMemo(
+  const deadFishSpawns = useMemo(
+    () => [
+      { position: [2, 12.4, -4], scale: 1.2, phase: 0.2 },
+      { position: [-4, 12.8, 6], scale: 0.95, phase: 1.1 },
+      { position: [8, 13.1, 2], scale: 1.1, phase: 2.4 },
+      { position: [-7, 12.5, -5], scale: 0.9, phase: 3.2 },
+    ],
+    [],
+  );
+
+  const mortalityRatio = useMemo(
+    () => clamp((55 - state.fishHealth) / 55, 0, 1),
+    [state.fishHealth],
+  );
+
+  const visibleLiveFishCount = useMemo(
     () =>
       Math.max(
         0,
-        Math.min(fishSpawns.length, Math.round(state.fishHealth / 34)),
+        Math.min(liveFishSpawns.length, Math.round(state.fishHealth / 24)),
       ),
-    [state.fishHealth, fishSpawns.length],
+    [state.fishHealth, liveFishSpawns.length],
+  );
+
+  const visibleDeadFishCount = useMemo(
+    () => Math.round(deadFishSpawns.length * mortalityRatio),
+    [deadFishSpawns.length, mortalityRatio],
+  );
+
+  const vegetationFactor = useMemo(
+    () => clamp(1 - Math.max(0, state.salinity - 55) / 45, 0.25, 1),
+    [state.salinity],
+  );
+
+  const visibleLilyCount = useMemo(
+    () => Math.round(liliesProps.length * vegetationFactor),
+    [liliesProps.length, vegetationFactor],
+  );
+
+  const visibleZone1Count = useMemo(
+    () => Math.round(liliesZone1.length * vegetationFactor),
+    [liliesZone1.length, vegetationFactor],
+  );
+
+  const visibleZone2Count = useMemo(
+    () => Math.round(liliesZone2.length * vegetationFactor),
+    [liliesZone2.length, vegetationFactor],
   );
 
   const waterColor = useMemo(() => {
-    const hue = clamp(170 - state.salinity * 0.6, 110, 190);
-    const saturation = clamp(35 + state.algae * 0.35, 30, 80);
-    const lightness = clamp(30 + state.oxygen * 0.22, 24, 58);
+    const hue = clamp(182 - state.salinity * 0.9 - state.algae * 0.2, 92, 188);
+    const saturation = clamp(28 + state.algae * 0.42, 24, 82);
+    const lightness = clamp(58 - state.algae * 0.3 - (100 - state.oxygen) * 0.22, 18, 58);
     return `hsl(${Math.round(hue)}, ${Math.round(saturation)}%, ${Math.round(
       lightness,
     )}%)`;
@@ -132,25 +170,69 @@ const WaterPollution = () => {
 
   const sandColor = useMemo(() => {
     const hue = 32;
-    const saturation = clamp(26 + state.algae * 0.2, 22, 46);
-    const lightness = clamp(24 + state.flushing * 0.1, 20, 38);
+    const saturation = clamp(24 + state.algae * 0.18, 18, 42);
+    const lightness = clamp(31 + state.flushing * 0.08 - state.algae * 0.1, 18, 38);
     return `hsl(${Math.round(hue)}, ${Math.round(saturation)}%, ${Math.round(
       lightness,
     )}%)`;
   }, [state.algae, state.flushing]);
 
+  const backgroundColor = useMemo(() => {
+    const hue = clamp(160 - state.algae * 0.28, 95, 168);
+    const saturation = clamp(22 + state.algae * 0.2, 18, 55);
+    const lightness = clamp(22 + state.oxygen * 0.18, 16, 44);
+    return `hsl(${Math.round(hue)}, ${Math.round(saturation)}%, ${Math.round(
+      lightness,
+    )}%)`;
+  }, [state.algae, state.oxygen]);
+
+  const fogColor = useMemo(() => {
+    const hue = clamp(145 - state.salinity * 0.4, 92, 152);
+    const saturation = clamp(18 + state.algae * 0.24, 18, 46);
+    const lightness = clamp(18 + state.oxygen * 0.14, 14, 34);
+    return `hsl(${Math.round(hue)}, ${Math.round(saturation)}%, ${Math.round(
+      lightness,
+    )}%)`;
+  }, [state.salinity, state.algae, state.oxygen]);
+
   const mainLightIntensity = useMemo(
-    () => 30 + state.ecosystemHealth * 0.5,
-    [state.ecosystemHealth],
+    () => 18 + state.oxygen * 0.5,
+    [state.oxygen],
   );
 
-  const applyPreset = useCallback((presetControls) => {
-    setControls((previousState) => ({
-      ...previousState,
-      ...INITIAL_CONTROLS,
-      ...presetControls,
-    }));
-  }, []);
+  const sparkleOpacity = useMemo(
+    () => clamp(state.oxygen / 300, 0.05, 0.35),
+    [state.oxygen],
+  );
+
+  const sparkleCount = useMemo(
+    () => Math.round(220 + state.oxygen * 6),
+    [state.oxygen],
+  );
+
+  const algaeBloomOpacity = useMemo(
+    () => clamp((state.algae - 35) / 85, 0, 0.65),
+    [state.algae],
+  );
+
+  const algaeBloomColor = useMemo(() => {
+    const hue = clamp(110 - state.salinity * 0.2, 82, 116);
+    const saturation = clamp(38 + state.algae * 0.34, 36, 82);
+    const lightness = clamp(24 + state.oxygen * 0.08, 20, 40);
+    return `hsl(${Math.round(hue)}, ${Math.round(saturation)}%, ${Math.round(
+      lightness,
+    )}%)`;
+  }, [state.salinity, state.algae, state.oxygen]);
+
+  const fogFar = useMemo(
+    () => clamp(28 + state.oxygen * 0.35 - state.algae * 0.18, 20, 55),
+    [state.oxygen, state.algae],
+  );
+
+  const fogNear = useMemo(
+    () => clamp(3 + state.algae * 0.02, 2, 8),
+    [state.algae],
+  );
 
   const handleReset = useCallback(() => {
     setControls({ ...INITIAL_CONTROLS });
@@ -165,10 +247,7 @@ const WaterPollution = () => {
           controls={controls}
           setControls={setControls}
           state={state}
-          setManualTime={setManualTime}
-          onPreset={applyPreset}
           onReset={handleReset}
-          insights={insights}
         />
 
         <KeyboardControls map={map}>
@@ -183,13 +262,30 @@ const WaterPollution = () => {
               />
               <PostProcessing />
               <Ligths />
-              <Staging />
+              <Staging
+                backgroundColor={backgroundColor}
+                fogColor={fogColor}
+                fogNear={fogNear}
+                fogFar={fogFar}
+                sparkleCount={sparkleCount}
+                sparkleOpacity={sparkleOpacity}
+                sparkleColor="#d9f2ff"
+              />
               <Physics gravity={[0, 0, 0]}>
-                {fishSpawns.slice(0, visibleFishCount).map((spawn, index) => (
+                {liveFishSpawns.slice(0, visibleLiveFishCount).map((spawn, index) => (
                   <Mullet
                     key={`mullet-${index}`}
                     position={spawn.position}
                     scale={spawn.scale}
+                  />
+                ))}
+
+                {deadFishSpawns.slice(0, visibleDeadFishCount).map((deadFish, index) => (
+                  <DeadFish
+                    key={`dead-${index}`}
+                    position={deadFish.position}
+                    scale={deadFish.scale}
+                    phase={deadFish.phase}
                   />
                 ))}
 
@@ -205,7 +301,7 @@ const WaterPollution = () => {
                   <Alligator scale={2} />
                 </group>
 
-                {liliesZone1.map((props, index) => (
+                {liliesZone1.slice(0, visibleZone1Count).map((props, index) => (
                   <WaterLilly
                     key={`zone1-${index}`}
                     position={props.position}
@@ -214,7 +310,7 @@ const WaterPollution = () => {
                   />
                 ))}
 
-                {liliesZone2.map((props, index) => (
+                {liliesZone2.slice(0, visibleZone2Count).map((props, index) => (
                   <WaterLilly
                     key={`zone2-${index}`}
                     position={props.position}
@@ -223,7 +319,7 @@ const WaterPollution = () => {
                   />
                 ))}
 
-                {liliesProps.map((props, index) => (
+                {liliesProps.slice(0, visibleLilyCount).map((props, index) => (
                   <WaterLilly
                     key={index}
                     position={props.position}
@@ -258,6 +354,15 @@ const WaterPollution = () => {
 
                 <TitleText />
                 <Ocean waterColor={waterColor} sandColor={sandColor} />
+                <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 1.55, 0]}>
+                  <planeGeometry args={[74, 74]} />
+                  <meshStandardMaterial
+                    color={algaeBloomColor}
+                    transparent
+                    opacity={algaeBloomOpacity}
+                    depthWrite={false}
+                  />
+                </mesh>
               </Physics>
 
               <group>

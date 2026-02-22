@@ -1,17 +1,25 @@
 import { Sparkles } from "@react-three/drei";
 
-const Staging = () => {
+const Staging = ({
+  backgroundColor = "#1f3318",
+  fogColor = "#1f3318",
+  fogNear = 5,
+  fogFar = 50,
+  sparkleCount = 800,
+  sparkleOpacity = 0.2,
+  sparkleColor = "#a4b587",
+}) => {
   return (
     <>
-      <color attach="background" args={["#1f3318"]} />
-      <fog attach="fog" args={["#1f3318", 5, 50]} />
+      <color attach="background" args={[backgroundColor]} />
+      <fog attach="fog" args={[fogColor, fogNear, fogFar]} />
       <Sparkles
-        count={800}
+        count={sparkleCount}
         scale={[40, 15, 40]}
         size={3}
         speed={0.2}
-        opacity={0.2}
-        color="#a4b587"
+        opacity={sparkleOpacity}
+        color={sparkleColor}
       />
     </>
   );

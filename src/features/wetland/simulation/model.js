@@ -1,4 +1,4 @@
-import { CLIMATE_CONFIG } from "./constants";
+import { BASE_CONNECTIVITY, BASE_HEAT_STRESS } from "./constants";
 import { clamp, rateFactor, smoothTo } from "./math";
 
 export function daylightFactor(timeOfDay) {
@@ -6,33 +6,22 @@ export function daylightFactor(timeOfDay) {
   return clamp((Math.sin(radians) + 1) / 2, 0, 1);
 }
 
-function salinityBalanceScore(salinity) {
-  const ideal = 38;
-  const tolerance = 26;
-  return clamp(100 - (Math.abs(salinity - ideal) / tolerance) * 100);
-}
-
-function algaeBalanceScore(algae) {
-  const ideal = 28;
-  const tolerance = 35;
-  return clamp(100 - (Math.abs(algae - ideal) / tolerance) * 100);
-}
-
 export function evolveWetland(previousState, controls, options = {}) {
   const { advanceTime = true, dtHours = 0.25 } = options;
-  const climate = CLIMATE_CONFIG[controls.climate];
 
-  const simHours = advanceTime ? dtHours * controls.speed : dtHours;
+  const simHours = dtHours;
   const timeOfDay = advanceTime
-    ? (previousState.timeOfDay + dtHours * controls.speed) % 24
+    ? (previousState.timeOfDay + dtHours) % 24
     : previousState.timeOfDay;
 
   const daylight = daylightFactor(timeOfDay);
-  const freshwaterEffective = clamp(controls.freshwater + climate.freshwaterBoost);
-  const connectivity = clamp(controls.connectivity);
-  const heatStress = climate.heatStress;
+  const freshwaterEffective = clamp(controls.freshwater);
+  const connectivity = BASE_CONNECTIVITY;
+  const heatStress = BASE_HEAT_STRESS;
 
-  const targetFlushing = clamp(freshwaterEffective * 0.58 + connectivity * 0.42);
+  const targetFlushing = clamp(
+    freshwaterEffective * 0.58 + connectivity * 0.42,
+  );
   const flushing = smoothTo(
     previousState.flushing,
     targetFlushing,
@@ -117,7 +106,9 @@ export function evolveWetland(previousState, controls, options = {}) {
           rateFactor(0.08, simHours),
         );
 
-  const acuteMortalityStress = clamp(anoxiaStress * 0.55 + hypoxiaExposure * 0.65);
+  const acuteMortalityStress = clamp(
+    anoxiaStress * 0.55 + hypoxiaExposure * 0.65,
+  );
   const chronicFishStress = clamp(
     lowOxygenStress * 0.42 +
       acuteMortalityStress * 0.33 +
@@ -153,14 +144,6 @@ export function evolveWetland(previousState, controls, options = {}) {
     fishHealth = clamp(fishHealth - 0.25 * (simHours / 0.25));
   }
 
-  const ecosystemHealth = clamp(
-    fishHealth * 0.3 +
-      oxygen * 0.23 +
-      salinityBalanceScore(salinity) * 0.18 +
-      flushing * 0.17 +
-      algaeBalanceScore(algae) * 0.12,
-  );
-
   return {
     timeOfDay,
     flushing,
@@ -169,12 +152,12 @@ export function evolveWetland(previousState, controls, options = {}) {
     oxygen,
     hypoxiaExposure,
     fishHealth,
-    ecosystemHealth,
   };
 }
 
 export function formatHour(time) {
-  const totalMinutes = ((Math.round(time * 60) % (24 * 60)) + 24 * 60) % (24 * 60);
+  const totalMinutes =
+    ((Math.round(time * 60) % (24 * 60)) + 24 * 60) % (24 * 60);
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
   return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
