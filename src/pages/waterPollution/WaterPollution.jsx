@@ -1,4 +1,11 @@
-import { Suspense, useMemo, useRef, useCallback, useState } from "react";
+import {
+  Suspense,
+  useMemo,
+  useRef,
+  useCallback,
+  useState,
+  useEffect,
+} from "react";
 import { Canvas } from "@react-three/fiber";
 import { Ocean } from "../../figures/waterPollutionScene/Ocean";
 import {
@@ -32,6 +39,7 @@ const WaterPollution = () => {
   const audioRef = useRef();
   const [controls, setControls] = useState(INITIAL_CONTROLS);
   const { state, resetState } = useWetlandSimulation(controls);
+  const [alligatorVisible, setAlligatorVisible] = useState(true);
 
   const handleAudio = useCallback(() => {
     if (!audioRef.current) return;
@@ -125,19 +133,108 @@ const WaterPollution = () => {
     [state.fishHealth],
   );
 
-  const visibleLiveFishCount = useMemo(
+  const severeFreshwaterStress = controls.freshwater <= 14;
+  const severeSalinityStress = state.salinity >= 68;
+  const severeHypoxia = state.oxygen <= 24;
+
+  const ecologicalCollapse = useMemo(
     () =>
-      Math.max(
-        0,
-        Math.min(liveFishSpawns.length, Math.round(state.fishHealth / 24)),
-      ),
-    [state.fishHealth, liveFishSpawns.length],
+      severeFreshwaterStress ||
+      (severeSalinityStress && severeHypoxia) ||
+      state.hypoxiaExposure > 60,
+    [
+      severeFreshwaterStress,
+      severeSalinityStress,
+      severeHypoxia,
+      state.hypoxiaExposure,
+    ],
   );
 
-  const visibleDeadFishCount = useMemo(
-    () => Math.round(deadFishSpawns.length * mortalityRatio),
-    [deadFishSpawns.length, mortalityRatio],
+  const fishSurvivalIndex = useMemo(() => {
+    const salinityPenalty = Math.max(0, state.salinity - 58) * 1.4;
+    const oxygenPenalty = Math.max(0, 32 - state.oxygen) * 2.1;
+    const freshwaterPenalty = Math.max(0, 18 - controls.freshwater) * 2.4;
+    const hypoxiaPenalty = state.hypoxiaExposure * 0.55;
+
+    return clamp(
+      state.fishHealth -
+        salinityPenalty -
+        oxygenPenalty -
+        freshwaterPenalty -
+        hypoxiaPenalty,
+      0,
+      100,
+    );
+  }, [
+    state.fishHealth,
+    state.salinity,
+    state.oxygen,
+    state.hypoxiaExposure,
+    controls.freshwater,
+  ]);
+
+  const visibleLiveFishCount = useMemo(() => {
+    if (ecologicalCollapse) return 0;
+
+    return Math.max(
+      0,
+      Math.min(
+        liveFishSpawns.length,
+        Math.round((fishSurvivalIndex / 100) * liveFishSpawns.length),
+      ),
+    );
+  }, [ecologicalCollapse, fishSurvivalIndex, liveFishSpawns.length]);
+
+  const visibleDeadFishCount = useMemo(() => {
+    const baseCount = Math.round(deadFishSpawns.length * mortalityRatio);
+    if (ecologicalCollapse) return deadFishSpawns.length;
+    return Math.max(
+      0,
+      Math.max(
+        baseCount,
+        Math.round(
+          deadFishSpawns.length * Math.max(0, (45 - fishSurvivalIndex) / 45),
+        ),
+      ),
+    );
+  }, [
+    deadFishSpawns.length,
+    mortalityRatio,
+    ecologicalCollapse,
+    fishSurvivalIndex,
+  ]);
+
+  const turtleVisible = useMemo(
+    () =>
+      !ecologicalCollapse &&
+      state.fishHealth > 25 &&
+      state.oxygen > 30 &&
+      state.salinity < 65,
+    [ecologicalCollapse, state.fishHealth, state.oxygen, state.salinity],
   );
+
+  const hideAlligatorTrigger =
+    controls.freshwater <= 8 &&
+    state.oxygen <= 18 &&
+    state.salinity >= 72 &&
+    state.fishHealth <= 15;
+
+  const showAlligatorTrigger =
+    controls.freshwater >= 20 &&
+    state.oxygen >= 34 &&
+    state.salinity <= 64 &&
+    state.fishHealth >= 28;
+
+  useEffect(() => {
+    if (hideAlligatorTrigger) {
+      setAlligatorVisible(false);
+      return;
+    }
+
+    if (showAlligatorTrigger) {
+      setAlligatorVisible(true);
+    }
+  }, [hideAlligatorTrigger, showAlligatorTrigger]);
 
   const vegetationFactor = useMemo(
     () => clamp(1 - Math.max(0, state.salinity - 55) / 45, 0.25, 1),
@@ -162,7 +259,11 @@ const WaterPollution = () => {
   const waterColor = useMemo(() => {
     const hue = clamp(182 - state.salinity * 0.9 - state.algae * 0.2, 92, 188);
     const saturation = clamp(28 + state.algae * 0.42, 24, 82);
-    const lightness = clamp(58 - state.algae * 0.3 - (100 - state.oxygen) * 0.22, 18, 58);
+    const lightness = clamp(
+      58 - state.algae * 0.3 - (100 - state.oxygen) * 0.22,
+      18,
+      58,
+    );
     return `hsl(${Math.round(hue)}, ${Math.round(saturation)}%, ${Math.round(
       lightness,
     )}%)`;
@@ -171,7 +272,11 @@ const WaterPollution = () => {
   const sandColor = useMemo(() => {
     const hue = 32;
     const saturation = clamp(24 + state.algae * 0.18, 18, 42);
-    const lightness = clamp(31 + state.flushing * 0.08 - state.algae * 0.1, 18, 38);
+    const lightness = clamp(
+      31 + state.flushing * 0.08 - state.algae * 0.1,
+      18,
+      38,
+    );
     return `hsl(${Math.round(hue)}, ${Math.round(saturation)}%, ${Math.round(
       lightness,
     )}%)`;
@@ -272,22 +377,26 @@ const WaterPollution = () => {
                 sparkleColor="#d9f2ff"
               />
               <Physics gravity={[0, 0, 0]}>
-                {liveFishSpawns.slice(0, visibleLiveFishCount).map((spawn, index) => (
-                  <Mullet
-                    key={`mullet-${index}`}
-                    position={spawn.position}
-                    scale={spawn.scale}
-                  />
-                ))}
+                {liveFishSpawns
+                  .slice(0, visibleLiveFishCount)
+                  .map((spawn, index) => (
+                    <Mullet
+                      key={`mullet-${index}`}
+                      position={spawn.position}
+                      scale={spawn.scale}
+                    />
+                  ))}
 
-                {deadFishSpawns.slice(0, visibleDeadFishCount).map((deadFish, index) => (
-                  <DeadFish
-                    key={`dead-${index}`}
-                    position={deadFish.position}
-                    scale={deadFish.scale}
-                    phase={deadFish.phase}
-                  />
-                ))}
+                {deadFishSpawns
+                  .slice(0, visibleDeadFishCount)
+                  .map((deadFish, index) => (
+                    <DeadFish
+                      key={`dead-${index}`}
+                      position={deadFish.position}
+                      scale={deadFish.scale}
+                      phase={deadFish.phase}
+                    />
+                  ))}
 
                 <group position={[0, 0, 0]}>
                   <pointLight
@@ -298,7 +407,7 @@ const WaterPollution = () => {
                     decay={1.5}
                   />
 
-                  <Alligator scale={2} />
+                  {alligatorVisible && <Alligator scale={2} />}
                 </group>
 
                 {liliesZone1.slice(0, visibleZone1Count).map((props, index) => (
@@ -328,11 +437,13 @@ const WaterPollution = () => {
                   />
                 ))}
 
-                <Tortoise
-                  scale={0.1}
-                  rotation={[0, 100, 0]}
-                  position={[-5, 1, -16]}
-                />
+                {turtleVisible && (
+                  <Tortoise
+                    scale={0.1}
+                    rotation={[0, 100, 0]}
+                    position={[-5, 1, -16]}
+                  />
+                )}
 
                 <PondWeed
                   scale={400}
