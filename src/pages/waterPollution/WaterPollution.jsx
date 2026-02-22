@@ -1,4 +1,4 @@
-import { Suspense, useState, useMemo, useRef, useCallback } from "react";
+import { Suspense, useMemo, useRef, useCallback, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Ocean } from "../../figures/waterPollutionScene/Ocean";
 import {
@@ -9,7 +9,7 @@ import {
 import "./WaterPollution.css";
 import TitleText from "../../figures/waterPollutionScene/TitleText";
 import Ligths from "./lights/Ligths";
-import { cameraSettings, itemsWithTooltip } from "./content";
+import { cameraSettings } from "./content";
 import Staging from "./staging/Staging";
 import LoaderComponent from "./loader/LoaderComponent";
 import { Physics } from "@react-three/rapier";
@@ -20,58 +20,46 @@ import { Tortoise } from "../../figures/wetLand/Tortoise";
 import { PondWeed } from "../../figures/wetLand/PondWeed";
 import { Mullet } from "../../figures/wetLand/Mullet";
 import NavBar from "../../components/navbar/NavBar";
+import WetlandHud from "../../features/wetland/ui/WetlandHud";
+import {
+  INITIAL_CONTROLS,
+  clamp,
+  getTGSInsights,
+  useWetlandSimulation,
+} from "../../features/wetland/simulation";
 
 const WaterPollution = () => {
   const audioRef = useRef();
+  const [controls, setControls] = useState(INITIAL_CONTROLS);
+  const { state, setManualTime, resetState } = useWetlandSimulation(controls);
+  const insights = useMemo(
+    () => getTGSInsights(state, controls),
+    [state, controls],
+  );
 
   const handleAudio = useCallback(() => {
+    if (!audioRef.current) return;
     audioRef.current.play();
     audioRef.current.setVolume(5);
   }, []);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [tooltip, setTooltip] = useState({
-    visible: false,
-    icon: "",
-    background: "",
-    position: { x: 0, y: 0 },
-    title: "",
-    description: "",
-  });
+  const map = useMemo(
+    () => [
+      { name: "forward", keys: ["ArrowLeft", "KeyA"] },
+      { name: "up", keys: ["ArrowUp", "KeyW"] },
+      { name: "down", keys: ["ArrowDown", "KeyS"] },
+      { name: "bite", keys: ["Space"] },
+    ],
+    [],
+  );
 
-  const handleMouseOver = (event, item) => {
-    setTooltip({
-      visible: true,
-      icon: itemsWithTooltip[item].icon,
-      background: itemsWithTooltip[item].background,
-      position: { x: event.clientX + 10, y: event.clientY + 10 },
-      title: itemsWithTooltip[item].name,
-      description: itemsWithTooltip[item].description,
-    });
-  };
-
-  const handleMouseOut = () => {
-    setTooltip({ ...tooltip, visible: false });
-  };
-
-  const map = useMemo(() => [
-    { name: "forward", keys: ["ArrowLeft", "KeyA"] },
-    { name: "up", keys: ["ArrowUp", "KeyW"] },
-    { name: "down", keys: ["ArrowDown", "KeyS"] },
-    { name: "bite", keys: ["Space"] },
-  ]);
-  // 🌿 FUNCIÓN MAESTRA: Generador de Bosques (Reutilizable)
-  // minX y maxX definen la profundidad (atrás/adelante)
-  // minZ y maxZ definen el ancho (izquierda/derecha)
   const generateLilyZone = (count, minX, maxX, minZ, maxZ, minDist) => {
     const generated = [];
     let attempts = 0;
-    const maxAttempts = count * 100; // Evita bucles infinitos
+    const maxAttempts = count * 100;
 
     while (generated.length < count && attempts < maxAttempts) {
       attempts++;
-
-      // Calculamos coordenadas dentro de los límites que le pasemos
       const x = minX + Math.random() * (maxX - minX);
       const z = minZ + Math.random() * (maxZ - minZ);
       const y = 0.5;
@@ -97,40 +85,92 @@ const WaterPollution = () => {
     return generated;
   };
 
-  // 🌳 ZONA 1: El gran fondo (Detrás del cocodrilo, esparcidos a lo ancho)
-  const liliesZone1 = useMemo(() => {
-    // 35 plantas | Profundidad X: entre -45 y -5 | Ancho Z: entre -40 y 40 | Distancia: 8
-    return generateLilyZone(40, 20, 0, -20, 20, 8);
-  }, []);
+  const liliesZone1 = useMemo(
+    () => generateLilyZone(40, 20, 0, -20, 20, 8),
+    [],
+  );
+  const liliesZone2 = useMemo(
+    () => generateLilyZone(40, -20, 20, 15, 35, 8),
+    [],
+  );
 
-  // 🌳 ZONA 2: Nueva zona (Ejemplo: A la derecha y un poco más al frente)
-  const liliesZone2 = useMemo(() => {
-    // 15 plantas | Profundidad X: entre -5 y 15 | Ancho Z: entre 15 y 35 | Distancia: 8
-    return generateLilyZone(40, -20, 20, 15, 35, 8);
-  }, []);
-
-  // ... (tus otros estados y funciones)
-
-  // 🌿 CONFIGURACIÓN DEL BOSQUE DE LIRIOS
-  const lillyCount = 30; // ¿Cuántas plantas quieres? Cambia este número a tu gusto.
+  const lillyCount = 30;
   const liliesProps = useMemo(() => {
     return Array.from({ length: lillyCount }).map(() => ({
-      // Genera coordenadas X y Z aleatorias entre -20 y +20.
-      // La Y se queda en 0.5 (cerca del suelo/agua).
       position: [(Math.random() - 0.5) * 40, 0.5, (Math.random() - 0.5) * 40],
-
-      // Gira la planta aleatoriamente solo en su propio eje Y para que no miren todas al mismo lado
       rotation: [0, Math.random() * Math.PI * 2, 0],
-
-      // Escala aleatoria entre 60 y 140 (para que haya plantas grandes y pequeñas)
       scale: 60 + Math.random() * 80,
     }));
   }, []);
+
+  const fishSpawns = useMemo(
+    () => [
+      { position: [10, 12, 0], scale: 0.2 },
+      { position: [10, 8, 10], scale: 0.2 },
+      { position: [7, 10, -8], scale: 0.18 },
+    ],
+    [],
+  );
+
+  const visibleFishCount = useMemo(
+    () =>
+      Math.max(
+        0,
+        Math.min(fishSpawns.length, Math.round(state.fishHealth / 34)),
+      ),
+    [state.fishHealth, fishSpawns.length],
+  );
+
+  const waterColor = useMemo(() => {
+    const hue = clamp(170 - state.salinity * 0.6, 110, 190);
+    const saturation = clamp(35 + state.algae * 0.35, 30, 80);
+    const lightness = clamp(30 + state.oxygen * 0.22, 24, 58);
+    return `hsl(${Math.round(hue)}, ${Math.round(saturation)}%, ${Math.round(
+      lightness,
+    )}%)`;
+  }, [state.salinity, state.algae, state.oxygen]);
+
+  const sandColor = useMemo(() => {
+    const hue = 32;
+    const saturation = clamp(26 + state.algae * 0.2, 22, 46);
+    const lightness = clamp(24 + state.flushing * 0.1, 20, 38);
+    return `hsl(${Math.round(hue)}, ${Math.round(saturation)}%, ${Math.round(
+      lightness,
+    )}%)`;
+  }, [state.algae, state.flushing]);
+
+  const mainLightIntensity = useMemo(
+    () => 30 + state.ecosystemHealth * 0.5,
+    [state.ecosystemHealth],
+  );
+
+  const applyPreset = useCallback((presetControls) => {
+    setControls((previousState) => ({
+      ...previousState,
+      ...INITIAL_CONTROLS,
+      ...presetControls,
+    }));
+  }, []);
+
+  const handleReset = useCallback(() => {
+    setControls({ ...INITIAL_CONTROLS });
+    resetState();
+  }, [resetState]);
 
   return (
     <>
       <NavBar />
       <div className="water-pollution-container">
+        <WetlandHud
+          controls={controls}
+          setControls={setControls}
+          state={state}
+          setManualTime={setManualTime}
+          onPreset={applyPreset}
+          onReset={handleReset}
+          insights={insights}
+        />
+
         <KeyboardControls map={map}>
           <Canvas shadows camera={cameraSettings} onClick={handleAudio}>
             <Suspense fallback={<LoaderComponent />}>
@@ -145,102 +185,81 @@ const WaterPollution = () => {
               <Ligths />
               <Staging />
               <Physics gravity={[0, 0, 0]}>
-                <Mullet
-                  position={[10, 12, 0]}
-                  scale={0.2}
-                  onPointerOver={(event) => handleMouseOver(event, "neonFish")}
-                  onPointerOut={handleMouseOut}
-                />
-                <Mullet
-                  position={[10, 8, 10]}
-                  scale={0.2}
-                  onPointerOver={(event) => handleMouseOver(event, "neonFish")}
-                  onPointerOut={handleMouseOut}
-                />
+                {fishSpawns.slice(0, visibleFishCount).map((spawn, index) => (
+                  <Mullet
+                    key={`mullet-${index}`}
+                    position={spawn.position}
+                    scale={spawn.scale}
+                  />
+                ))}
+
                 <group position={[0, 0, 0]}>
-                  {/* Bombillo más alto y con mayor alcance */}
                   <pointLight
-                    position={[
-                      -10, 3, 2,
-                    ]} /* Subimos el bombillo al doble de altura */
-                    intensity={80} /* Más fuerza porque ahora está más lejos */
+                    position={[-10, 3, 2]}
+                    intensity={mainLightIntensity}
                     color="#fff6e5"
-                    distance={
-                      60
-                    } /* Aumentamos el radio para que abarque la cola y la cabeza */
-                    decay={1.5} /* Suavizamos cómo se desvanece la luz */
+                    distance={60}
+                    decay={1.5}
                   />
 
-                  <Alligator
-                    scale={2}
-                    onPointerOver={(event) =>
-                      handleMouseOver(event, "alligator")
-                    }
-                    onPointerOut={handleMouseOut}
-                  />
+                  <Alligator scale={2} />
                 </group>
+
                 {liliesZone1.map((props, index) => (
                   <WaterLilly
                     key={`zone1-${index}`}
                     position={props.position}
                     rotation={props.rotation}
                     scale={props.scale}
-                    onPointerOver={(event) => handleMouseOver(event, "coral")}
-                    onPointerOut={handleMouseOut}
                   />
                 ))}
+
                 {liliesZone2.map((props, index) => (
                   <WaterLilly
                     key={`zone2-${index}`}
                     position={props.position}
                     rotation={props.rotation}
                     scale={props.scale}
-                    onPointerOver={(event) => handleMouseOver(event, "coral")}
-                    onPointerOut={handleMouseOut}
                   />
                 ))}
+
                 {liliesProps.map((props, index) => (
                   <WaterLilly
-                    key={index} // React necesita una key única para los elementos en lista
+                    key={index}
                     position={props.position}
                     rotation={props.rotation}
                     scale={props.scale}
-                    // Puedes dejar los eventos del mouse si quieres que al tocarlas salga tooltip
-                    onPointerOver={(event) => handleMouseOver(event, "coral")}
-                    onPointerOut={handleMouseOut}
                   />
                 ))}
+
                 <Tortoise
                   scale={0.1}
                   rotation={[0, 100, 0]}
                   position={[-5, 1, -16]}
-                  onPointerOver={(event) => handleMouseOver(event, "coral")}
-                  onPointerOut={handleMouseOut}
                 />
+
                 <PondWeed
                   scale={400}
                   rotation={[0, 10, 0]}
                   position={[10, 0.3, 20]}
-                  onPointerOver={(event) => handleMouseOver(event, "coral")}
-                  onPointerOut={handleMouseOut}
                 />
+
                 <PondWeed
                   scale={300}
                   rotation={[0, 10, 0]}
                   position={[10, 0.3, -20]}
-                  onPointerOver={(event) => handleMouseOver(event, "coral")}
-                  onPointerOut={handleMouseOut}
                 />
+
                 <PondWeed
                   scale={350}
                   rotation={[0, 10, 0]}
                   position={[13, 0.3, -20]}
-                  onPointerOver={(event) => handleMouseOver(event, "coral")}
-                  onPointerOut={handleMouseOut}
                 />
+
                 <TitleText />
-                <Ocean />
+                <Ocean waterColor={waterColor} sandColor={sandColor} />
               </Physics>
+
               <group>
                 <PositionalAudio
                   ref={audioRef}
