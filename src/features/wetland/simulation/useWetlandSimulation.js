@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { INITIAL_STATE } from "./constants";
-import { evolveWetland } from "./model";
+import { INITIAL_STATE } from "./constants.js";
+import { evolveWetland } from "./model.js";
 
 export function useWetlandSimulation(controls) {
   const [state, setState] = useState(INITIAL_STATE);

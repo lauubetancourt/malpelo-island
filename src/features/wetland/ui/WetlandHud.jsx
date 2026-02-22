@@ -1,23 +1,36 @@
 import React from "react";
-import { valueLabel } from "../simulation";
+import { getMetricStatus } from "../simulation";
 import "./WetlandHud.css";
 
 function MetricCard({ label, value, kind }) {
   const clampedValue = Math.max(0, Math.min(100, value));
+  const displayValue = Math.round(value);
+  const status = getMetricStatus(kind, displayValue);
 
   return (
-    <div className="wetland-metric-card">
+    <div className={`wetland-metric-card wetland-metric-card--${status.tone}`}>
       <div className="wetland-metric-header">
         <p className="wetland-metric-label">{label}</p>
-        <p className="wetland-metric-value">{Math.round(value)}</p>
+        <p
+          className={`wetland-metric-value wetland-metric-value--${status.tone}`}
+        >
+          {displayValue}
+        </p>
       </div>
-      <div className="wetland-metric-track">
+      <div
+        className={`wetland-metric-track wetland-metric-track--${status.tone}`}
+      >
         <div
-          className="wetland-metric-fill"
+          className={`wetland-metric-fill wetland-metric-fill--${status.tone}`}
           style={{ width: `${clampedValue}%` }}
         />
       </div>
-      <p className="wetland-metric-status">{valueLabel(value, kind)}</p>
+      <p
+        className={`wetland-metric-status wetland-metric-status--${status.tone}`}
+      >
+        {status.label}
+      </p>
+      <p className="wetland-metric-detail">{status.detail}</p>
     </div>
   );
 }
@@ -28,10 +41,10 @@ export default function WetlandHud({ controls, setControls, state, onReset }) {
 
   const metrics = [
     { label: "Salinidad", value: state.salinity, kind: "salinity" },
-    { label: "Renovacion", value: state.flushing, kind: "generic" },
+    { label: "Renovacion", value: state.flushing, kind: "flushing" },
     { label: "Biomasa algal", value: state.algae, kind: "algae" },
     { label: "Oxigeno", value: state.oxygen, kind: "oxygen" },
-    { label: "Estado de peces", value: state.fishHealth, kind: "generic" },
+    { label: "Estado de peces", value: state.fishHealth, kind: "fish" },
   ];
 
   return (
@@ -76,7 +89,7 @@ export default function WetlandHud({ controls, setControls, state, onReset }) {
       <section className="wetland-panel wetland-panel--status">
         <h3 className="wetland-panel-title">Estado ecologico en tiempo real</h3>
         <p className="wetland-panel-subtitle">
-          Indicadores relativos (0-100) de salinidad, oxigeno y salud biologica
+          Indices relativos (0-100) calibrados para representar riesgo ecologico
         </p>
 
         <div className="wetland-metrics">

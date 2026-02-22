@@ -29,7 +29,9 @@ import { Mullet } from "../../figures/wetLand/Mullet";
 import { DeadFish } from "../../figures/wetLand/DeadFish";
 import NavBar from "../../components/navbar/NavBar";
 import WetlandHud from "../../features/wetland/ui/WetlandHud";
+import WetlandClock from "../../features/wetland/ui/WetlandClock";
 import {
+  deriveFaunaState,
   INITIAL_CONTROLS,
   clamp,
   useWetlandSimulation,
@@ -128,102 +130,22 @@ const WaterPollution = () => {
     [],
   );
 
-  const mortalityRatio = useMemo(
-    () => clamp((55 - state.fishHealth) / 55, 0, 1),
-    [state.fishHealth],
-  );
-
-  const severeFreshwaterStress = controls.freshwater <= 14;
-  const severeSalinityStress = state.salinity >= 68;
-  const severeHypoxia = state.oxygen <= 24;
-
-  const ecologicalCollapse = useMemo(
+  const faunaState = useMemo(
     () =>
-      severeFreshwaterStress ||
-      (severeSalinityStress && severeHypoxia) ||
-      state.hypoxiaExposure > 60,
-    [
-      severeFreshwaterStress,
-      severeSalinityStress,
-      severeHypoxia,
-      state.hypoxiaExposure,
-    ],
+      deriveFaunaState(state, {
+        liveFishCapacity: liveFishSpawns.length,
+        deadFishCapacity: deadFishSpawns.length,
+      }),
+    [state, liveFishSpawns.length, deadFishSpawns.length],
   );
 
-  const fishSurvivalIndex = useMemo(() => {
-    const salinityPenalty = Math.max(0, state.salinity - 58) * 1.4;
-    const oxygenPenalty = Math.max(0, 32 - state.oxygen) * 2.1;
-    const freshwaterPenalty = Math.max(0, 18 - controls.freshwater) * 2.4;
-    const hypoxiaPenalty = state.hypoxiaExposure * 0.55;
-
-    return clamp(
-      state.fishHealth -
-        salinityPenalty -
-        oxygenPenalty -
-        freshwaterPenalty -
-        hypoxiaPenalty,
-      0,
-      100,
-    );
-  }, [
-    state.fishHealth,
-    state.salinity,
-    state.oxygen,
-    state.hypoxiaExposure,
-    controls.freshwater,
-  ]);
-
-  const visibleLiveFishCount = useMemo(() => {
-    if (ecologicalCollapse) return 0;
-
-    return Math.max(
-      0,
-      Math.min(
-        liveFishSpawns.length,
-        Math.round((fishSurvivalIndex / 100) * liveFishSpawns.length),
-      ),
-    );
-  }, [ecologicalCollapse, fishSurvivalIndex, liveFishSpawns.length]);
-
-  const visibleDeadFishCount = useMemo(() => {
-    const baseCount = Math.round(deadFishSpawns.length * mortalityRatio);
-    if (ecologicalCollapse) return deadFishSpawns.length;
-    return Math.max(
-      0,
-      Math.max(
-        baseCount,
-        Math.round(
-          deadFishSpawns.length * Math.max(0, (45 - fishSurvivalIndex) / 45),
-        ),
-      ),
-    );
-  }, [
-    deadFishSpawns.length,
-    mortalityRatio,
-    ecologicalCollapse,
-    fishSurvivalIndex,
-  ]);
-
-  const turtleVisible = useMemo(
-    () =>
-      !ecologicalCollapse &&
-      state.fishHealth > 25 &&
-      state.oxygen > 30 &&
-      state.salinity < 65,
-    [ecologicalCollapse, state.fishHealth, state.oxygen, state.salinity],
-  );
-
-  const hideAlligatorTrigger =
-    controls.freshwater <= 8 &&
-    state.oxygen <= 18 &&
-    state.salinity >= 72 &&
-    state.fishHealth <= 15;
-
-  const showAlligatorTrigger =
-    controls.freshwater >= 20 &&
-    state.oxygen >= 34 &&
-    state.salinity <= 64 &&
-    state.fishHealth >= 28;
+  const {
+    visibleLiveFishCount,
+    visibleDeadFishCount,
+    turtleVisible,
+    hideAlligatorTrigger,
+    showAlligatorTrigger,
+  } = faunaState;
 
   useEffect(() => {
     if (hideAlligatorTrigger) {
@@ -341,6 +263,7 @@ const WaterPollution = () => {
 
   const handleReset = useCallback(() => {
     setControls({ ...INITIAL_CONTROLS });
+    setAlligatorVisible(true);
     resetState();
   }, [resetState]);
 
@@ -354,6 +277,7 @@ const WaterPollution = () => {
           state={state}
           onReset={handleReset}
         />
+        <WetlandClock timeOfDay={state.timeOfDay} />
 
         <KeyboardControls map={map}>
           <Canvas shadows camera={cameraSettings} onClick={handleAudio}>

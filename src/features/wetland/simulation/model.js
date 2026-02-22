@@ -1,5 +1,5 @@
-import { BASE_CONNECTIVITY, BASE_HEAT_STRESS } from "./constants";
-import { clamp, rateFactor, smoothTo } from "./math";
+import { BASE_CONNECTIVITY, BASE_HEAT_STRESS } from "./constants.js";
+import { clamp, rateFactor, smoothTo } from "./math.js";
 
 export function daylightFactor(timeOfDay) {
   const radians = ((timeOfDay - 6) / 24) * Math.PI * 2;
@@ -153,39 +153,4 @@ export function evolveWetland(previousState, controls, options = {}) {
     hypoxiaExposure,
     fishHealth,
   };
-}
-
-export function formatHour(time) {
-  const totalMinutes =
-    ((Math.round(time * 60) % (24 * 60)) + 24 * 60) % (24 * 60);
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
-}
-
-export function valueLabel(value, type) {
-  if (type === "oxygen") {
-    if (value < 25) return "Critico";
-    if (value < 45) return "Bajo";
-    if (value < 70) return "Aceptable";
-    return "Bueno";
-  }
-
-  if (type === "salinity") {
-    if (value > 65) return "Muy alta";
-    if (value > 50) return "Alta";
-    if (value >= 20) return "Intermedia";
-    return "Baja";
-  }
-
-  if (type === "algae") {
-    if (value > 75) return "Floracion";
-    if (value > 55) return "Alta";
-    if (value > 30) return "Media";
-    return "Baja";
-  }
-
-  if (value < 35) return "Critico";
-  if (value < 60) return "Estres";
-  return "Estable";
 }

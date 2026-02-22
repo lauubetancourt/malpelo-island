@@ -1,0 +1,77 @@
+.wetland-clock {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    z-index: 11;
+    pointer-events: none;
+    width: 140px;
+    border-radius: 12px;
+    border: 1px solid rgba(15, 23, 42, 0.22);
+    background: rgba(248, 250, 252, 0.9);
+    box-shadow: 0 8px 20px rgba(2, 6, 23, 0.25);
+    backdrop-filter: blur(3px);
+    padding: 8px;
+}
+
+.wetland-clock-face {
+    display: block;
+    width: 84px;
+    height: 84px;
+    margin: 0 auto;
+}
+
+.wetland-clock-bezel {
+    stroke: #334155;
+    stroke-width: 2.2;
+}
+
+.wetland-clock-tick-line {
+    stroke: #64748b;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+}
+
+.wetland-clock-tick-line--major {
+    stroke: #1e293b;
+    stroke-width: 2.4;
+}
+
+.wetland-clock-hand-line {
+    stroke-linecap: round;
+}
+
+.wetland-clock-hand-line--hour {
+    stroke: #0f172a;
+    stroke-width: 3.4;
+}
+
+.wetland-clock-hand-line--minute {
+    stroke: #334155;
+    stroke-width: 2.2;
+}
+
+.wetland-clock-center {
+    fill: #0f172a;
+    stroke: #e2e8f0;
+    stroke-width: 1.2;
+}
+
+.wetland-clock-meta {
+    margin-top: 6px;
+    text-align: center;
+}
+
+.wetland-clock-time {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.wetland-clock-phase {
+    margin: 2px 0 0;
+    font-size: 11px;
+    line-height: 1.2;
+    color: #475569;
+}

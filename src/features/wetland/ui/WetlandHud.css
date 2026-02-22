@@ -90,6 +90,26 @@
     background: #f8fafc;
 }
 
+.wetland-metric-card--good {
+    border-color: #86efac;
+    background: #f0fdf4;
+}
+
+.wetland-metric-card--neutral {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+}
+
+.wetland-metric-card--warning {
+    border-color: #facc15;
+    background: #fffbeb;
+}
+
+.wetland-metric-card--critical {
+    border-color: #fca5a5;
+    background: #fef2f2;
+}
+
 .wetland-metric-header {
     display: flex;
     justify-content: space-between;
@@ -110,6 +130,26 @@
     color: #334155;
 }
 
+.wetland-metric-value--good {
+    color: #166534;
+    font-weight: 700;
+}
+
+.wetland-metric-value--neutral {
+    color: #334155;
+    font-weight: 600;
+}
+
+.wetland-metric-value--warning {
+    color: #92400e;
+    font-weight: 700;
+}
+
+.wetland-metric-value--critical {
+    color: #b91c1c;
+    font-weight: 800;
+}
+
 .wetland-metric-track {
     margin-top: 6px;
     width: 100%;
@@ -119,15 +159,71 @@
     overflow: hidden;
 }
 
+.wetland-metric-track--good {
+    background: #dcfce7;
+}
+
+.wetland-metric-track--neutral {
+    background: #e2e8f0;
+}
+
+.wetland-metric-track--warning {
+    background: #fef3c7;
+}
+
+.wetland-metric-track--critical {
+    background: #fee2e2;
+}
+
 .wetland-metric-fill {
     height: 100%;
     border-radius: 999px;
     background: #334155;
 }
 
+.wetland-metric-fill--good {
+    background: #16a34a;
+}
+
+.wetland-metric-fill--neutral {
+    background: #64748b;
+}
+
+.wetland-metric-fill--warning {
+    background: #d97706;
+}
+
+.wetland-metric-fill--critical {
+    background: #dc2626;
+}
+
 .wetland-metric-status {
     margin: 6px 0 0;
     font-size: 11px;
+    color: #475569;
+    font-weight: 700;
+}
+
+.wetland-metric-status--good {
+    color: #166534;
+}
+
+.wetland-metric-status--neutral {
+    color: #334155;
+}
+
+.wetland-metric-status--warning {
+    color: #92400e;
+}
+
+.wetland-metric-status--critical {
+    color: #b91c1c;
+}
+
+.wetland-metric-detail {
+    margin: 4px 0 0;
+    font-size: 11px;
+    line-height: 1.35;
     color: #475569;
 }
 
