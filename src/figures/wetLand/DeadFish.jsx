@@ -1,7 +1,12 @@
 import React, { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 
-export function DeadFish({ position = [0, 1, 0], scale = 1, phase = 0 }) {
+export function DeadFish({
+  position = [0, 1, 0],
+  scale = 1,
+  phase = 0,
+  children,
+}) {
   const groupRef = useRef(null);
   const baseY = position[1];
 
@@ -22,7 +27,12 @@ export function DeadFish({ position = [0, 1, 0], scale = 1, phase = 0 }) {
   );
 
   return (
-    <group ref={groupRef} position={position} scale={scale} rotation={[0, 0, Math.PI / 2]}>
+    <group
+      ref={groupRef}
+      position={position}
+      scale={scale}
+      rotation={[0, 0, Math.PI / 2]}
+    >
       <mesh castShadow receiveShadow>
         <capsuleGeometry args={[0.28, 0.65, 6, 12]} />
         <meshStandardMaterial {...materialProps} />
@@ -31,11 +41,21 @@ export function DeadFish({ position = [0, 1, 0], scale = 1, phase = 0 }) {
         <coneGeometry args={[0.22, 0.35, 10]} />
         <meshStandardMaterial {...materialProps} />
       </mesh>
-      <mesh position={[-0.3, 0.18, 0]} castShadow receiveShadow rotation={[0, 0, -0.45]}>
+      <mesh
+        position={[-0.3, 0.18, 0]}
+        castShadow
+        receiveShadow
+        rotation={[0, 0, -0.45]}
+      >
         <coneGeometry args={[0.08, 0.24, 8]} />
         <meshStandardMaterial {...materialProps} />
       </mesh>
-      <mesh position={[-0.3, -0.18, 0]} castShadow receiveShadow rotation={[0, 0, 0.45]}>
+      <mesh
+        position={[-0.3, -0.18, 0]}
+        castShadow
+        receiveShadow
+        rotation={[0, 0, 0.45]}
+      >
         <coneGeometry args={[0.08, 0.24, 8]} />
         <meshStandardMaterial {...materialProps} />
       </mesh>
@@ -47,6 +67,7 @@ export function DeadFish({ position = [0, 1, 0], scale = 1, phase = 0 }) {
         <sphereGeometry args={[0.03, 8, 8]} />
         <meshStandardMaterial color="#f8fafc" />
       </mesh>
+      {children}
     </group>
   );
 }

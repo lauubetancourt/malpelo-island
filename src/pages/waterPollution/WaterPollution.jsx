@@ -30,6 +30,7 @@ import { DeadFish } from "../../figures/wetLand/DeadFish";
 import NavBar from "../../components/navbar/NavBar";
 import WetlandHud from "../../features/wetland/ui/WetlandHud";
 import WetlandClock from "../../features/wetland/ui/WetlandClock";
+import FaunaStatusBadge3D from "../../features/wetland/ui/FaunaStatusBadge3D";
 import {
   deriveFaunaState,
   INITIAL_CONTROLS,
@@ -145,6 +146,8 @@ const WaterPollution = () => {
     turtleVisible,
     hideAlligatorTrigger,
     showAlligatorTrigger,
+    liveFishTone,
+    acuteStressTone,
   } = faunaState;
 
   useEffect(() => {
@@ -308,7 +311,13 @@ const WaterPollution = () => {
                       key={`mullet-${index}`}
                       position={spawn.position}
                       scale={spawn.scale}
-                    />
+                    >
+                      <FaunaStatusBadge3D
+                        tone={liveFishTone}
+                        position={[0, 2.2, 0]}
+                        label="Estado del pez vivo"
+                      />
+                    </Mullet>
                   ))}
 
                 {deadFishSpawns
@@ -319,7 +328,14 @@ const WaterPollution = () => {
                       position={deadFish.position}
                       scale={deadFish.scale}
                       phase={deadFish.phase}
-                    />
+                    >
+                      <FaunaStatusBadge3D
+                        tone="critical"
+                        emoji="☠️"
+                        position={[0, 0.65, 0]}
+                        label="Mortandad de pez"
+                      />
+                    </DeadFish>
                   ))}
 
                 <group position={[0, 0, 0]}>
@@ -331,7 +347,16 @@ const WaterPollution = () => {
                     decay={1.5}
                   />
 
-                  {alligatorVisible && <Alligator scale={2} />}
+                  {alligatorVisible && (
+                    <>
+                      <Alligator scale={2} />
+                      <FaunaStatusBadge3D
+                        tone={acuteStressTone}
+                        position={[0, 4.4, 0]}
+                        label="Estado del cocodrilo"
+                      />
+                    </>
+                  )}
                 </group>
 
                 {liliesZone1.slice(0, visibleZone1Count).map((props, index) => (
@@ -362,11 +387,18 @@ const WaterPollution = () => {
                 ))}
 
                 {turtleVisible && (
-                  <Tortoise
-                    scale={0.1}
-                    rotation={[0, 100, 0]}
-                    position={[-5, 1, -16]}
-                  />
+                  <group>
+                    <Tortoise
+                      scale={0.1}
+                      rotation={[0, 100, 0]}
+                      position={[-5, 1, -16]}
+                    />
+                    <FaunaStatusBadge3D
+                      tone={acuteStressTone}
+                      position={[-5, 3.2, -16]}
+                      label="Estado de la tortuga"
+                    />
+                  </group>
                 )}
 
                 <PondWeed

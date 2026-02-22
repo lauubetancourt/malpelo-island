@@ -138,6 +138,8 @@ export function deriveFaunaState(
     fishStatus.tone !== "warning" &&
     fishStatus.tone !== "critical";
 
+  const liveFishTone = fishStatus.tone;
+
   return {
     metricStatus: {
       salinity: salinityStatus,
@@ -145,6 +147,7 @@ export function deriveFaunaState(
       algae: algaeStatus,
       fish: fishStatus,
     },
+    liveFishTone,
     acuteStressTone,
     ecosystemStressTone,
     visibleLiveFishCount: clampCount(visibleLiveFishCount, liveFishCapacity),

@@ -3,7 +3,7 @@ import { useGLTF } from "@react-three/drei";
 import { RigidBody, CuboidCollider } from "@react-three/rapier";
 import { useFrame } from "@react-three/fiber";
 
-export function Mullet(props) {
+export function Mullet({ children, ...props }) {
   const group = useRef();
   const colliderRef = useRef();
   const { nodes, materials } = useGLTF("/models-3d/wetLand/mullet.glb");
@@ -28,7 +28,7 @@ export function Mullet(props) {
     setRotation(rotation - Math.PI);
     group.current.rotation.y = rotation;
   };
-  
+
   return (
     <RigidBody
       ref={colliderRef}
@@ -94,6 +94,7 @@ export function Mullet(props) {
           material={materials.lambert2}
         />
       </group>
+      {children}
       <CuboidCollider args={[1, 0.8, 2.8]} position={[0, 1, 0]} />
     </RigidBody>
   );
