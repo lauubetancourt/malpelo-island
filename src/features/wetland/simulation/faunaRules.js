@@ -17,11 +17,11 @@ const LIVE_FISH_FACTOR = Object.freeze({
   critical: 0,
 });
 
-const DEAD_FISH_FLOOR = Object.freeze({
+const MIN_MORTALITY_RATIO_BY_FISH_TONE = Object.freeze({
   good: 0,
-  neutral: 0.2,
-  warning: 0.55,
-  critical: 1,
+  neutral: 0,
+  warning: 0.25,
+  critical: 0.75,
 });
 
 function toneSeverity(tone) {
@@ -42,6 +42,34 @@ function statusForMetric(kind, value) {
 
 function clampCount(value, maxCount) {
   return Math.max(0, Math.min(maxCount, value));
+}
+
+function mortalityVisualRatio({
+  fishStatus,
+  oxygenStatus,
+  fishHealth,
+  hypoxiaExposure,
+}) {
+  const oxygenCritical = oxygenStatus.tone === "critical";
+  const fishDegraded = toneSeverity(fishStatus.tone) >= TONE_SEVERITY.warning;
+  const sustainedHypoxia = hypoxiaExposure >= 55;
+
+  // Avoid dead-fish visuals in mild nightly dips when fish condition is still healthy.
+  if (!fishDegraded && !oxygenCritical && !sustainedHypoxia) {
+    return 0;
+  }
+
+  let ratio = clamp((55 - fishHealth) / 55, 0, 1);
+  ratio = Math.max(
+    ratio,
+    MIN_MORTALITY_RATIO_BY_FISH_TONE[fishStatus.tone] ?? 0,
+  );
+
+  if (oxygenCritical || sustainedHypoxia) {
+    ratio = Math.max(ratio, clamp((hypoxiaExposure - 45) / 55, 0, 1));
+  }
+
+  return ratio;
 }
 
 export function deriveFaunaState(
@@ -81,12 +109,18 @@ export function deriveFaunaState(
     visibleLiveFishCount = 0;
   }
 
-  const mortalityRatio = clamp((55 - state.fishHealth) / 55, 0, 1);
-  let visibleDeadFishCount = Math.max(
-    Math.round(deadFishCapacity * mortalityRatio),
-    Math.round(deadFishCapacity * DEAD_FISH_FLOOR[ecosystemStressTone]),
-  );
-  if (acuteStressTone === "critical" || state.hypoxiaExposure >= 60) {
+  const deadFishRatio = mortalityVisualRatio({
+    fishStatus,
+    oxygenStatus,
+    fishHealth: state.fishHealth,
+    hypoxiaExposure: state.hypoxiaExposure,
+  });
+
+  let visibleDeadFishCount = Math.round(deadFishCapacity * deadFishRatio);
+  if (
+    acuteStressTone === "critical" &&
+    (state.hypoxiaExposure >= 70 || fishStatus.tone === "critical")
+  ) {
     visibleDeadFishCount = deadFishCapacity;
   }
 
